@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		07EA01511E74B282000C4026 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01501E74B282000C4026 /* main.cpp */; };
+		07EA015F1E74B378000C4026 /* RayTracer.c in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01591E74B378000C4026 /* RayTracer.c */; };
+		07EA01601E74B378000C4026 /* svdDynamic.c in Sources */ = {isa = PBXBuildFile; fileRef = 07EA015B1E74B378000C4026 /* svdDynamic.c */; };
+		07EA01611E74B378000C4026 /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 07EA015D1E74B378000C4026 /* utils.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +26,14 @@
 
 /* Begin PBXFileReference section */
 		07EA014D1E74B282000C4026 /* Ray Tracer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Ray Tracer"; sourceTree = BUILT_PRODUCTS_DIR; };
-		07EA01501E74B282000C4026 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		07EA01571E74B378000C4026 /* CHECKLIST */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CHECKLIST; sourceTree = "<group>"; };
+		07EA01581E74B378000C4026 /* compile.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = compile.sh; sourceTree = "<group>"; };
+		07EA01591E74B378000C4026 /* RayTracer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = RayTracer.c; sourceTree = "<group>"; };
+		07EA015A1E74B378000C4026 /* RayTracer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RayTracer.h; sourceTree = "<group>"; };
+		07EA015B1E74B378000C4026 /* svdDynamic.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = svdDynamic.c; sourceTree = "<group>"; };
+		07EA015C1E74B378000C4026 /* svdDynamic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svdDynamic.h; sourceTree = "<group>"; };
+		07EA015D1E74B378000C4026 /* utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utils.c; sourceTree = "<group>"; };
+		07EA015E1E74B378000C4026 /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +66,14 @@
 		07EA014F1E74B282000C4026 /* Ray Tracer */ = {
 			isa = PBXGroup;
 			children = (
-				07EA01501E74B282000C4026 /* main.cpp */,
+				07EA01571E74B378000C4026 /* CHECKLIST */,
+				07EA01581E74B378000C4026 /* compile.sh */,
+				07EA01591E74B378000C4026 /* RayTracer.c */,
+				07EA015A1E74B378000C4026 /* RayTracer.h */,
+				07EA015B1E74B378000C4026 /* svdDynamic.c */,
+				07EA015C1E74B378000C4026 /* svdDynamic.h */,
+				07EA015D1E74B378000C4026 /* utils.c */,
+				07EA015E1E74B378000C4026 /* utils.h */,
 			);
 			path = "Ray Tracer";
 			sourceTree = "<group>";
@@ -120,7 +136,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07EA01511E74B282000C4026 /* main.cpp in Sources */,
+				07EA01611E74B378000C4026 /* utils.c in Sources */,
+				07EA015F1E74B378000C4026 /* RayTracer.c in Sources */,
+				07EA01601E74B378000C4026 /* svdDynamic.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,6 +267,7 @@
 				07EA01561E74B282000C4026 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
