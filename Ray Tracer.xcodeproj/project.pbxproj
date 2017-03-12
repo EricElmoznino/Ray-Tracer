@@ -34,6 +34,7 @@
 		07EA015C1E74B378000C4026 /* svdDynamic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svdDynamic.h; sourceTree = "<group>"; };
 		07EA015D1E74B378000C4026 /* utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utils.c; sourceTree = "<group>"; };
 		07EA015E1E74B378000C4026 /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
+		07EA01621E74D181000C4026 /* run.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = run.sh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +69,7 @@
 			children = (
 				07EA01571E74B378000C4026 /* CHECKLIST */,
 				07EA01581E74B378000C4026 /* compile.sh */,
+				07EA01621E74D181000C4026 /* run.sh */,
 				07EA01591E74B378000C4026 /* RayTracer.c */,
 				07EA015A1E74B378000C4026 /* RayTracer.h */,
 				07EA015B1E74B378000C4026 /* svdDynamic.c */,
