@@ -19,7 +19,7 @@ Point3D::Point3D(double x, double y, double z, bool isVec) {
 
 // Should only be called with vectors (w=0), since points don't have magnitudes
 double Point3D::magnitude() const {
-    return sqrt(this->dot(*this));
+    return sqrt(this->x*this->x + this->y*this->y + this->z*this->z);
 }
 
 Point3D Point3D::normalized() const {

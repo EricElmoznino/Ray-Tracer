@@ -20,6 +20,7 @@
 		07EA01C11E75983E000C4026 /* Ray3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01B81E75983E000C4026 /* Ray3D.cpp */; };
 		07EA01C71E759D2F000C4026 /* Plane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01C31E759D2F000C4026 /* Plane.cpp */; };
 		07EA01C81E759D2F000C4026 /* Sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01C51E759D2F000C4026 /* Sphere.cpp */; };
+		07EA01CE1E75D7EE000C4026 /* View.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01CC1E75D7EE000C4026 /* View.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -65,6 +66,8 @@
 		07EA01C41E759D2F000C4026 /* Plane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Plane.h; sourceTree = "<group>"; };
 		07EA01C51E759D2F000C4026 /* Sphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sphere.cpp; sourceTree = "<group>"; };
 		07EA01C61E759D2F000C4026 /* Sphere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sphere.h; sourceTree = "<group>"; };
+		07EA01CC1E75D7EE000C4026 /* View.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = View.cpp; sourceTree = "<group>"; };
+		07EA01CD1E75D7EE000C4026 /* View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = View.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +109,8 @@
 				07EA015A1E74B378000C4026 /* RayTracer.h */,
 				07EA015D1E74B378000C4026 /* utils.c */,
 				07EA015E1E74B378000C4026 /* utils.h */,
+				07EA01CC1E75D7EE000C4026 /* View.cpp */,
+				07EA01CD1E75D7EE000C4026 /* View.h */,
 			);
 			path = "Ray Tracer";
 			sourceTree = "<group>";
@@ -212,6 +217,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07EA01CE1E75D7EE000C4026 /* View.cpp in Sources */,
 				07EA01C01E75983E000C4026 /* PointLightSource.cpp in Sources */,
 				07EA01611E74B378000C4026 /* utils.c in Sources */,
 				07EA018D1E75979F000C4026 /* Transform3D.cpp in Sources */,
