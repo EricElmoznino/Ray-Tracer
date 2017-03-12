@@ -10,6 +10,41 @@ Transform3D Transform3D::identity() {
                        0, 0, 0, 1);
 }
 
+Transform3D Transform3D::rotatedX(double theta) {
+    return Transform3D(1, 0, 0, 0,
+                       0, cos(theta), -sin(theta), 0,
+                       0, sin(theta), cos(theta), 0,
+                       0, 0, 0, 1);
+}
+
+Transform3D Transform3D::rotatedY(double theta) {
+    return Transform3D(cos(theta), 0, sin(theta), 0,
+                       0, 1, 0, 0,
+                       -sin(theta), 0, cos(theta), 0,
+                       0, 0, 0, 1);
+}
+
+Transform3D Transform3D::rotatedZ(double theta) {
+    return Transform3D(cos(theta), -sin(theta), 0, 0,
+                       sin(theta), cos(theta), 0, 0,
+                       0, 0, 1, 0,
+                       0, 0, 0, 1);
+}
+
+Transform3D Transform3D::translated(double x, double y, double z) {
+    return Transform3D(1, 0, 0, x,
+                       0, 1, 0, y,
+                       0, 0, 1, z,
+                       0, 0, 0, 1);
+}
+
+Transform3D Transform3D::scaled(double x, double y, double z) {
+    return Transform3D(x, 0, 0, 0,
+                       0, y, 0, 0,
+                       0, 0, z, 0,
+                       0, 0, 0, 1);
+}
+
 Transform3D::Transform3D() {
     for (int r = 0; r < 4; r++) {
         for (int c = 0; c < 4; c++) {
@@ -26,6 +61,23 @@ Transform3D::Transform3D(double r0c0, double r0c1, double r0c2, double r0c3,
     m[1][0] = r1c0; m[1][1] = r1c1; m[1][2] = r1c2; m[1][3] = r1c3;
     m[2][0] = r2c0; m[2][1] = r2c1; m[2][2] = r2c2; m[2][3] = r2c3;
     m[3][0] = r3c0; m[3][1] = r3c1; m[3][2] = r3c2; m[3][3] = r3c3;
+}
+
+Transform3D::Transform3D(const Transform3D &t) {
+    for (int r = 0; r < 4; r++) {
+        for (int c = 0; c < 4; c++) {
+            m[r][c] = t.m[r][c];
+        }
+    }
+}
+
+Transform3D& Transform3D::operator=(const Transform3D &t) {
+    for (int r = 0; r < 4; r++) {
+        for (int c = 0; c < 4; c++) {
+            m[r][c] = t.m[r][c];
+        }
+    }
+    return (*this);
 }
 
 Transform3D Transform3D::inverse() const {

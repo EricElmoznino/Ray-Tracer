@@ -19,7 +19,6 @@
 */
 
 #include "utils.h"
-#include "ObjectTypes/ObjectSubclasses/Plane.h"
 
 // A couple of global structures and data: An object list, a light list, and the
 // maximum recursion depth
@@ -352,7 +351,7 @@ int main(int argc, char *argv[])
     fprintf(stderr,"World to camera conversion matrix\n");
     printmatrix(cam->W2C);
     fprintf(stderr,"\n");
-    Plane p;
+    
     fprintf(stderr,"Rendering row: ");
     for (j=0;j<sx;j++)		// For each of the pixels in the image
     {

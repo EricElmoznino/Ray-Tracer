@@ -1,6 +1,9 @@
 #ifndef Point3D_h
 #define Point3D_h
 
+// forward declare the object type to avoid circular dependencies
+class Object3D;
+
 class Point3D {
     double w;
     
@@ -25,6 +28,10 @@ public:
     bool operator!=(const Point3D &other) const;
     
     Point3D linearInterpolate(const Point3D &end, double progress) const; // progress: [0,1]
+    
+    // Computes the normal at an affinely transformed point given the original normal and the
+    // object's inverse transformation
+    Point3D normalTransform(const Object3D &obj) const;
     
     // debugging
     void printPoint3D() const;

@@ -1,4 +1,5 @@
 #include "Point3D.h"
+#include "../ObjectTypes/Object3D.h"
 #include <stdio.h>
 #include <math.h>
 
@@ -66,6 +67,14 @@ bool Point3D::operator!=(const Point3D &other) const {
 Point3D Point3D::linearInterpolate(const Point3D &end, double progress) const {
     Point3D difference = end - (*this);
     return (*this) + difference*progress;
+}
+
+Point3D Point3D::normalTransform(const Object3D &obj) const {
+    ///////////////////////////////////////////
+    // TO DO: Complete this function
+    ///////////////////////////////////////////
+    
+    return Point3D();   // temporary to avoid errors
 }
 
 void Point3D::printPoint3D() const {
