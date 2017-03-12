@@ -18,6 +18,8 @@
 		07EA01761E751B4A000C4026 /* ColourRGB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01741E751B4A000C4026 /* ColourRGB.cpp */; };
 		07EA01791E751BB1000C4026 /* PointLightSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01771E751BB1000C4026 /* PointLightSource.cpp */; };
 		07EA017C1E751C04000C4026 /* Object3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA017A1E751C04000C4026 /* Object3D.cpp */; };
+		07EA01801E75291C000C4026 /* Plane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA017E1E75291C000C4026 /* Plane.cpp */; };
+		07EA01831E752925000C4026 /* Sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01811E752925000C4026 /* Sphere.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -59,6 +61,10 @@
 		07EA01781E751BB1000C4026 /* PointLightSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointLightSource.h; sourceTree = "<group>"; };
 		07EA017A1E751C04000C4026 /* Object3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Object3D.cpp; sourceTree = "<group>"; };
 		07EA017B1E751C04000C4026 /* Object3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Object3D.h; sourceTree = "<group>"; };
+		07EA017E1E75291C000C4026 /* Plane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Plane.cpp; sourceTree = "<group>"; };
+		07EA017F1E75291C000C4026 /* Plane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Plane.h; sourceTree = "<group>"; };
+		07EA01811E752925000C4026 /* Sphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sphere.cpp; sourceTree = "<group>"; };
+		07EA01821E752925000C4026 /* Sphere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sphere.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +126,7 @@
 		07EA016A1E7519F8000C4026 /* Object Types */ = {
 			isa = PBXGroup;
 			children = (
+				07EA017D1E7523E5000C4026 /* Object Subclasses */,
 				07EA016B1E751AE9000C4026 /* Image.cpp */,
 				07EA016C1E751AE9000C4026 /* Image.h */,
 				07EA016E1E751AF9000C4026 /* Ray3D.cpp */,
@@ -134,6 +141,17 @@
 				07EA017B1E751C04000C4026 /* Object3D.h */,
 			);
 			name = "Object Types";
+			sourceTree = "<group>";
+		};
+		07EA017D1E7523E5000C4026 /* Object Subclasses */ = {
+			isa = PBXGroup;
+			children = (
+				07EA017E1E75291C000C4026 /* Plane.cpp */,
+				07EA017F1E75291C000C4026 /* Plane.h */,
+				07EA01811E752925000C4026 /* Sphere.cpp */,
+				07EA01821E752925000C4026 /* Sphere.h */,
+			);
+			name = "Object Subclasses";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,9 +218,11 @@
 				07EA015F1E74B378000C4026 /* RayTracer.cpp in Sources */,
 				07EA01701E751AF9000C4026 /* Ray3D.cpp in Sources */,
 				07EA016D1E751AE9000C4026 /* Image.cpp in Sources */,
+				07EA01801E75291C000C4026 /* Plane.cpp in Sources */,
 				07EA01661E74E4F8000C4026 /* Point3D.cpp in Sources */,
 				07EA01601E74B378000C4026 /* svdDynamic.c in Sources */,
 				07EA01791E751BB1000C4026 /* PointLightSource.cpp in Sources */,
+				07EA01831E752925000C4026 /* Sphere.cpp in Sources */,
 				07EA01731E751B3D000C4026 /* AlbedosPhong.cpp in Sources */,
 				07EA017C1E751C04000C4026 /* Object3D.cpp in Sources */,
 			);

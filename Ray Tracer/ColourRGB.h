@@ -3,4 +3,11 @@
 
 #include <stdio.h>
 
+class ColourRGB {
+public:
+    double red;
+    double green;
+    double blue;
+};
+
 #endif

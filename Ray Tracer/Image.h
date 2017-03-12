@@ -3,4 +3,11 @@
 
 #include <stdio.h>
 
+class Image {
+public:
+    void *rgbImageData;
+    int sx;
+    int sy;
+};
+
 #endif
