@@ -15,11 +15,11 @@
 		07EA01BA1E75983E000C4026 /* AlbedosPhong.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01A91E75983E000C4026 /* AlbedosPhong.cpp */; };
 		07EA01BB1E75983E000C4026 /* ColourRGB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01AB1E75983E000C4026 /* ColourRGB.cpp */; };
 		07EA01BC1E75983E000C4026 /* Image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01AD1E75983E000C4026 /* Image.cpp */; };
-		07EA01BD1E75983E000C4026 /* Plane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01B01E75983E000C4026 /* Plane.cpp */; };
-		07EA01BE1E75983E000C4026 /* Sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01B21E75983E000C4026 /* Sphere.cpp */; };
 		07EA01BF1E75983E000C4026 /* Object3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01B41E75983E000C4026 /* Object3D.cpp */; };
 		07EA01C01E75983E000C4026 /* PointLightSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01B61E75983E000C4026 /* PointLightSource.cpp */; };
 		07EA01C11E75983E000C4026 /* Ray3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01B81E75983E000C4026 /* Ray3D.cpp */; };
+		07EA01C71E759D2F000C4026 /* Plane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01C31E759D2F000C4026 /* Plane.cpp */; };
+		07EA01C81E759D2F000C4026 /* Sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01C51E759D2F000C4026 /* Sphere.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -55,16 +55,16 @@
 		07EA01AC1E75983E000C4026 /* ColourRGB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColourRGB.h; sourceTree = "<group>"; };
 		07EA01AD1E75983E000C4026 /* Image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Image.cpp; sourceTree = "<group>"; };
 		07EA01AE1E75983E000C4026 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
-		07EA01B01E75983E000C4026 /* Plane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Plane.cpp; sourceTree = "<group>"; };
-		07EA01B11E75983E000C4026 /* Plane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Plane.h; sourceTree = "<group>"; };
-		07EA01B21E75983E000C4026 /* Sphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sphere.cpp; sourceTree = "<group>"; };
-		07EA01B31E75983E000C4026 /* Sphere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sphere.h; sourceTree = "<group>"; };
 		07EA01B41E75983E000C4026 /* Object3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Object3D.cpp; sourceTree = "<group>"; };
 		07EA01B51E75983E000C4026 /* Object3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Object3D.h; sourceTree = "<group>"; };
 		07EA01B61E75983E000C4026 /* PointLightSource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PointLightSource.cpp; sourceTree = "<group>"; };
 		07EA01B71E75983E000C4026 /* PointLightSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointLightSource.h; sourceTree = "<group>"; };
 		07EA01B81E75983E000C4026 /* Ray3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ray3D.cpp; sourceTree = "<group>"; };
 		07EA01B91E75983E000C4026 /* Ray3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ray3D.h; sourceTree = "<group>"; };
+		07EA01C31E759D2F000C4026 /* Plane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Plane.cpp; sourceTree = "<group>"; };
+		07EA01C41E759D2F000C4026 /* Plane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Plane.h; sourceTree = "<group>"; };
+		07EA01C51E759D2F000C4026 /* Sphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sphere.cpp; sourceTree = "<group>"; };
+		07EA01C61E759D2F000C4026 /* Sphere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sphere.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,13 +126,13 @@
 		07EA01A81E75983E000C4026 /* ObjectTypes */ = {
 			isa = PBXGroup;
 			children = (
+				07EA01C21E759D2F000C4026 /* ObjectSubclasses */,
 				07EA01A91E75983E000C4026 /* AlbedosPhong.cpp */,
 				07EA01AA1E75983E000C4026 /* AlbedosPhong.h */,
 				07EA01AB1E75983E000C4026 /* ColourRGB.cpp */,
 				07EA01AC1E75983E000C4026 /* ColourRGB.h */,
 				07EA01AD1E75983E000C4026 /* Image.cpp */,
 				07EA01AE1E75983E000C4026 /* Image.h */,
-				07EA01AF1E75983E000C4026 /* Object Subclasses */,
 				07EA01B41E75983E000C4026 /* Object3D.cpp */,
 				07EA01B51E75983E000C4026 /* Object3D.h */,
 				07EA01B61E75983E000C4026 /* PointLightSource.cpp */,
@@ -143,15 +143,15 @@
 			path = ObjectTypes;
 			sourceTree = "<group>";
 		};
-		07EA01AF1E75983E000C4026 /* Object Subclasses */ = {
+		07EA01C21E759D2F000C4026 /* ObjectSubclasses */ = {
 			isa = PBXGroup;
 			children = (
-				07EA01B01E75983E000C4026 /* Plane.cpp */,
-				07EA01B11E75983E000C4026 /* Plane.h */,
-				07EA01B21E75983E000C4026 /* Sphere.cpp */,
-				07EA01B31E75983E000C4026 /* Sphere.h */,
+				07EA01C31E759D2F000C4026 /* Plane.cpp */,
+				07EA01C41E759D2F000C4026 /* Plane.h */,
+				07EA01C51E759D2F000C4026 /* Sphere.cpp */,
+				07EA01C61E759D2F000C4026 /* Sphere.h */,
 			);
-			path = "Object Subclasses";
+			path = ObjectSubclasses;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -216,13 +216,13 @@
 				07EA01611E74B378000C4026 /* utils.c in Sources */,
 				07EA018D1E75979F000C4026 /* Transform3D.cpp in Sources */,
 				07EA015F1E74B378000C4026 /* RayTracer.cpp in Sources */,
-				07EA01BD1E75983E000C4026 /* Plane.cpp in Sources */,
 				07EA01C11E75983E000C4026 /* Ray3D.cpp in Sources */,
 				07EA018B1E75979F000C4026 /* Point3D.cpp in Sources */,
+				07EA01C71E759D2F000C4026 /* Plane.cpp in Sources */,
 				07EA018C1E75979F000C4026 /* svdDynamic.c in Sources */,
 				07EA01BC1E75983E000C4026 /* Image.cpp in Sources */,
 				07EA01BA1E75983E000C4026 /* AlbedosPhong.cpp in Sources */,
-				07EA01BE1E75983E000C4026 /* Sphere.cpp in Sources */,
+				07EA01C81E759D2F000C4026 /* Sphere.cpp in Sources */,
 				07EA01BB1E75983E000C4026 /* ColourRGB.cpp in Sources */,
 				07EA01BF1E75983E000C4026 /* Object3D.cpp in Sources */,
 			);
