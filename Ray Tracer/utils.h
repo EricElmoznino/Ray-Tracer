@@ -16,7 +16,7 @@
 */
 
 #include "RayTracer.h"
-#include "svdDynamic.h"
+#include "GeometricTypes/svdDynamic.h"
 
 #ifndef __utils_header
 #define __utils_header

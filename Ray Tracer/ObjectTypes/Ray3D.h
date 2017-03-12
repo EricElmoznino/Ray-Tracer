@@ -2,7 +2,7 @@
 #define Ray3D_h
 
 #include <stdio.h>
-#include "Point3D.h"
+#include "../GeometricTypes/Point3D.h"
 
 class Ray3D {
 public:

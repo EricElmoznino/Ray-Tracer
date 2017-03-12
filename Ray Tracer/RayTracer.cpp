@@ -19,7 +19,7 @@
 */
 
 #include "utils.h"
-#include "Plane.h"
+#include "ObjectTypes/ObjectSubclasses/Plane.h"
 
 // A couple of global structures and data: An object list, a light list, and the
 // maximum recursion depth

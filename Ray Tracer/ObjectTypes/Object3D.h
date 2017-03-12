@@ -6,7 +6,7 @@
 #include "ColourRGB.h"
 #include "Image.h"
 #include "Ray3D.h"
-#include "Transform3D.h"
+#include "../GeometricTypes/Transform3D.h"
 
 class Object3D {
 public:
