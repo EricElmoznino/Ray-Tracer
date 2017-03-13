@@ -1,9 +1,8 @@
 #include "PointLightSource.h"
+#include <list>
 
-PointLightSource::PointLightSource(ColourRGB colour, Point3D location) {
-    this->colour = colour;
-    this->location = location;
-}
+PointLightSource::PointLightSource(const ColourRGB &colour, const Point3D &location) :
+colour(colour), location(location) {}
 
 void PointLightSource::addAreaLight(float width, float height, Point3D normal, Point3D centre,
                          int numHori, int numVert, ColourRGB colour,

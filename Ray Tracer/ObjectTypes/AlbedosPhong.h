@@ -9,6 +9,8 @@ public:
     double diffuse;
     double specular;
     double global;
+    
+    AlbedosPhong(double ambient, double diffuse, double specular, double global);
 };
 
 #endif

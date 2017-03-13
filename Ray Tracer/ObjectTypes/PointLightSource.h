@@ -13,7 +13,7 @@ public:
     ColourRGB colour;
     Point3D location;
     
-    PointLightSource(ColourRGB colour, Point3D location);
+    PointLightSource(const ColourRGB &colour, const Point3D &location);
     
     /*
      This function sets up and inserts a rectangular area light source

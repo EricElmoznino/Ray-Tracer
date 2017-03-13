@@ -1,7 +1,8 @@
 #include "Object3D.h"
 
 Object3D::Object3D(const AlbedosPhong &albedos, const ColourRGB &colour,
-                   double alpha, double refractionIndex, double shinyness) {
+                   double alpha, double refractionIndex, double shinyness) :
+albedos(albedos), colour(colour) {
     this->albedos = albedos;
     this->colour = colour;
     this->alpha = alpha;
@@ -14,7 +15,8 @@ Object3D::Object3D(const AlbedosPhong &albedos, const ColourRGB &colour,
     this->isAreaLightSource = false;    // default
 }
 
-Object3D::Object3D(const Object3D &obj) {
+Object3D::Object3D(const Object3D &obj) :
+albedos(obj.albedos), colour(obj.colour) {
     albedos = obj.albedos;
     colour = obj.colour;
     alpha = obj.alpha;
@@ -60,7 +62,7 @@ Object3D& Object3D::operator=(const Object3D &obj) {
     return (*this);
 }
 
-void textureMap(Image *image, double a, double b, ColourRGB *colour) {
+ColourRGB Object3D::textureMap(double a, double b) const {
     /*
      Function to determine the colour of a textured object at
      the normalized texture coordinates (a,b).
@@ -82,10 +84,13 @@ void textureMap(Image *image, double a, double b, ColourRGB *colour) {
     // interpolation to obtain the texture colour.
     //////////////////////////////////////////////////
     
-    colour->red = 0;	// Returns black - delete this and
-    colour->green = 0;	// replace with your code to compute
-    colour->blue = 0;	// texture colour at (a,b)
-    return;
+    if (textureImage == NULL) {
+        return ColourRGB(0.0, 0.0, 0.0);    // no texture, return black
+    }
+    
+    return ColourRGB(0.0, 0.0, 0.0);	// Returns black - delete this and
+                                // replace with your code to compute
+                                // texture colour at (a,b)
 }
 
 void Object3D::rotateX(double theta) {
@@ -106,6 +111,10 @@ void Object3D::translate(double x, double y, double z) {
 
 void Object3D::scale(double x, double y, double z) {
     transform = Transform3D::scaled(x, y, z) * transform;
+}
+
+void Object3D::updateInverse() {
+    invTransform = transform.inverse();
 }
 
 // Load a texture image from file and assign it to the

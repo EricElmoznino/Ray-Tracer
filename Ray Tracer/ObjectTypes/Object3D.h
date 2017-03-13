@@ -34,7 +34,7 @@ public:
     
     // Texture mapping function. Takes normalized texture coordinates (a,b) and returns the
     // texture colour at that point using bi-linear interpolation
-    void textureMap(Image *image, double a, double b, ColourRGB *colour);
+    ColourRGB textureMap(double a, double b) const;
     
     // Functions to subclass for different object types
     // (e.g. plane, sphere, etc.)
@@ -57,6 +57,13 @@ public:
     void rotateZ(double theta);
     void translate(double x, double y, double z);
     void scale(double x, double y, double z);
+    
+    // Having a function like this means that at any given point
+    // before calling it, the invTransform might be invalid.
+    // This is necessary to avoid unecessary computations which
+    // would occur if we updated the inverse every time we updated
+    // the transform.
+    void updateInverse();
     
     // Load a texture image from file and assign it to this object
     void loadTexture(const char *filename);

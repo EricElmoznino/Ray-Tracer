@@ -21,6 +21,6 @@ View::View(const Point3D &e, const Point3D &g, const Point3D &up,
                                 0.0, 0.0, 0.0, 1.0);
     worldToCamera = Transform3D(u.x, u.y, u.z, -u.dot(e),
                                 v.x, v.y, v.z, -v.dot(e),
-                                w.x, w.z, w.z, -w.dot(e),
+                                w.x, w.y, w.z, -w.dot(e),
                                 0.0, 0.0, 0.0, 1.0);
 }

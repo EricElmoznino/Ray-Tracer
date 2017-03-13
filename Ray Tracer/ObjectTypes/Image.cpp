@@ -158,8 +158,7 @@ void Image::outputImage(const char *filename) {
         fprintf(f,"# Output from RayTracer.c\n");
         fprintf(f,"%d %d\n", sx, sy);
         fprintf(f,"255\n");
-        fwrite((unsigned char *)rgbImageData,
-               sx * sy*3*sizeof(unsigned char),1,f);
+        fwrite((unsigned char *)rgbImageData, sx * sy*3*sizeof(unsigned char),1,f);
         fclose(f);
         return;
     }
