@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		07EA015F1E74B378000C4026 /* RayTracer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01591E74B378000C4026 /* RayTracer.cpp */; };
-		07EA01611E74B378000C4026 /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 07EA015D1E74B378000C4026 /* utils.c */; };
 		07EA018B1E75979F000C4026 /* Point3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01851E75979F000C4026 /* Point3D.cpp */; };
 		07EA018C1E75979F000C4026 /* svdDynamic.c in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01871E75979F000C4026 /* svdDynamic.c */; };
 		07EA018D1E75979F000C4026 /* Transform3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01891E75979F000C4026 /* Transform3D.cpp */; };
@@ -43,8 +42,6 @@
 		07EA01581E74B378000C4026 /* compile.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = compile.sh; sourceTree = "<group>"; };
 		07EA01591E74B378000C4026 /* RayTracer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RayTracer.cpp; sourceTree = "<group>"; };
 		07EA015A1E74B378000C4026 /* RayTracer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RayTracer.h; sourceTree = "<group>"; };
-		07EA015D1E74B378000C4026 /* utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utils.c; sourceTree = "<group>"; };
-		07EA015E1E74B378000C4026 /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
 		07EA01621E74D181000C4026 /* run.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = run.sh; sourceTree = "<group>"; };
 		07EA01851E75979F000C4026 /* Point3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Point3D.cpp; sourceTree = "<group>"; };
 		07EA01861E75979F000C4026 /* Point3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Point3D.h; sourceTree = "<group>"; };
@@ -114,8 +111,6 @@
 				07EA01621E74D181000C4026 /* run.sh */,
 				07EA01591E74B378000C4026 /* RayTracer.cpp */,
 				07EA015A1E74B378000C4026 /* RayTracer.h */,
-				07EA015D1E74B378000C4026 /* utils.c */,
-				07EA015E1E74B378000C4026 /* utils.h */,
 				07EA01CC1E75D7EE000C4026 /* View.cpp */,
 				07EA01CD1E75D7EE000C4026 /* View.h */,
 				07EA01CF1E75F033000C4026 /* main.cpp */,
@@ -236,7 +231,6 @@
 			files = (
 				07EA01CE1E75D7EE000C4026 /* View.cpp in Sources */,
 				07EA01C01E75983E000C4026 /* PointLightSource.cpp in Sources */,
-				07EA01611E74B378000C4026 /* utils.c in Sources */,
 				07EA018D1E75979F000C4026 /* Transform3D.cpp in Sources */,
 				07EA015F1E74B378000C4026 /* RayTracer.cpp in Sources */,
 				07EA01C11E75983E000C4026 /* Ray3D.cpp in Sources */,
@@ -347,6 +341,10 @@
 			buildSettings = {
 				DEVELOPMENT_TEAM = GEECX5EAT6;
 				GCC_VERSION = "";
+				OTHER_CFLAGS = (
+					"-x",
+					"c++",
+				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS) ";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -357,6 +355,10 @@
 			buildSettings = {
 				DEVELOPMENT_TEAM = GEECX5EAT6;
 				GCC_VERSION = "";
+				OTHER_CFLAGS = (
+					"-x",
+					"c++",
+				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS) ";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
