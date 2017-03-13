@@ -28,9 +28,9 @@ public:
      make it into a proper solid box with backing and sides of non-light-emitting
      material
      */
-    static void addAreaLight(float width, float height, Point3D normal, Point3D centre,
-                             int numHori, int numVert, ColourRGB colour,
-                             list<Object3D> *objects, list<PointLightSource> *lights);
+//    static void addAreaLight(float width, float height, Point3D normal, Point3D centre,
+//                             int numHori, int numVert, ColourRGB colour,
+//                             list<Object3D> *objects, list<PointLightSource> *lights);
 };
 
 #endif

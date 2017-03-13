@@ -1,5 +1,4 @@
 #include "PointLightSource.h"
-#include <list>
 
 PointLightSource::PointLightSource(const ColourRGB &colour, const Point3D &location) :
 colour(colour), location(location) {}
