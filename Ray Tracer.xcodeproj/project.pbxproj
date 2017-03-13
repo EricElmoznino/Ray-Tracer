@@ -37,6 +37,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		07A416571E774097000ABADA /* Handout.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Handout.pdf; sourceTree = "<group>"; };
 		07EA014D1E74B282000C4026 /* Ray Tracer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Ray Tracer"; sourceTree = BUILT_PRODUCTS_DIR; };
 		07EA01571E74B378000C4026 /* CHECKLIST */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CHECKLIST; sourceTree = "<group>"; };
 		07EA01581E74B378000C4026 /* compile.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = compile.sh; sourceTree = "<group>"; };
@@ -104,6 +105,7 @@
 		07EA014F1E74B282000C4026 /* Ray Tracer */ = {
 			isa = PBXGroup;
 			children = (
+				07A416571E774097000ABADA /* Handout.pdf */,
 				07EA01A81E75983E000C4026 /* ObjectTypes */,
 				07EA01841E75979F000C4026 /* GeometricTypes */,
 				07EA01571E74B378000C4026 /* CHECKLIST */,
