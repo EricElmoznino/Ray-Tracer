@@ -48,6 +48,33 @@ Image& Image::operator=(const Image &im) {
     return *(this);
 }
 
+ColourRGB Image::textureMap(double a, double b) const {
+    /*
+     Function to determine the colour of a textured object at
+     the normalized texture coordinates (a,b).
+     
+     a and b are texture coordinates in [0 1].
+     img is a pointer to the image structure holding the texture for
+     a given object.
+     
+     The colour is returned in R, G, B. Uses bi-linear interpolation
+     to determine texture colour.
+     */
+    
+    //////////////////////////////////////////////////
+    // TO DO (Assignment 4 only):
+    //
+    //  Complete this function to return the colour
+    // of the texture image at the specified texture
+    // coordinates. Your code should use bi-linear
+    // interpolation to obtain the texture colour.
+    //////////////////////////////////////////////////
+    
+    return ColourRGB(0.0, 0.0, 0.0);	// Returns black - delete this and
+    // replace with your code to compute
+    // texture colour at (a,b)
+}
+
 Image* Image::readPPMimage(const char *filename) {
     // Reads an image from a .ppm file. A .ppm file is a very simple image representation
     // format with a text header followed by the binary RGB data at 24bits per pixel.

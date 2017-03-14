@@ -9,20 +9,18 @@
 
 class RayTracer {
     // This function implements the shading model as described in lecture. It takes
-    // - A list of objects
-    // - The first object intersected by the ray (to get the colour properties)
-    // - The coordinates of the intersection point (in world coordinates)
+    // - The coordinates of the first intersection point with an object (in world coordinates)
     // - The normal at the point
+    // - The color of the object at that point
     // - The ray (needed to determine the reflection direction to use for the global component, as well as for
     //   the Phong specular component)
-    // - The current racursion depth
-    // - The (a,b) texture coordinates (meaningless unless texture is enabled)
+    // - The current recursion depth
     //
     // Returns:
-    // - The colour for this ray (using the col pointer)
+    // - The colour for this ray
     //
-    ColourRGB shade(list<Object3D*> allObjs, const Object3D &obj, const Point3D &p, const Point3D &n,
-                    const Ray3D &ray, int depth, double a, double b);
+    ColourRGB shade(const ColourRGB &c, const Point3D &p, const Point3D &n,
+                    const Ray3D &ray, int depth);
     
     // Find the closest intersection between the ray and any objects in the scene.
     // It returns:
@@ -30,7 +28,6 @@ class RayTracer {
     //   - The object at the intersection (so we can evaluate the colour in the shading function)
     //   - The location of the intersection point (in p)
     //   - The normal at the intersection point (in n)
-    //   - The (a,b) texture coordinates (meaningless unless texture is enabled)
     //
     // source is the 'source' object for the ray we are processing, can be NULL,
     // and is used to ensure we don't

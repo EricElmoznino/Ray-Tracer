@@ -3,12 +3,19 @@
 
 #include <stdio.h>
 #include "AlbedosPhong.h"
-#include "ColourRGB.h"
 #include "Image.h"
 #include "Ray3D.h"
 #include "../GeometricTypes/Transform3D.h"
 
 class Object3D {
+protected:
+    // Helper function for intersect. Given a point in the object's local coordinate
+    // system, computes the color at that point (which potentially comes from a texture).
+    // Obviously, the color will depend on the shape of the object, which is why this
+    // function must be inherited and implemented.
+    // NOTE: This function takes a point in LOCAL (object's) coordinate system
+    virtual ColourRGB colourAtLocalPoint(const Point3D &p) const = 0;
+    
 public:
     AlbedosPhong albedos;
     ColourRGB colour;
@@ -32,22 +39,15 @@ public:
     
     Object3D& operator=(const Object3D &obj);
     
-    // Texture mapping function. Takes normalized texture coordinates (a,b) and returns the
-    // texture colour at that point using bi-linear interpolation
-    ColourRGB textureMap(double a, double b) const;
-    
     // Functions to subclass for different object types
     // (e.g. plane, sphere, etc.)
     
     // Note that the intersection function must compute the lambda at the intersection, the
-    // intersection point p, the normal at that point n, and the texture coordinates (a,b).
-    // The texture coordinates are not used unless texImg!=NULL and a textureMap function
-    // has been provided.
-    // This has an empty implementation because it is supposed to be
+    // intersection point p, the normal at that point n, and the object color.
+    // This has an empty implementation because it is supposed to be overriden by a subclass
     virtual void intersect(const Ray3D &ray, double *lambda,
                            Point3D *intersection, Point3D *normal,
-                           double *a, double *b) const = 0;
-    
+                           ColourRGB *colour) const = 0;
     
     // WARNING: These methods are mutable, meaning that they change the
     // data in the class. I don't like this style, but it is necessary

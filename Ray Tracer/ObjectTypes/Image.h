@@ -2,6 +2,7 @@
 #define Image_h
 
 #include <stdio.h>
+#include "ColourRGB.h"
 
 class Image {
 public:
@@ -15,6 +16,10 @@ public:
     ~Image();
     
     Image& operator=(const Image &im);
+    
+    // Texture mapping function. Takes normalized texture coordinates (a,b) and returns the
+    // texture colour at that point using bi-linear interpolation
+    ColourRGB textureMap(double a, double b) const;
     
     static Image* readPPMimage(const char *filename);
     

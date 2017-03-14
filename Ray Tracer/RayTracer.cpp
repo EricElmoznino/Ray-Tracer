@@ -1,18 +1,9 @@
 #include <list>
 #include "RayTracer.h"
 
-ColourRGB RayTracer::shade(list<Object3D*> allObjs, const Object3D &obj, const Point3D &p, const Point3D &n,
-                           const Ray3D &ray, int depth, double a, double b) {
+ColourRGB RayTracer::shade(const ColourRGB &c, const Point3D &p, const Point3D &n,
+                           const Ray3D &ray, int depth) {
     ColourRGB res(0.0, 0.0, 0.0);
-    
-    ColourRGB objColor(0.0, 0.0, 0.0);
-    if (obj.textureImage == NULL)   // Not textured, use object colour
-        objColor = obj.colour;
-    else {
-        // Get object colour from the texture given the texture coordinates (a,b), and the texturing function
-        // for the object. Note that we will use textures also for Photon Mapping.
-        objColor = obj.textureMap(a, b);
-    }
     
     //////////////////////////////////////////////////////////////
     // TO DO: Implement this function. Refer to the notes for
