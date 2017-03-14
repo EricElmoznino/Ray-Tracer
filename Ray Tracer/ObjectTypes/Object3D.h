@@ -34,7 +34,7 @@ public:
     
     // Texture mapping function. Takes normalized texture coordinates (a,b) and returns the
     // texture colour at that point using bi-linear interpolation
-    virtual ColourRGB textureMap(double a, double b) const = 0;
+    ColourRGB textureMap(double a, double b) const;
     
     // Functions to subclass for different object types
     // (e.g. plane, sphere, etc.)
