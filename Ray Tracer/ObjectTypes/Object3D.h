@@ -34,7 +34,7 @@ public:
     
     // Texture mapping function. Takes normalized texture coordinates (a,b) and returns the
     // texture colour at that point using bi-linear interpolation
-    ColourRGB textureMap(double a, double b) const;
+    virtual ColourRGB textureMap(double a, double b) const = 0;
     
     // Functions to subclass for different object types
     // (e.g. plane, sphere, etc.)
@@ -46,7 +46,7 @@ public:
     // This has an empty implementation because it is supposed to be
     virtual void intersect(const Ray3D &ray, double *lambda,
                            Point3D *intersection, Point3D *normal,
-                           double *a, double *b) {;};
+                           double *a, double *b) const = 0;
     
     
     // WARNING: These methods are mutable, meaning that they change the

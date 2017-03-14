@@ -11,7 +11,8 @@ public:
     
     void intersect(const Ray3D &ray, double *lambda,
                    Point3D *intersection, Point3D *normal,
-                   double *a, double *b);
+                   double *a, double *b) const;
+    ColourRGB textureMap(double a, double b) const;
 };
 
 #endif

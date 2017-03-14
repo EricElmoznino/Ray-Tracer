@@ -62,37 +62,6 @@ Object3D& Object3D::operator=(const Object3D &obj) {
     return (*this);
 }
 
-ColourRGB Object3D::textureMap(double a, double b) const {
-    /*
-     Function to determine the colour of a textured object at
-     the normalized texture coordinates (a,b).
-     
-     a and b are texture coordinates in [0 1].
-     img is a pointer to the image structure holding the texture for
-     a given object.
-     
-     The colour is returned in R, G, B. Uses bi-linear interpolation
-     to determine texture colour.
-     */
-    
-    //////////////////////////////////////////////////
-    // TO DO (Assignment 4 only):
-    //
-    //  Complete this function to return the colour
-    // of the texture image at the specified texture
-    // coordinates. Your code should use bi-linear
-    // interpolation to obtain the texture colour.
-    //////////////////////////////////////////////////
-    
-    if (textureImage == NULL) {
-        return ColourRGB(0.0, 0.0, 0.0);    // no texture, return black
-    }
-    
-    return ColourRGB(0.0, 0.0, 0.0);	// Returns black - delete this and
-                                // replace with your code to compute
-                                // texture colour at (a,b)
-}
-
 void Object3D::rotateX(double theta) {
     transform = Transform3D::rotatedX(theta) * transform;
 }
