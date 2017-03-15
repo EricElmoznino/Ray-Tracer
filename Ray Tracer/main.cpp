@@ -39,7 +39,7 @@ void buildScene(void)
 {
     // Sets up all objects in the scene. This involves creating each object,
     // defining the transformations needed to shape and position it as
-    // desired, specifying the reflectance properties (albedos and colours)
+    // desired, specifying the reflectance properties (material and colours)
     // and setting up textures where needed.
     // Light sources must be defined, positioned, and their colour defined.
     // All objects must be inserted in the object_list. All light sources
@@ -74,7 +74,7 @@ void buildScene(void)
     // Colour is close to cyan, and currently the plane is
     // completely opaque (alpha=1). The refraction index is
     // meaningless since alpha=1
-    Object3D *obj = new Plane(AlbedosPhong(0.05, 0.75, 0.05, 0.05),
+    Object3D *obj = new Plane(Material(0.05, 0.75, 0.05, 0.05),
                               ColourRGB(0.55, 0.8, 0.75),
                               1, 1, 2);
     
@@ -90,7 +90,7 @@ void buildScene(void)
     objects.push_front(obj);    // Insert into object list
     
     // Let's add a couple spheres
-    obj = new Sphere(AlbedosPhong(0.05, 0.95, 0.35, 0.35),
+    obj = new Sphere(Material(0.05, 0.95, 0.35, 0.35),
                      ColourRGB(1.0, 0.25, 0.25),
                      1, 1, 6);
     obj->scale(0.75, 0.5, 1.5);
@@ -99,7 +99,7 @@ void buildScene(void)
     obj->updateInverse();
     objects.push_front(obj);
     
-    obj = new Sphere(AlbedosPhong(0.05, 0.95, 0.95, 0.75),
+    obj = new Sphere(Material(0.05, 0.95, 0.95, 0.75),
                      ColourRGB(0.75, 0.95, 0.55),
                      1, 1, 6);
     obj->scale(0.5, 2.0, 1.0);

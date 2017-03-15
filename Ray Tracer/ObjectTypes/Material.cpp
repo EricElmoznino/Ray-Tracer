@@ -1,6 +1,6 @@
-#include "AlbedosPhong.h"
+#include "Material.h"
 
-AlbedosPhong::AlbedosPhong(double ambient, double diffuse, double specular, double global) {
+Material::Material(double ambient, double diffuse, double specular, double global) {
     this->ambient = ambient;
     this->diffuse = diffuse;
     this->specular = specular;

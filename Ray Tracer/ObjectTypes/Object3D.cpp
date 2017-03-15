@@ -1,9 +1,9 @@
 #include "Object3D.h"
 
-Object3D::Object3D(const AlbedosPhong &albedos, const ColourRGB &colour,
+Object3D::Object3D(const Material &material, const ColourRGB &colour,
                    double alpha, double refractionIndex, double shinyness) :
-albedos(albedos), colour(colour) {
-    this->albedos = albedos;
+material(material), colour(colour) {
+    this->material = material;
     this->colour = colour;
     this->alpha = alpha;
     this->refractionIndex = refractionIndex;
@@ -16,8 +16,8 @@ albedos(albedos), colour(colour) {
 }
 
 Object3D::Object3D(const Object3D &obj) :
-albedos(obj.albedos), colour(obj.colour) {
-    albedos = obj.albedos;
+material(obj.material), colour(obj.colour) {
+    material = obj.material;
     colour = obj.colour;
     alpha = obj.alpha;
     refractionIndex = obj.refractionIndex;
@@ -39,7 +39,7 @@ Object3D::~Object3D() {
 }
 
 Object3D& Object3D::operator=(const Object3D &obj) {
-    albedos = obj.albedos;
+    material = obj.material;
     colour = obj.colour;
     alpha = obj.alpha;
     refractionIndex = obj.refractionIndex;

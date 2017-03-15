@@ -1,8 +1,8 @@
 #include "Plane.h"
 
-Plane::Plane(const AlbedosPhong &albedos, const ColourRGB &colour,
+Plane::Plane(const Material &material, const ColourRGB &colour,
              double alpha, double refractionIndex, double shinyness) :
-Object3D::Object3D(albedos, colour, alpha, refractionIndex, shinyness) {
+Object3D::Object3D(material, colour, alpha, refractionIndex, shinyness) {
     Object3D::bothSidesLit = true;
 }
 
@@ -18,11 +18,15 @@ ColourRGB Plane::colourAtLocalPoint(const Point3D &p) const {
     return ColourRGB(0, 0, 0);  // temporary until function is implemented
 }
 
-void Plane::intersect(const Ray3D &ray, double *lambda, Point3D *intersection, Point3D *normal, ColourRGB *colour) const {
+Intersection Plane::intersect(const Ray3D &ray) const {
     // Computes and returns the value of 'lambda' at the intersection
     // between the specified ray and the specified plane.
+    Intersection intersection;
+    intersection.material = material;   // For now, objects have only one uniform material
     
     /////////////////////////////////
     // TO DO: Complete this function.
     /////////////////////////////////
+    
+    return intersection;
 }

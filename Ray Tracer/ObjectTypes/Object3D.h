@@ -2,7 +2,7 @@
 #define Object3D_h
 
 #include <stdio.h>
-#include "AlbedosPhong.h"
+#include "Intersection.h"
 #include "Image.h"
 #include "Ray3D.h"
 #include "../GeometricTypes/Transform3D.h"
@@ -17,7 +17,7 @@ protected:
     virtual ColourRGB colourAtLocalPoint(const Point3D &p) const = 0;
     
 public:
-    AlbedosPhong albedos;
+    Material material;
     ColourRGB colour;
     Transform3D transform;
     Transform3D invTransform;
@@ -32,7 +32,7 @@ public:
     bool bothSidesLit;      // Flag to indicate that both sides of the object should be lit
     bool isAreaLightSource; // Flag to indicate if this is an area light source
     
-    Object3D(const AlbedosPhong &albedos, const ColourRGB &colour,
+    Object3D(const Material &material, const ColourRGB &colour,
              double alpha, double refractionIndex, double shinyness);
     Object3D(const Object3D &obj);
     virtual ~Object3D();
@@ -45,9 +45,7 @@ public:
     // Note that the intersection function must compute the lambda at the intersection, the
     // intersection point p, the normal at that point n, and the object color.
     // This has an empty implementation because it is supposed to be overriden by a subclass
-    virtual void intersect(const Ray3D &ray, double *lambda,
-                           Point3D *intersection, Point3D *normal,
-                           ColourRGB *colour) const = 0;
+    virtual Intersection intersect(const Ray3D &ray) const = 0;
     
     // WARNING: These methods are mutable, meaning that they change the
     // data in the class. I don't like this style, but it is necessary

@@ -10,6 +10,7 @@ public:
     double blue;
     
     ColourRGB(double red, double green, double blue);
+    ColourRGB(){}
 };
 
 #endif

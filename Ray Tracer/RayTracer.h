@@ -5,13 +5,11 @@
 #include<stdlib.h>
 #include<math.h>
 #include<string.h>
-#include "ObjectTypes/PointLightSource.h"
+#include "PointLightSource.h"
 
 class RayTracer {
     // This function implements the shading model as described in lecture. It takes
-    // - The coordinates of the first intersection point with an object (in world coordinates)
-    // - The normal at the point
-    // - The color of the object at that point
+    // - An intersection data model that contains all necessary information for shading
     // - The ray (needed to determine the reflection direction to use for the global component, as well as for
     //   the Phong specular component)
     // - The current recursion depth
@@ -19,22 +17,17 @@ class RayTracer {
     // Returns:
     // - The colour for this ray
     //
-    ColourRGB shade(const ColourRGB &c, const Point3D &p, const Point3D &n,
-                    const Ray3D &ray, int depth);
+    ColourRGB shade(Intersection intersection, const Ray3D &ray, int depth);
     
     // Find the closest intersection between the ray and any objects in the scene.
     // It returns:
-    //   - The lambda at the intersection (or < 0 if no intersection)
-    //   - The object at the intersection (so we can evaluate the colour in the shading function)
-    //   - The location of the intersection point (in p)
-    //   - The normal at the intersection point (in n)
+    //   - An intersection data model that contains all necessary information for shading
     //
     // source is the 'source' object for the ray we are processing, can be NULL,
     // and is used to ensure we don't
     // return a self-intersection due to numerical errors for recursive raytrace calls.
     //
-    void findFirstHit(list<Object3D*> allObjs, const Ray3D &ray, const Object3D *source,
-                      Object3D *obj, Point3D *p, Point3D *n, double *a, double *b);
+    Intersection findFirstHit(list<Object3D*> allObjs, const Ray3D &ray, const Object3D *source);
     
 public:
     // Ray-Tracing function. It finds the closest intersection between

@@ -9,12 +9,10 @@ protected:
     ColourRGB colourAtLocalPoint(const Point3D &p) const;
     
 public:
-    Sphere(const AlbedosPhong &albedos, const ColourRGB &colour,
+    Sphere(const Material &material, const ColourRGB &colour,
            double alpha, double refractionIndex, double shinyness);
     
-    void intersect(const Ray3D &ray, double *lambda,
-                   Point3D *intersection, Point3D *normal,
-                   ColourRGB *colour) const;
+    Intersection intersect(const Ray3D &ray) const;
 };
 
 #endif
