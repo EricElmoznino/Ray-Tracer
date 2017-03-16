@@ -1,7 +1,7 @@
 #include <list>
 #include "RayTracer.h"
 
-ColourRGB RayTracer::shade(Intersection intersection, const Ray3D &ray, int depth) {
+ColourRGB RayTracer::shade(const Intersection &intersection, const Ray3D &ray, int depth) {
     ColourRGB res(0.0, 0.0, 0.0);
     
     //////////////////////////////////////////////////////////////
@@ -12,7 +12,23 @@ ColourRGB RayTracer::shade(Intersection intersection, const Ray3D &ray, int dept
     return res;
 }
 
-Intersection RayTracer::findFirstHit(list<Object3D*> allObjs, const Ray3D &ray, const Object3D *source) {
+ColourRGB RayTracer::rayTraceRecursive(const Ray3D &ray, int depth, const Object3D *source) {
+    ///////////////////////////////////////////////////////
+    // TO DO: Complete this function. Refer to the notes
+    // if you are unsure what to do here.
+    ///////////////////////////////////////////////////////
+    
+    // End the recursive calls and return a black colour
+    // that will have no contribution
+    if (depth <= 0) {
+        return ColourRGB(0, 0, 0);
+    }
+    
+    Intersection firstHit = findFirstHit(ray, source);
+    return shade(firstHit, ray, depth);
+}
+
+Intersection RayTracer::findFirstHit(const Ray3D &ray, const Object3D *source) {
     Intersection intersection;
     
     /////////////////////////////////////////////////////////////
@@ -23,24 +39,6 @@ Intersection RayTracer::findFirstHit(list<Object3D*> allObjs, const Ray3D &ray, 
     return intersection;
 }
 
-ColourRGB RayTracer::rayTrace(list<Object3D*> allObjs, const Ray3D &ray,
-                              int depth, const Object3D *source, int maxDepth) {
-    ColourRGB res(0.0, 0.0, 0.0);
-    
-    double lambda;  // Lambda at intersection
-    double a,b;		// Texture coordinates
-    Object3D *obj;	// Pointer to object at intersection
-    Point3D *p;     // Intersection point
-    Point3D *n;	// Normal at intersection
-    
-    if (depth > maxDepth) {
-        return ColourRGB(-1, -1, -1);
-    }
-    
-    ///////////////////////////////////////////////////////
-    // TO DO: Complete this function. Refer to the notes
-    // if you are unsure what to do here.
-    ///////////////////////////////////////////////////////
-    
-    return res;
+ColourRGB RayTracer::rayTrace(const Ray3D &ray) {
+    return rayTraceRecursive(ray, maxDepth, NULL);
 }

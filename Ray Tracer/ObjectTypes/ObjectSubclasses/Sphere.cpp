@@ -19,10 +19,7 @@ ColourRGB Sphere::colourAtLocalPoint(const Point3D &p) const {
 }
 
 Intersection Sphere::intersect(const Ray3D &ray) const {
-    // Computes and returns the value of 'lambda' at the intersection
-    // between the specified ray and the specified canonical sphere.
     Intersection intersection;
-    intersection.material = material;   // For now, objects have only one uniform material
     
     /////////////////////////////////
     // TO DO: Complete this function.

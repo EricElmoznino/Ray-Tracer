@@ -13,7 +13,10 @@ public:
     Material material;
     ColourRGB colour;
     double lambda;
+    
     bool none;
+    
+    Object3D *obj;
     
     // No member constructor because this object is meant to be instantiated and
     // filled as we go along and compute different parts of the intersection.
