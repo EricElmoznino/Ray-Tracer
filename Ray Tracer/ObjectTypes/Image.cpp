@@ -123,7 +123,8 @@ Image* Image::readPPMimage(const char *filename) {
             delete im;
             return NULL;
         }
-        fgets(&line[0],1000,f);
+        if (fgets(&line[0],1000,f))
+        	printf("Error in fgets\n");
         if (strcmp(&line[0],"P6\n")!=0)
         {
             fprintf(stderr,"Wrong file format, not a .ppm file or header end-of-line characters missing\n");
@@ -133,18 +134,21 @@ Image* Image::readPPMimage(const char *filename) {
         }
         fprintf(stderr,"%s\n",line);
         // Skip over comments
-        fgets(&line[0],511,f);
+        if (fgets(&line[0],511,f))
+			printf("Error in fgets\n");
         while (line[0]=='#')
         {
             fprintf(stderr,"%s",line);
-            fgets(&line[0],511,f);
+            if (fgets(&line[0],511,f))
+				printf("Error in fgets\n");
         }
         sscanf(&line[0],"%d %d\n",&sizx,&sizy);           // Read file size
         fprintf(stderr,"nx=%d, ny=%d\n\n",sizx,sizy);
         im->sx=sizx;
         im->sy=sizy;
         
-        fgets(&line[0],9,f);  	                // Read the remaining header line
+        if (fgets(&line[0],9,f))			// Read the remaining header line
+			printf("Error in fgets\n");
         fprintf(stderr,"%s\n",line);
         tmp=(unsigned char *)calloc(sizx*sizy*3,sizeof(unsigned char));
         fRGB=(double *)calloc(sizx*sizy*3,sizeof(double));
@@ -156,7 +160,7 @@ Image* Image::readPPMimage(const char *filename) {
             return(NULL);
         }
         
-        fread(tmp,sizx*sizy*3*sizeof(unsigned char),1,f);
+        size_t sizeRead = fread(tmp,sizx*sizy*3*sizeof(unsigned char),1,f);
         fclose(f);
         
         // Conversion to floating point
