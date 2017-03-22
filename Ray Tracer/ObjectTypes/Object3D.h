@@ -24,16 +24,10 @@ public:
     
     Image *textureImage;    // Pointer to the structure holding the texture for this object
     
-    double alpha;   // Opacity - if less than 1 this is a semi transparent object
-                        // and refraction rays should be implemented
-    double refractionIndex;
-    double shinyness;   // Exponent for phong specular component
-    
     bool bothSidesLit;      // Flag to indicate that both sides of the object should be lit
     bool isAreaLightSource; // Flag to indicate if this is an area light source
     
-    Object3D(const Material &material, const ColourRGB &colour,
-             double alpha, double refractionIndex, double shinyness);
+    Object3D(const Material &material, const ColourRGB &colour);
     Object3D(const Object3D &obj);
     virtual ~Object3D();
     

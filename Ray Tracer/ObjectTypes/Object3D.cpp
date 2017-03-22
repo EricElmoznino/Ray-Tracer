@@ -1,13 +1,9 @@
 #include "Object3D.h"
 
-Object3D::Object3D(const Material &material, const ColourRGB &colour,
-                   double alpha, double refractionIndex, double shinyness) :
+Object3D::Object3D(const Material &material, const ColourRGB &colour) :
 material(material), colour(colour) {
     this->material = material;
     this->colour = colour;
-    this->alpha = alpha;
-    this->refractionIndex = refractionIndex;
-    this->shinyness = shinyness;
     this->textureImage = NULL;
     this->transform = Transform3D::identity();
     this->invTransform = Transform3D::identity();
@@ -19,9 +15,6 @@ Object3D::Object3D(const Object3D &obj) :
 material(obj.material), colour(obj.colour) {
     material = obj.material;
     colour = obj.colour;
-    alpha = obj.alpha;
-    refractionIndex = obj.refractionIndex;
-    shinyness = obj.shinyness;
     transform = obj.transform;
     invTransform = obj.invTransform;
     bothSidesLit = obj.bothSidesLit;
@@ -41,9 +34,6 @@ Object3D::~Object3D() {
 Object3D& Object3D::operator=(const Object3D &obj) {
     material = obj.material;
     colour = obj.colour;
-    alpha = obj.alpha;
-    refractionIndex = obj.refractionIndex;
-    shinyness = obj.shinyness;
     transform = obj.transform;
     invTransform = obj.invTransform;
     bothSidesLit = obj.bothSidesLit;

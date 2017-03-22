@@ -1,8 +1,7 @@
 #include "Sphere.h"
 
-Sphere::Sphere(const Material &material, const ColourRGB &colour,
-             double alpha, double refractionIndex, double shinyness) :
-Object3D::Object3D(material, colour, alpha, refractionIndex, shinyness) {
+Sphere::Sphere(const Material &material, const ColourRGB &colour) :
+Object3D::Object3D(material, colour) {
     Object3D::bothSidesLit = false;
 }
 

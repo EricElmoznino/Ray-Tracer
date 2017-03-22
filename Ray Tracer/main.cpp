@@ -74,9 +74,8 @@ void buildScene(void)
     // Colour is close to cyan, and currently the plane is
     // completely opaque (alpha=1). The refraction index is
     // meaningless since alpha=1
-    Object3D *obj = new Plane(Material(0.05, 0.75, 0.05, 0.05),
-                              ColourRGB(0.55, 0.8, 0.75),
-                              1, 1, 2);
+    Object3D *obj = new Plane(Material(0.05, 0.75, 0.05, 0.05, 1, 1, 2),
+                              ColourRGB(0.55, 0.8, 0.75));
     
     // Do a few transforms...
     obj->scale(6, 6, 1);
@@ -90,18 +89,16 @@ void buildScene(void)
     objects.push_front(obj);    // Insert into object list
     
     // Let's add a couple spheres
-    obj = new Sphere(Material(0.05, 0.95, 0.35, 0.35),
-                     ColourRGB(1.0, 0.25, 0.25),
-                     1, 1, 6);
+    obj = new Sphere(Material(0.05, 0.95, 0.35, 0.35, 1, 1, 6),
+                     ColourRGB(1.0, 0.25, 0.25));
     obj->scale(0.75, 0.5, 1.5);
     obj->rotateY(PI/2.0);
     obj->translate(-1.45, 1.1, 3.5);
     obj->updateInverse();
     objects.push_front(obj);
     
-    obj = new Sphere(Material(0.05, 0.95, 0.95, 0.75),
-                     ColourRGB(0.75, 0.95, 0.55),
-                     1, 1, 6);
+    obj = new Sphere(Material(0.05, 0.95, 0.95, 0.75, 1, 1, 6),
+                     ColourRGB(0.75, 0.95, 0.55));
     obj->scale(0.5, 2.0, 1.0);
     obj->rotateZ(PI/1.5);
     obj->translate(1.75, 1.25, 5.0);
