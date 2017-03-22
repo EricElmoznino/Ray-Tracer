@@ -25,7 +25,8 @@ public:
     
     // NOTE: only to be used on affine matrices
     Transform3D inverse() const;
-    // TODO: insert rotations, translations, and scaling of objects here
+    
+    Transform3D transpose() const;
     
     Transform3D operator*(double scale) const;  // matrix * scale
     Point3D operator*(const Point3D &p) const;     // matrix * vec

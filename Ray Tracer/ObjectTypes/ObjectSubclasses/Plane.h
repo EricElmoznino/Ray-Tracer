@@ -11,7 +11,7 @@ protected:
 public:
     Plane(const Material &material, const ColourRGB &colour);
     
-    Intersection intersect(const Ray3D &ray) const;
+    Intersection intersect(const Ray3D &ray);
 };
 
 #endif

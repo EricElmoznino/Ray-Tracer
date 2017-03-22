@@ -1,10 +1,5 @@
 #include "Ray3D.h"
-#include "Object3D.h"
 
-Ray3D Ray3D::rayTransform(const Object3D &obj) const {
-    ///////////////////////////////////////////
-    // TO DO: Complete this function
-    ///////////////////////////////////////////
-    
-    return Ray3D(); // temporary to avoid errors
+Point3D Ray3D::rayPosition(double lambda) const {
+    return origin + lambda*direction;
 }

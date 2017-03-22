@@ -17,7 +17,7 @@ ColourRGB Plane::colourAtLocalPoint(const Point3D &p) const {
     return ColourRGB(0, 0, 0);  // temporary until function is implemented
 }
 
-Intersection Plane::intersect(const Ray3D &ray) const {
+Intersection Plane::intersect(const Ray3D &ray) {
     Intersection intersection;
     
     /////////////////////////////////

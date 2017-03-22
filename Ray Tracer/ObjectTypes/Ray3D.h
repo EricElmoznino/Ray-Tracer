@@ -14,11 +14,7 @@ public:
     
     // Function for returning the position along the ray
     // for a given lambda.
-    Point3D rayPosition(Ray3D ray, double lambda);
-    
-    // Transforms a ray using the inverse transform for the specified object. This is so that we can
-    // object intersection test for the canonical object
-    Ray3D rayTransform(const Object3D &obj) const;
+    Point3D rayPosition(double lambda) const;
 };
 
 #endif

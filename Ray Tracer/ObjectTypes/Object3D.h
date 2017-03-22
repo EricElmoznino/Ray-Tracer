@@ -19,8 +19,8 @@ protected:
 public:
     Material material;
     ColourRGB colour;
-    Transform3D transform;
-    Transform3D invTransform;
+    Transform3D transform;      // Model -> World
+    Transform3D invTransform;   // World -> Model
     
     Image *textureImage;    // Pointer to the structure holding the texture for this object
     
@@ -39,7 +39,7 @@ public:
     // Note that the intersection function must compute the lambda at the intersection, the
     // intersection point p, the normal at that point n, and the object color.
     // This has an empty implementation because it is supposed to be overriden by a subclass
-    virtual Intersection intersect(const Ray3D &ray) const = 0;
+    virtual Intersection intersect(const Ray3D &ray) = 0;
     
     // WARNING: These methods are mutable, meaning that they change the
     // data in the class. I don't like this style, but it is necessary
