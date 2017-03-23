@@ -34,7 +34,8 @@ public:
     // Assumes a 24 bit per pixel image stored as unsigned chars
     //
     
-    void setColorAtPixel(int x, int y, ColourRGB color);
+    void setColourAtPixel(int x, int y, ColourRGB color);
+    ColourRGB getColourAtPixel(int x, int y) const;
     void outputImage(const char *filename);
 };
 

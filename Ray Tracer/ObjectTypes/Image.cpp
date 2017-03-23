@@ -70,9 +70,18 @@ ColourRGB Image::textureMap(double a, double b) const {
     // interpolation to obtain the texture colour.
     //////////////////////////////////////////////////
     
-    return ColourRGB(0.0, 0.0, 0.0);	// Returns black - delete this and
-    // replace with your code to compute
-    // texture colour at (a,b)
+    // NOTE: Assuming that texture wraps around at the edges
+    
+    int i = (int)a*sx;
+    int j = (int)b*sy;
+    
+    double aPrime = a - i*(1.0 / sx);
+    double bPrime = b - j*(1.0 / sy);
+    
+    return getColourAtPixel(i, j)*(1-aPrime)*(1-bPrime) +
+        getColourAtPixel((i+1)%sx, j)*aPrime*(1-bPrime) +
+        getColourAtPixel(i, (j+1)%sy)*(1-aPrime)*bPrime +
+        getColourAtPixel((i+1)%sx, (j+1)%sy)*aPrime*bPrime;
 }
 
 Image* Image::readPPMimage(const char *filename) {
@@ -193,6 +202,19 @@ void Image::setColorAtPixel(int x, int y, ColourRGB colour) {
     *((unsigned char *)rgbImageData + 3*(x*sy + y) + 0) = R;
     *((unsigned char *)rgbImageData + 3*(x*sy + y) + 1) = G;
     *((unsigned char *)rgbImageData + 3*(x*sy + y) + 2) = B;
+}
+
+ColourRGB Image::getColorAtPixel(int x, int y) {
+    if (x >= sx || y >= sy) {
+        printf("Error: pixel is out of bounds of the image");
+        return ColourRGB(-1, -1, -1);   // return invalid colour
+    }
+    
+    unsigned char R = *((unsigned char *)rgbImageData + 3*(x*sy + y) + 0);
+    unsigned char G = *((unsigned char *)rgbImageData + 3*(x*sy + y) + 1);
+    unsigned char B = *((unsigned char *)rgbImageData + 3*(x*sy + y) + 2);
+    
+    return ColourRGB((double)R/255, (double)G/255, (double)B/255);
 }
 
 void Image::outputImage(const char *filename) {

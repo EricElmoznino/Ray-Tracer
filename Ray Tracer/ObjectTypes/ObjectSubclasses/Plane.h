@@ -5,6 +5,8 @@
 #include <stdio.h>
 
 class Plane : public Object3D {
+    double size = 1.0;
+    
 protected:
     ColourRGB colourAtLocalPoint(const Point3D &p) const;
     

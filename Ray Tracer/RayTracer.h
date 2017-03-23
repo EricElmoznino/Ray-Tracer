@@ -58,7 +58,7 @@ class RayTracer {
     
     bool isInShadow(const Intersection &intersection, const PointLightSource &light);
     
-    ColourRGB reflection(const Ray3D &ray, const Point3D &normal);
+    ColourRGB reflection(const Intersection &intersection, const Ray3D &ray, int depth);
     
 public:
     void renderImage(View camera, list<Object3D*> objects, list<PointLightSource> lights,

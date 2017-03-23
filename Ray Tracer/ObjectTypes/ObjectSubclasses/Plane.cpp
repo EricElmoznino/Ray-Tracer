@@ -11,10 +11,9 @@ ColourRGB Plane::colourAtLocalPoint(const Point3D &p) const {
         return colour;
     }
     
-    // TO DO: Complete this function. Will need to find the (a,b)
-    // texture coordinates at p given this type of object and then
-    // call Image's textureMap function
-    return ColourRGB(0, 0, 0);  // temporary until function is implemented
+    double a = (p.x + size/2.0) / size;
+    double b = (p.y + size/2.0) / size;
+    return textureImage->textureMap(a, b);
 }
 
 Intersection Plane::intersect(const Ray3D &ray) {

@@ -130,11 +130,6 @@ int main(int argc, char *argv[])
     Point3D e;          // Camera view parameters 'e', 'g', and 'up'
     Point3D g;
     Point3D up;
-    double du, dv;      // Increase along u and v directions for pixel coordinates
-    Point3D pc,d;		// Point structures to keep the coordinates of a pixel and
-                            // the direction or a ray
-    Ray3D *ray;         // Structure to keep the ray from e to a pixel
-    ColourRGB col(0.0, 0.0, 0.0);		// Return colour for raytraced pixels
     ColourRGB background(0.0, 0.0, 0.0);// Background colour
     RayTracer rayTracer;    // The ray tracer
     
@@ -196,21 +191,6 @@ int main(int argc, char *argv[])
     // Note that the top-left corner of the window is at (-2, 2)
     // in camera coordinates.
     View cam(e, g, up, -3, -2, 2, 4);
-    
-    // Do the raytracing
-    //////////////////////////////////////////////////////
-    // TO DO: You will need code here to do the raytracing
-    //        for each pixel in the image. Refer to the
-    //        lecture notes, in particular, to the
-    //        raytracing pseudocode, for details on what
-    //        to do here. Make sure you undersand the
-    //        overall procedure of raytracing for a single
-    //        pixel.
-    //////////////////////////////////////////////////////
-    du=cam.wsize/(sx-1);		// du and dv. In the notes in terms of wl and wr, wt and wb,
-    dv=-cam.wsize/(sx-1);		// here we use wl, wt, and wsize. du=dv since the image is
-    // and dv is negative since y increases downward in pixel
-    // coordinates and upward in camera coordinates.
     
     fprintf(stderr,"View parameters:\n");
     fprintf(stderr,"Left=%f, Top=%f, Width=%f, f=%f\n",cam.wl,cam.wt,cam.wsize,cam.f);

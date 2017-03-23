@@ -33,8 +33,8 @@ void RayTracer::renderImage(View camera, list<Object3D*> objects, list<PointLigh
                       (camera.cameraToWorld * direction).normalized());
             
             // Trace the pixel and store it in the image
-            ColourRGB pixelColor = rayTrace(ray);
-            output->setColorAtPixel(i, j, pixelColor);
+            ColourRGB pixelColour = rayTrace(ray);
+            output->setColourAtPixel(i, j, pixelColour);
         }
     }
     
@@ -54,15 +54,9 @@ ColourRGB RayTracer::rayTraceRecursive(const Ray3D &ray, int depth, const Object
     // if you are unsure what to do here.
     ///////////////////////////////////////////////////////
     
-    // End the recursive calls and return a black colour
-    // that will have no contribution
-    if (depth <= 0) {
-        return ColourRGB(0, 0, 0);
-    }
-    
     Intersection firstHit = findFirstHit(ray, source);
-    if (firstHit.none) {    // Probably will change latter to be the skybox
-        return ColourRGB(0, 0, 0);
+    if (firstHit.none) {
+        return ColourRGB(0, 0, 0);  // Probably will change latter to be the skybox
     }
     
     return shade(firstHit, ray, depth);
@@ -77,6 +71,10 @@ ColourRGB RayTracer::shade(const Intersection &intersection, const Ray3D &ray, i
     //////////////////////////////////////////////////////////////
     
     res += phongModel(intersection, ray);
+    
+    if (depth > 0) {
+        res += reflection(intersection, ray, depth - 1);
+    }
     
     return res;
 }
@@ -112,17 +110,14 @@ ColourRGB RayTracer::phongModel(const Intersection &intersection, const Ray3D &r
             ColourRGB ambientColour = light->colour * ambient;
             
             //Diffuse component
-            Point3D s = (light->location - intersection.point).normalized();
+            Point3D s = (light->location - intersection.point).normalized();    // light direction
             double n_dot_s = (intersection.normal).dot(s);
             double mag_diffuse = (0 < n_dot_s)?n_dot_s:0;
             double diffuse = (intersection.material.diffuse)*mag_diffuse;
             ColourRGB diffuseColour = light->colour * diffuse;
             
             //Specular component
-            Point3D r = (ray.direction +
-                         2 * intersection.normal*
-                         (ray.direction.dot(intersection.normal))
-                         ).normalized();	//specular reflection
+            Point3D r = -1*s + 2*intersection.normal*s.dot(intersection.normal);    // reflection direction
             Point3D b = -1 * ray.direction;
             double mag_spec = (0 < r.dot(b))?r.dot(b):0;
             mag_spec = pow(mag_spec, intersection.material.shinyness);
@@ -156,4 +151,10 @@ bool RayTracer::isInShadow(const Intersection &intersection, const PointLightSou
     
     Intersection firstHit = findFirstHit(shadowRay, NULL);
     return !firstHit.none;
+}
+
+ColourRGB RayTracer::reflection(const Intersection &intersection, const Ray3D &ray, int depth) {
+    Point3D r = ray.direction - 2*intersection.normal*ray.direction.dot(intersection.normal);
+    Ray3D reflectionRay(intersection.point, r);
+    return rayTraceRecursive(reflectionRay, depth, intersection.obj) * intersection.material.global;
 }
