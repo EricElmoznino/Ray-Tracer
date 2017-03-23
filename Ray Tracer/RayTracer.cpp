@@ -30,7 +30,7 @@ void RayTracer::renderImage(View camera, list<Object3D*> objects, list<PointLigh
                                 -1.0, false);
             Point3D direction = targetPixel - origin;
             Ray3D ray(camera.cameraToWorld * origin,
-                      camera.cameraToWorld * direction);
+                      (camera.cameraToWorld * direction).normalized());
             
             // Trace the pixel and store it in the image
             ColourRGB pixelColor = rayTrace(ray);
@@ -84,6 +84,23 @@ Intersection RayTracer::findFirstHit(const Ray3D &ray, const Object3D *source) {
     /////////////////////////////////////////////////////////////
     
     return intersection;
+}
+
+bool RayTracer::isInShadow(const Intersection &intersection, const PointLightSource &light) {
+    // Create the shadow ray
+    Point3D origin = intersection.point;
+    Point3D direction = (light.location - origin).normalized();
+    Ray3D shadowRay = Ray3D(origin, direction);
+    
+    // Bias the ray's origin slightly away from the object
+    // in order to avoid errors from numerical precision.
+    // We can't simply rely on the source object here, because
+    // it's perfectly legal for an object to be casting itself
+    // partly in shadow (e.g. the backside of an object)
+    shadowRay = shadowRay.bias(intersection.normal);
+    
+    Intersection firstHit = findFirstHit(shadowRay, NULL);
+    return !firstHit.none;
 }
 
 // PLACE FUNCTIONS TO CALCULATE PHONG ILLUMINATION, REFLECTION, REFRACTION, SHADOWS, ETC. BELOW HERE

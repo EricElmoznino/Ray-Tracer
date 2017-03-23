@@ -54,6 +54,10 @@ class RayTracer {
     //
     Intersection findFirstHit(const Ray3D &ray, const Object3D *source);
     
+    bool isInShadow(const Intersection &intersection, const PointLightSource &light);
+    
+    ColourRGB reflection(const Ray3D &ray, const Point3D &normal);
+    
 public:
     void renderImage(View camera, list<Object3D*> objects, list<PointLightSource> lights,
                      int maxDepth, Image *output, char * name);
