@@ -12,10 +12,11 @@ ColourRGB Sphere::colourAtLocalPoint(const Point3D &p) const {
         return colour;
     }
     
-    // TO DO: Complete this function. Will need to find the (a,b)
-    // texture coordinates at p given this type of object and then
-    // call Image's textureMap function
-    return ColourRGB(0, 0, 0);  // temporary until function is implemented
+    double theta = acos(p.z);
+    double phi = atan(p.y / p.x);
+    double a = fmod(phi, 2*M_PI) / (2*M_PI);
+    double b = (M_PI - theta) / M_PI;
+    return textureImage->textureMap(a, b);
 }
 
 Intersection Sphere::intersect(const Ray3D &ray) {

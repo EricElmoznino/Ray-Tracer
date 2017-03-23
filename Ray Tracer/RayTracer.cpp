@@ -95,6 +95,12 @@ Intersection RayTracer::findFirstHit(const Ray3D &ray, const Object3D *source) {
 ColourRGB RayTracer::phongModel(const Intersection &intersection, const Ray3D &ray) {
     ColourRGB phongColour(0, 0, 0);
     
+    // Ambient component
+    // Not effected by lights or shadows. Always constant.
+    double ambient = intersection.material.ambient;
+    ColourRGB ambientColour = ColourRGB(1, 1, 1) * ambient;
+    phongColour += ambientColour.filter(intersection.colour);
+    
     list<PointLightSource>::iterator light;
     for (light=lights.begin(); light!=lights.end(); light++)
     {
@@ -104,10 +110,6 @@ ColourRGB RayTracer::phongModel(const Intersection &intersection, const Ray3D &r
             // to the light's magnitude of that colour.
             // i.e. Iar = light.red, Iab = light.blue,
             //      Is.b = light.blue, etc.
-            
-            //Ambient component
-            double ambient = intersection.material.ambient;
-            ColourRGB ambientColour = light->colour * ambient;
             
             //Diffuse component
             Point3D s = (light->location - intersection.point).normalized();    // light direction
@@ -127,8 +129,7 @@ ColourRGB RayTracer::phongModel(const Intersection &intersection, const Ray3D &r
             // Filter the ambient and diffuse components by the object's
             // colour, but the specular should just be a pure reflectance
             // of the light's colour
-            phongColour += ambientColour.filter(intersection.colour) +
-                            diffuseColour.filter(intersection.colour) +
+            phongColour +=  diffuseColour.filter(intersection.colour) +
                             specularColour;
         }
     }
