@@ -12,6 +12,8 @@ public:
     Point3D origin;
     Point3D direction;
     
+    Ray3D(Point3D origin, Point3D direction);
+    
     // Function for returning the position along the ray
     // for a given lambda.
     Point3D rayPosition(double lambda) const;

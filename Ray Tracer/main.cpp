@@ -21,7 +21,6 @@
 #include <stdio.h>
 #include <list>
 #include "RayTracer.h"
-#include "View.h"
 #include "ObjectTypes/ObjectSubclasses/Plane.h"
 #include "ObjectTypes/ObjectSubclasses/Sphere.h"
 
@@ -198,9 +197,6 @@ int main(int argc, char *argv[])
     // in camera coordinates.
     View cam(e, g, up, -3, -2, 2, 4);
     
-    // Set up background colour here
-    background = ColourRGB(0.0, 0.0, 0.0);
-    
     // Do the raytracing
     //////////////////////////////////////////////////////
     // TO DO: You will need code here to do the raytracing
@@ -224,26 +220,8 @@ int main(int argc, char *argv[])
     cam.worldToCamera.printTransform3D();
     fprintf(stderr,"\n");
     
-    fprintf(stderr,"Rendering row: ");
-    for (int i = 0; i < sx; i++)		// For each pixel in the image
-    {
-        fprintf(stderr,"%d/%d, ", i, sx);
-        for (int j = 0; j < sx; j++)
-        {
-            ///////////////////////////////////////////////////////////////////
-            // TO DO - complete the code that should be in this loop to do the
-            //         raytracing!
-            ///////////////////////////////////////////////////////////////////
-            //ColourRGB pixelColor = rayTracer.rayTrace(<#const Ray3D &ray#>);
-            ColourRGB pixelColor = background;
-            im->setColorAtPixel(i, j, pixelColor);
-        }
-    }
-    
-    fprintf(stderr,"\nDone!\n");
-    
-    // Output rendered image
-    im->outputImage(output_name);
+    // Render the image with ray tracing
+    rayTracer.renderImage(cam, objects, lights, MAX_DEPTH, im, output_name);
     
     // Exit section. Clean up and return.
     delete im;

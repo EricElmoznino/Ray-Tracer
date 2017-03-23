@@ -6,8 +6,32 @@
 #include<math.h>
 #include<string.h>
 #include "PointLightSource.h"
+#include "View.h"
 
 class RayTracer {
+    list<Object3D*> objects;
+    list<PointLightSource> lights;
+    int maxDepth;
+    
+    // Ray-Tracing function. It finds the closest intersection between
+    // the ray and any scene objects, calls the shading function to
+    // determine the colour at this intersection, and returns the
+    // colour.
+    //
+    // Since Ray-Tracing is recursive, this is the entry point that simply
+    // calls the recursive version with the appropriate starting parameters.    //
+    ColourRGB rayTrace(const Ray3D &ray);
+    
+    // Recursive version of rayTrace. rayTrace is basically the public interface
+    // that delegates to this function with the correct parameters
+    //
+    // source is needed for recursive calls to ensure that findFirstHit will
+    // not simply return a self-intersection due to numerical
+    // errors. For the top level call, source should be NULL. And thereafter
+    // it will correspond to the object from which the recursive
+    // ray originates.
+    ColourRGB rayTraceRecursive(const Ray3D &ray, int depth, const Object3D *source);
+    
     // This function implements the shading model as described in lecture. It takes
     // - An intersection data model that contains all necessary information for shading
     // - The ray (needed to determine the reflection direction to use for the global component, as well as for
@@ -19,15 +43,6 @@ class RayTracer {
     //
     ColourRGB shade(const Intersection &intersection, const Ray3D &ray, int depth);
     
-    // Recursive version of rayTrace. rayTrace is basically the public interface
-    // that delegates to this function with the correct parameters
-    //
-    // source is needed for recursive calls to ensure that findFirstHit will
-    // not simply return a self-intersection due to numerical
-    // errors. For the top level call, source should be NULL. And thereafter
-    // it will correspond to the object from which the recursive
-    // ray originates.
-    ColourRGB rayTraceRecursive(const Ray3D &ray, int depth, const Object3D *source);
     
     // Find the closest intersection between the ray and any objects in the scene.
     // It returns:
@@ -40,18 +55,8 @@ class RayTracer {
     Intersection findFirstHit(const Ray3D &ray, const Object3D *source);
     
 public:
-    list<Object3D*> objects;
-    list<PointLightSource> lights;
-    int maxDepth;
-    
-    // Ray-Tracing function. It finds the closest intersection between
-    // the ray and any scene objects, calls the shading function to
-    // determine the colour at this intersection, and returns the
-    // colour.
-    //
-    // Since Ray-Tracing is recursive, this is the entry point that simply
-    // calls the private recursive version with the appropriate starting parameters.    //
-    ColourRGB rayTrace(const Ray3D &ray);
+    void renderImage(View camera, list<Object3D*> objects, list<PointLightSource> lights,
+                     int maxDepth, Image *output, char * name);
 };
 
 #endif
