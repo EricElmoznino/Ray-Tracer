@@ -137,6 +137,7 @@ int main(int argc, char *argv[])
     Ray3D *ray;         // Structure to keep the ray from e to a pixel
     ColourRGB col(0.0, 0.0, 0.0);		// Return colour for raytraced pixels
     ColourRGB background(0.0, 0.0, 0.0);// Background colour
+    RayTracer rayTracer;    // The ray tracer
     
     if (argc<5)
     {
@@ -224,16 +225,18 @@ int main(int argc, char *argv[])
     fprintf(stderr,"\n");
     
     fprintf(stderr,"Rendering row: ");
-    for (int j = 0; j < sx; j++)		// For each of the pixels in the image
+    for (int i = 0; i < sx; i++)		// For each pixel in the image
     {
-        fprintf(stderr,"%d/%d, ", j, sx);
-        for (int i = 0; i < sx; i++)
+        fprintf(stderr,"%d/%d, ", i, sx);
+        for (int j = 0; j < sx; j++)
         {
             ///////////////////////////////////////////////////////////////////
             // TO DO - complete the code that should be in this loop to do the
             //         raytracing!
             ///////////////////////////////////////////////////////////////////
-            
+            //ColourRGB pixelColor = rayTracer.rayTrace(<#const Ray3D &ray#>);
+            ColourRGB pixelColor = background;
+            im->setColorAtPixel(i, j, pixelColor);
         }
     }
     

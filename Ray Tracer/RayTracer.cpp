@@ -42,3 +42,6 @@ Intersection RayTracer::findFirstHit(const Ray3D &ray, const Object3D *source) {
 ColourRGB RayTracer::rayTrace(const Ray3D &ray) {
     return rayTraceRecursive(ray, maxDepth, NULL);
 }
+
+// PLACE FUNCTIONS TO CALCULATE PHONG ILLUMINATION, REFLECTION, REFRACTION, SHADOWS, ETC. BELOW HERE
+// AND MAKE THEM PRIVATE MEMBERS IN THE HEADER SO THAT shade() DOESN'T BECOME UNMANAGEABLY LARGE

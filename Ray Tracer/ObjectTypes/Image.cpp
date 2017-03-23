@@ -175,6 +175,26 @@ Image* Image::readPPMimage(const char *filename) {
     return(NULL);
 }
 
+void Image::setColorAtPixel(int x, int y, ColourRGB colour) {
+    if (x >= sx || y >= sy) {
+        printf("Error: pixel is out of bounds of the image");
+    }
+    
+    if (colour.red < 0.0 || colour.red > 1.0 ||
+        colour.green < 0.0 || colour.green > 1.0 ||
+        colour.blue < 0.0 || colour.blue > 1.0) {
+        printf("Error: setting pixel to an invalid colour");
+    }
+    
+    unsigned char R = (unsigned char)(int)(255 * colour.red);
+    unsigned char G = (unsigned char)(int)(255 * colour.green);
+    unsigned char B = (unsigned char)(int)(255 * colour.blue);
+    
+    *((unsigned char *)rgbImageData + 3*(x*sy + y) + 0) = R;
+    *((unsigned char *)rgbImageData + 3*(x*sy + y) + 1) = G;
+    *((unsigned char *)rgbImageData + 3*(x*sy + y) + 2) = B;
+}
+
 void Image::outputImage(const char *filename) {
     FILE *f;
     
@@ -189,7 +209,7 @@ void Image::outputImage(const char *filename) {
         fprintf(f,"# Output from RayTracer.c\n");
         fprintf(f,"%d %d\n", sx, sy);
         fprintf(f,"255\n");
-        fwrite((unsigned char *)rgbImageData, sx * sy*3*sizeof(unsigned char),1,f);
+        fwrite((unsigned char *)rgbImageData, sx*sy*3*sizeof(unsigned char),1,f);
         fclose(f);
         return;
     }
