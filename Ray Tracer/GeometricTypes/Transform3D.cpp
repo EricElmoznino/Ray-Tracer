@@ -63,6 +63,14 @@ Transform3D::Transform3D(double r0c0, double r0c1, double r0c2, double r0c3,
     m[3][0] = r3c0; m[3][1] = r3c1; m[3][2] = r3c2; m[3][3] = r3c3;
 }
 
+//Assuming a, b, c are vectors, h is point.
+Transform3D::Transform3D(const Point3D &a, const Point3D &b, const Point3D &c, const Point3D &d){
+    m[0][0] = a.x; m[0][1] = b.x; m[0][2] = c.x; m[0][3] = d.x;
+    m[1][0] = a.y; m[1][1] = b.y; m[1][2] = c.y; m[1][3] = d.y;
+    m[2][0] = a.z; m[2][1] = b.z; m[2][2] = c.z; m[2][3] = d.z;
+    m[3][0] = 0.0; m[3][1] = 0.0; m[3][2] = 0.0; m[3][3] = 1.0;
+}
+
 Transform3D::Transform3D(const Transform3D &t) {
     for (int r = 0; r < 4; r++) {
         for (int c = 0; c < 4; c++) {

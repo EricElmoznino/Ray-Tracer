@@ -5,7 +5,12 @@
 #include <stdio.h>
 
 class Plane : public Object3D {
-    double size = 1.0;
+    //Point on plane defined CCQ
+    const Point3D p1 = Point3D(1, 1, 0, false);
+    const Point3D p2 = Point3D(-1, 1, 0, false);
+    const Point3D p3 = Point3D(-1, -1, 0, false);
+    const Point3D p4 = Point3D(1, -1, 0, false);
+    const Point3D normal = Point3D(0, 0, 1, true);
     
 protected:
     ColourRGB colourAtLocalPoint(const Point3D &p) const;

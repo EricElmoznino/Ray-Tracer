@@ -12,7 +12,7 @@ ColourRGB Sphere::colourAtLocalPoint(const Point3D &p) const {
         return colour;
     }
     
-    double theta = acos(p.z);
+    double theta = acos(p.z / radius);
     double phi = atan(p.y / p.x);
     double a = fmod(phi, 2*M_PI) / (2*M_PI);
     double b = (M_PI - theta) / M_PI;
