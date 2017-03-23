@@ -61,6 +61,10 @@ ColourRGB RayTracer::rayTraceRecursive(const Ray3D &ray, int depth, const Object
     }
     
     Intersection firstHit = findFirstHit(ray, source);
+    if (firstHit.none) {    // Probably will change latter to be the skybox
+        return ColourRGB(0, 0, 0);
+    }
+    
     return shade(firstHit, ray, depth);
 }
 
@@ -71,6 +75,8 @@ ColourRGB RayTracer::shade(const Intersection &intersection, const Ray3D &ray, i
     // TO DO: Implement this function. Refer to the notes for
     // details about the shading model.
     //////////////////////////////////////////////////////////////
+    
+    res += phongModel(intersection, ray);
     
     return res;
 }
@@ -83,7 +89,56 @@ Intersection RayTracer::findFirstHit(const Ray3D &ray, const Object3D *source) {
     // reference of what to do in here
     /////////////////////////////////////////////////////////////
     
+    intersection.none = true;   // TEMPORARY UNTIL WE WRITE THIS FUNCTION
+    
     return intersection;
+}
+
+ColourRGB RayTracer::phongModel(const Intersection &intersection, const Ray3D &ray) {
+    ColourRGB phongColour(0, 0, 0);
+    
+    list<PointLightSource>::iterator light;
+    for (light=lights.begin(); light!=lights.end(); light++)
+    {
+        if (!isInShadow(intersection, *light)) {
+            // Note: Light have the same Ia, Id, and Is,
+            // which for every colour component is equal
+            // to the light's magnitude of that colour.
+            // i.e. Iar = light.red, Iab = light.blue,
+            //      Is.b = light.blue, etc.
+            
+            //Ambient component
+            double ambient = intersection.material.ambient;
+            ColourRGB ambientColour = light->colour * ambient;
+            
+            //Diffuse component
+            Point3D s = (light->location - intersection.point).normalized();
+            double n_dot_s = (intersection.normal).dot(s);
+            double mag_diffuse = (0 < n_dot_s)?n_dot_s:0;
+            double diffuse = (intersection.material.diffuse)*mag_diffuse;
+            ColourRGB diffuseColour = light->colour * diffuse;
+            
+            //Specular component
+            Point3D r = (ray.direction +
+                         2 * intersection.normal*
+                         (ray.direction.dot(intersection.normal))
+                         ).normalized();	//specular reflection
+            Point3D b = -1 * ray.direction;
+            double mag_spec = (0 < r.dot(b))?r.dot(b):0;
+            mag_spec = pow(mag_spec, intersection.material.shinyness);
+            double specular = (intersection.material.specular)*mag_spec;
+            ColourRGB specularColour = light->colour * specular;
+            
+            // Filter the ambient and diffuse components by the object's
+            // colour, but the specular should just be a pure reflectance
+            // of the light's colour
+            phongColour += ambientColour.filter(intersection.colour) +
+                            diffuseColour.filter(intersection.colour) +
+                            specularColour;
+        }
+    }
+    
+    return phongColour;
 }
 
 bool RayTracer::isInShadow(const Intersection &intersection, const PointLightSource &light) {
@@ -102,6 +157,3 @@ bool RayTracer::isInShadow(const Intersection &intersection, const PointLightSou
     Intersection firstHit = findFirstHit(shadowRay, NULL);
     return !firstHit.none;
 }
-
-// PLACE FUNCTIONS TO CALCULATE PHONG ILLUMINATION, REFLECTION, REFRACTION, SHADOWS, ETC. BELOW HERE
-// AND MAKE THEM PRIVATE MEMBERS IN THE HEADER SO THAT shade() DOESN'T BECOME UNMANAGEABLY LARGE

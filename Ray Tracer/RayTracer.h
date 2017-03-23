@@ -54,6 +54,8 @@ class RayTracer {
     //
     Intersection findFirstHit(const Ray3D &ray, const Object3D *source);
     
+    ColourRGB phongModel(const Intersection &intersection, const Ray3D &ray);
+    
     bool isInShadow(const Intersection &intersection, const PointLightSource &light);
     
     ColourRGB reflection(const Ray3D &ray, const Point3D &normal);

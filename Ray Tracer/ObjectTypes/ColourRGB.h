@@ -11,6 +11,14 @@ public:
     
     ColourRGB(double red, double green, double blue);
     ColourRGB(){}
+    ColourRGB(const ColourRGB &colour);
+    
+    ColourRGB& operator=(const ColourRGB &colour);
+    ColourRGB operator+(const ColourRGB &colour);
+    ColourRGB& operator+=(const ColourRGB &colour);
+    ColourRGB operator*(double scale);
+    
+    ColourRGB filter(const ColourRGB &filterColour);
 };
 
 #endif
