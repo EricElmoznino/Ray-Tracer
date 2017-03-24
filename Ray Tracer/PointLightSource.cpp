@@ -31,4 +31,6 @@ void PointLightSource::addAreaLight(float width, float height, const Point3D &no
             lights.push_back(light);
         }
     }
+    
+    // TODO: Add the actual PlaneLightSource object
 }
