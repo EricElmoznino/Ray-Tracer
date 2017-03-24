@@ -106,12 +106,23 @@ ColourRGB RayTracer::shade(const Intersection &intersection, const Ray3D &ray, i
 }
 
 Intersection RayTracer::findFirstHit(const Ray3D &ray, const Object3D *source) {
-    Intersection intersection;
+	Intersection intersection = source->intersect(ray);
     
-    /////////////////////////////////////////////////////////////
-    // TO DO: Implement this function. See the notes for
-    // reference of what to do in here
-    /////////////////////////////////////////////////////////////
+	// Find the closest intersection between the ray and any objects in the scene.
+	// It returns:
+	//   - The lambda at the intersection (or < 0 if no intersection)
+	//   - The pointer to the object at the intersection (so we can evaluate the colour in the shading function)
+	//   - The location of the intersection point (in p)
+	//   - The normal at the intersection point (in n)
+	//
+	// Os is the 'source' object for the ray we are processing, can be NULL, and is used to ensure we don't 
+	// return a self-intersection due to numerical errors for recursive raytrace calls.
+	//
+
+	/////////////////////////////////////////////////////////////
+	// TO DO: Implement this function. See the notes for
+	// reference of what to do in here
+	/////////////////////////////////////////////////////////////
     
     intersection.none = true;   // TEMPORARY UNTIL WE WRITE THIS FUNCTION
     
