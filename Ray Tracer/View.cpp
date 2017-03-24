@@ -4,7 +4,7 @@ View::View(const Point3D &e, const Point3D &g, const Point3D &up,
      double f, double wl, double wt, double wsize) {
     // Setup camera position and basis vectors
     this->e = e;
-    w = Point3D(g.x, g.y, -g.z, true).normalized();
+    w = (-1*g).normalized();
     u = w.crossUnit(up);
     v = u.crossUnit(w);
     

@@ -64,19 +64,19 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "300"
+            argument = "800"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "0"
+            argument = "3"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "0"
+            argument = "1"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "RenderedImage.ppm"
+            argument = "RenderedImageAntialiased.ppm"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

@@ -28,7 +28,7 @@ void RayTracer::renderImage(View camera, list<Object3D*> objects, list<PointLigh
             double yIncrement = ((j+0.5)/output->sy) * camera.wsize;
             Point3D targetPixel(camera.wl + xIncrement,
                                 camera.wt - yIncrement,
-                                -1.0, false);
+                                camera.f, false);
             Point3D direction = targetPixel - origin;
             Ray3D ray(camera.cameraToWorld * origin,
                       camera.cameraToWorld * direction);
@@ -52,8 +52,8 @@ ColourRGB RayTracer::rayTrace(Ray3D ray, double pixelSize) {
         for (int i = 0; i < superSamplingResolution; i++) {
             for (int j = 0; j < superSamplingResolution; j++) {
                 // Compute a random x,y offset within the subPixelSize
-                Point3D offset((double)rand()/RAND_MAX*subPixelSize - 0.5*subPixelSize,
-                               (double)rand()/RAND_MAX*subPixelSize - 0.5*subPixelSize,
+                Point3D offset(drand48()*subPixelSize + i*subPixelSize - 0.5*pixelSize,
+                               drand48()*subPixelSize + j*subPixelSize + 0.5*pixelSize,
                                0, true);
                 
                 // Move the ray by the random offset

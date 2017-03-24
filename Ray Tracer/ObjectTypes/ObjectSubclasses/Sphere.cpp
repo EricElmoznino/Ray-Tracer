@@ -35,7 +35,7 @@ Intersection Sphere::intersect(const Ray3D &ray) {
     Point3D centreToRayOrigin = rayOrigin - centre;
     double a = rayDirection.dot(rayDirection);
     double b = 2 * rayDirection.dot(centreToRayOrigin);
-    double c = centreToRayOrigin.dot(centreToRayOrigin);
+    double c = centreToRayOrigin.dot(centreToRayOrigin) - radius*radius;
     
     // Compute the determinant of the quadratic equation
     double det = b*b - 4*a*c;

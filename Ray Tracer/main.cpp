@@ -78,7 +78,7 @@ void buildScene(void)
                               ColourRGB(0.55, 0.8, 0.75));
     
     // Do a few transforms...
-    obj->scale(6, 6, 1);
+    obj->scale(12, 12, 2);
     obj->rotateZ(PI/1.20);
     obj->rotateX(PI/2.25);
     obj->translate(0, -3, 10);
@@ -176,12 +176,12 @@ int main(int argc, char *argv[])
     //        to suit your scene.
     //////////////////////////////////////////
     
-    // Camera center is at (0,0,-1)
+    // Camera center is at (0,0,-3)
     e = Point3D(0.0, 0.0, -3.0, false);
     
     // To define the gaze vector, we choose a point 'pc' in the scene that
     // the camera is looking at, and do the vector subtraction pc-e.
-    // Here we set up the camera to be looking at the origin, so g=(0,0,0)-(0,0,-1)
+    // Here we set up the camera to be looking at the origin
     g = Point3D(0.0, 0.0, 0.0, false) - e;
     
     // Define the 'up' vector to be the Y axis
