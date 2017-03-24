@@ -16,7 +16,7 @@ public:
     ColourRGB& operator=(const ColourRGB &colour);
     ColourRGB operator+(const ColourRGB &colour);
     ColourRGB& operator+=(const ColourRGB &colour);
-    ColourRGB operator*(double scale);
+    ColourRGB operator*(double scale) const;
     
     ColourRGB filter(const ColourRGB &filterColour);
 };

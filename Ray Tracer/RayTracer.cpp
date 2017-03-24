@@ -1,4 +1,5 @@
 #include <list>
+#include <float.h>
 #include "RayTracer.h"
 
 void RayTracer::renderImage(View camera, list<Object3D*> objects, list<PointLightSource> lights,
@@ -84,6 +85,9 @@ ColourRGB RayTracer::rayTraceRecursive(const Ray3D &ray, int depth, const Object
     if (firstHit.none) {
         return ColourRGB(0, 0, 0);  // Probably will change latter to be the skybox
     }
+    else if (firstHit.isLight) {    // Lights just emmit their colour
+        return firstHit.colour;
+    }
     
     return shade(firstHit, ray, depth);
 }
@@ -121,12 +125,15 @@ Intersection RayTracer::findFirstHit(const Ray3D &ray, const Object3D *source) {
 	// TO DO: Implement this function. See the notes for
 	// reference of what to do in here
 	/////////////////////////////////////////////////////////////
-	double closestDistance = INFINITY;
-	Intersection closestIntersection = NULL;
+    
+	double closestDistance = DBL_MAX;
+	Intersection closestIntersection;
+    closestIntersection.none = true;
 
-	for (list<Object3D*>::iterator it = objects.begin(); it != objects.end(); ++it)
+	for (auto it = objects.begin(); it != objects.end(); it++)
 	{
-		Intersection intersection = it->intersect(ray);
+        Object3D *object = *it;
+		Intersection intersection = object->intersect(ray);
 		if (!intersection.none) {
 			double distance = (intersection.point - ray.origin).magnitude();
 			if (distance < closestDistance && intersection.obj != source) {
@@ -135,6 +142,7 @@ Intersection RayTracer::findFirstHit(const Ray3D &ray, const Object3D *source) {
 			}
 		}
 	}
+    
     return closestIntersection;
 }
 

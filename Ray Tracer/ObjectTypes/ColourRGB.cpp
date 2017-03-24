@@ -32,7 +32,7 @@ ColourRGB& ColourRGB::operator+=(const ColourRGB &colour) {
     return *this;
 }
 
-ColourRGB ColourRGB::operator*(double scale) {
+ColourRGB ColourRGB::operator*(double scale) const {
     return ColourRGB(red*scale, green*scale, blue*scale);
 }
 

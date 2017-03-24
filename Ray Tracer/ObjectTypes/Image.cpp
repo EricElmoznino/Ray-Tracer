@@ -186,13 +186,13 @@ Image* Image::readPPMimage(const char *filename) {
 
 void Image::setColourAtPixel(int x, int y, ColourRGB colour) {
     if (x >= sx || y >= sy) {
-        printf("Error: pixel is out of bounds of the image");
+        printf("Error: pixel is out of bounds of the image\n");
     }
     
     if (colour.red < 0.0 || colour.red > 1.0 ||
         colour.green < 0.0 || colour.green > 1.0 ||
         colour.blue < 0.0 || colour.blue > 1.0) {
-        printf("Error: setting pixel to an invalid colour");
+        printf("Error: setting pixel to an invalid colour\n");
     }
     
     unsigned char R = (unsigned char)(int)(255 * colour.red);
@@ -206,7 +206,7 @@ void Image::setColourAtPixel(int x, int y, ColourRGB colour) {
 
 ColourRGB Image::getColourAtPixel(int x, int y) const {
     if (x >= sx || y >= sy) {
-        printf("Error: pixel is out of bounds of the image");
+        printf("Error: pixel is out of bounds of the image\n");
         return ColourRGB(-1, -1, -1);   // return invalid colour
     }
     

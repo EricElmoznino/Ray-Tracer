@@ -15,6 +15,7 @@ public:
     double lambda;
     
     bool none;
+    bool isLight;
     
     Object3D *obj;
     
