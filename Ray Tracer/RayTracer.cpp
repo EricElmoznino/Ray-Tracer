@@ -30,7 +30,7 @@ void RayTracer::renderImage(View camera, list<Object3D*> objects, list<PointLigh
                                 -1.0, false);
             Point3D direction = targetPixel - origin;
             Ray3D ray(camera.cameraToWorld * origin,
-                      (camera.cameraToWorld * direction).normalized());
+                      camera.cameraToWorld * direction);
             
             // Trace the pixel and store it in the image
             ColourRGB pixelColour = rayTrace(ray, camera.wsize / output->sx);
@@ -44,7 +44,7 @@ void RayTracer::renderImage(View camera, list<Object3D*> objects, list<PointLigh
     output->outputImage(name);
 }
 
-ColourRGB RayTracer::rayTrace(const Ray3D &ray, double pixelSize) {
+ColourRGB RayTracer::rayTrace(Ray3D ray, double pixelSize) {
     if (antialiasingEnabled) {
         ColourRGB pixelColour(0, 0, 0);
         double subPixelSize = pixelSize / superSamplingResolution;
@@ -56,8 +56,7 @@ ColourRGB RayTracer::rayTrace(const Ray3D &ray, double pixelSize) {
                                0, true);
                 
                 // Move the ray by the random offset
-                Ray3D subRay(ray.origin,
-                             (ray.direction + offset).normalized());
+                Ray3D subRay = Ray3D(ray.origin, ray.direction + offset).normalized();
                 
                 // Cast the ray. We divide by the number of super-samples we have
                 // in order to compute the average colour over all rays for this pixel
@@ -70,6 +69,7 @@ ColourRGB RayTracer::rayTrace(const Ray3D &ray, double pixelSize) {
     }
     
     else {
+        ray = ray.normalized();
         return rayTraceRecursive(ray, maxDepth, NULL);
     }
 }

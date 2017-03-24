@@ -23,6 +23,8 @@ public:
     Point3D rayPosition(double lambda) const;
     
     Ray3D bias(const Point3D &normal) const;
+    
+    Ray3D normalized() const;
 };
 
 #endif

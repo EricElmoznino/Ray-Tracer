@@ -24,7 +24,7 @@ class RayTracer {
     // calls the recursive version with the appropriate starting parameters.
     //
     // pixelSize is used if antialiasing is enabled
-    ColourRGB rayTrace(const Ray3D &ray, double pixelSize);
+    ColourRGB rayTrace(Ray3D ray, double pixelSize);
     
     // Recursive version of rayTrace. rayTrace is basically the public interface
     // that delegates to this function with the correct parameters

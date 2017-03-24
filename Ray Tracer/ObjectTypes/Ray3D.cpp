@@ -23,3 +23,7 @@ Point3D Ray3D::rayPosition(double lambda) const {
 Ray3D Ray3D::bias(const Point3D &normal) const {
     return Ray3D(origin + biasAmount*normal, direction);
 }
+
+Ray3D Ray3D::normalized() const {
+    return Ray3D(origin, direction.normalized());
+}
