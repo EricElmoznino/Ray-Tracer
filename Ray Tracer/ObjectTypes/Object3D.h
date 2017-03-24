@@ -52,6 +52,8 @@ public:
     void translate(double x, double y, double z);
     void scale(double x, double y, double z);
     
+    Point3D originInWorld() const;
+    
     // Having a function like this means that at any given point
     // before calling it, the invTransform might be invalid.
     // This is necessary to avoid unecessary computations which

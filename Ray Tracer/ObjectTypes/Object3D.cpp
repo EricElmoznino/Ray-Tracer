@@ -76,6 +76,10 @@ void Object3D::scale(double x, double y, double z) {
     transform = Transform3D::scaled(x, y, z) * transform;
 }
 
+Point3D Object3D::originInWorld() const {
+    return transform.translationComponent();
+}
+
 void Object3D::updateInverse() {
     invTransform = transform.inverse();
 }

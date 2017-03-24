@@ -209,17 +209,16 @@ bool RayTracer::isInShadow(const Intersection &intersection, const PointLightSou
 }
 
 ColourRGB RayTracer::reflection(const Intersection &intersection, const Ray3D &ray, int depth) {
-	Point3D r;
+    // Reflection direction
+    Point3D r = ray.direction - 2 * intersection.normal*ray.direction.dot(intersection.normal);
 	
+    // Randomly displace the ray to simulate a rough surface
 	if (glossyreflEnabled) {
 		double roughness = 0.1; // Added as a material property later for glossy reflections.
 
-		Point3D s = (light->location - intersection.point).normalized();    // light direction
-		r = (-1 * s + 2 * intersection.normal*s.dot(intersection.normal)).normalized();    // reflection direction
-
 		// Create orthonormal basis at intersection point
 		Point3D u = r.crossUnit(intersection.normal);
-		Point3D v = r.crossUnit(intersection.normal);
+		Point3D v = r.crossUnit(u);
 
 		// Choose uniformly sampled random direction to send the ray in
 		double theta = 2 * M_PI * drand48() * roughness;
@@ -229,13 +228,9 @@ ColourRGB RayTracer::reflection(const Intersection &intersection, const Ray3D &r
 		double z = cos(theta);
 
 		// Convert sample to world coord using the orthonormal basis
-		r = (x * u + y * v + z * r).normalized();
+		r = x * u + y * v + z * r;  // already unit length, no need to normalize
 	}
-
-	else {
-		r = ray.direction - 2 * intersection.normal*ray.direction.dot(intersection.normal);
-	}
-
+    
 	Ray3D reflectionRay(intersection.point, r);
 	return rayTraceRecursive(reflectionRay, depth, intersection.obj) * intersection.material.global;
 }

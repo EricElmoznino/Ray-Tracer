@@ -32,6 +32,8 @@ public:
     Point3D operator*(const Point3D &p) const;     // matrix * vec
     Transform3D operator*(const Transform3D &t) const; // matrix * matrix
     
+    Point3D translationComponent() const;
+    
     void printTransform3D();
 };
 

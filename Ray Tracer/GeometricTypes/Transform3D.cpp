@@ -216,6 +216,10 @@ Transform3D Transform3D::operator*(const Transform3D &t) const {
     return res;
 }
 
+Point3D Transform3D::translationComponent() const {
+    return Point3D(m[0][3], m[1][3], m[2][3], false);
+}
+
 void Transform3D::printTransform3D() {
     printf("{\n");
     printf("\t(%.2f, %.2f, %.2f, %.2f)\n", m[0][0], m[0][1], m[0][2], m[0][3]);
