@@ -84,12 +84,13 @@ Intersection Plane::intersect(const Ray3D &ray) {
     }
     
     Point3D hitPointLocal = rayOrigin + lambda*rayDirection;
+    Point3D hitNormalLocal = rayDirection.dot(normal) < 0 ? normal : -1*normal;
     
     intersection.none = false;
     intersection.isLight = Object3D::isLight;
     intersection.lambda = lambda;
     intersection.point = ray.rayPosition(lambda);
-    intersection.normal = (invTransform.transpose() * normal).normalized();
+    intersection.normal = (invTransform.transpose() * hitNormalLocal).normalized();
     intersection.material = material;
     intersection.colour = colourAtLocalPoint(hitPointLocal);
     intersection.obj = this;

@@ -14,7 +14,7 @@ Point3D::Point3D(double x, double y, double z, bool isVec) {
     this->x = x;
     this->y = y;
     this->z = z;
-    isVec ? this->w = 0.0 : 1.0;
+    this->w = isVec ? 0.0 : 1.0;
 }
 
 // Should only be called with vectors (w=0), since points don't have magnitudes
