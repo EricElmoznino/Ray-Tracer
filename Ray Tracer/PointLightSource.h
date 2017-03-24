@@ -16,7 +16,7 @@ public:
     /*
      This function sets up and inserts a rectangular area light source
      with size (width, height)
-     orientation given by the normal vector (normal)
+     orientation given by the normal vector (normal) and positive x unit vector (xUnit)
      centered at (centre)
      consisting of (numHori X numVert) point light sources (uniformly sampled)
      and with (colour) - which also determines intensity
@@ -26,8 +26,9 @@ public:
      make it into a proper solid box with backing and sides of non-light-emitting
      material
      */
-    static void addAreaLight(float width, float height, Point3D normal, Point3D centre,
-                             int numHori, int numVert, ColourRGB colour,
+    static void addAreaLight(float width, float height, const Point3D &normal,
+                             const Point3D &xUnit, const Point3D &centre,
+                             int numHori, int numVert, const ColourRGB &colour,
                              list<Object3D*> &objects, list<PointLightSource> &lights);
 };
 

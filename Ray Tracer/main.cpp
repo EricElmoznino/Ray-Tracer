@@ -207,5 +207,9 @@ int main(int argc, char *argv[])
     
     // Exit section. Clean up and return.
     delete im;
+    while (!objects.empty()) {
+        delete objects.front();
+        objects.pop_front();
+    }
     return 0;
 }
