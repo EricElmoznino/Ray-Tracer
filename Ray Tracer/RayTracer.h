@@ -66,6 +66,7 @@ class RayTracer {
     
 public:
     bool antialiasingEnabled = false;
+	bool glossyreflEnabled = false;
     
     void renderImage(View camera, list<Object3D*> objects, list<PointLightSource> lights,
                      int maxDepth, Image *output, char * name);
