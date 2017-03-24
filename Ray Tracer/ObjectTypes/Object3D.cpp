@@ -1,5 +1,9 @@
 #include "Object3D.h"
 
+bool Object3D::isLightSource() {
+    return isLight;
+}
+
 Object3D::Object3D(const Material &material, const ColourRGB &colour) :
 material(material), colour(colour) {
     this->material = material;
@@ -8,7 +12,7 @@ material(material), colour(colour) {
     this->transform = Transform3D::identity();
     this->invTransform = Transform3D::identity();
     this->bothSidesLit = false;         // default
-    this->isAreaLightSource = false;    // default
+    this->isLight = false;              // default
 }
 
 Object3D::Object3D(const Object3D &obj) :
@@ -18,7 +22,7 @@ material(obj.material), colour(obj.colour) {
     transform = obj.transform;
     invTransform = obj.invTransform;
     bothSidesLit = obj.bothSidesLit;
-    isAreaLightSource = obj.isAreaLightSource;
+    isLight = obj.isLight;
     
     if (obj.textureImage == NULL)
         textureImage = NULL;
@@ -37,7 +41,7 @@ Object3D& Object3D::operator=(const Object3D &obj) {
     transform = obj.transform;
     invTransform = obj.invTransform;
     bothSidesLit = obj.bothSidesLit;
-    isAreaLightSource = obj.isAreaLightSource;
+    isLight = obj.isLight;
     
     if (textureImage != NULL && obj.textureImage != NULL)
         *textureImage = *obj.textureImage;

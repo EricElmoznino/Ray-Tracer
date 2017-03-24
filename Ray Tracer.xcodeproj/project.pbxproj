@@ -23,6 +23,7 @@
 		07EA01CE1E75D7EE000C4026 /* View.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01CC1E75D7EE000C4026 /* View.cpp */; };
 		07EA01D01E75F033000C4026 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01CF1E75F033000C4026 /* main.cpp */; };
 		07EA01D51E760AEB000C4026 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 07EA01D41E760AEB000C4026 /* libstdc++.tbd */; };
+		0A850D581E84B3F6008132E1 /* PlaneLightSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A850D561E84B3F6008132E1 /* PlaneLightSource.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -74,6 +75,8 @@
 		07EA01CF1E75F033000C4026 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		07EA01D21E7608EE000C4026 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
 		07EA01D41E760AEB000C4026 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
+		0A850D561E84B3F6008132E1 /* PlaneLightSource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PlaneLightSource.cpp; sourceTree = "<group>"; };
+		0A850D571E84B3F6008132E1 /* PlaneLightSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaneLightSource.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +168,8 @@
 				07EA01C41E759D2F000C4026 /* Plane.h */,
 				07EA01C51E759D2F000C4026 /* Sphere.cpp */,
 				07EA01C61E759D2F000C4026 /* Sphere.h */,
+				0A850D561E84B3F6008132E1 /* PlaneLightSource.cpp */,
+				0A850D571E84B3F6008132E1 /* PlaneLightSource.h */,
 			);
 			path = ObjectSubclasses;
 			sourceTree = "<group>";
@@ -250,6 +255,7 @@
 				07EA01BA1E75983E000C4026 /* Material.cpp in Sources */,
 				07EA01C81E759D2F000C4026 /* Sphere.cpp in Sources */,
 				07EA01BB1E75983E000C4026 /* ColourRGB.cpp in Sources */,
+				0A850D581E84B3F6008132E1 /* PlaneLightSource.cpp in Sources */,
 				07EA01BF1E75983E000C4026 /* Object3D.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

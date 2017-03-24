@@ -28,7 +28,7 @@ public:
      */
     static void addAreaLight(float width, float height, Point3D normal, Point3D centre,
                              int numHori, int numVert, ColourRGB colour,
-                             list<Object3D> *objects, list<PointLightSource> &lights);
+                             list<Object3D*> &objects, list<PointLightSource> &lights);
 };
 
 #endif

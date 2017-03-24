@@ -9,6 +9,9 @@
 
 class Object3D {
 protected:
+    bool isLight;       // Flag to indicate if this object is a light
+    bool bothSidesLit;  // Flag to indicate that both sides of the object should be lit
+    
     // Helper function for intersect. Given a point in the object's local coordinate
     // system, computes the color at that point (which potentially comes from a texture).
     // Obviously, the color will depend on the shape of the object, which is why this
@@ -24,8 +27,7 @@ public:
     
     Image *textureImage;    // Pointer to the structure holding the texture for this object
     
-    bool bothSidesLit;      // Flag to indicate that both sides of the object should be lit
-    bool isAreaLightSource; // Flag to indicate if this is an area light source
+    bool isLightSource();   // Scene objects can be lights
     
     Object3D(const Material &material, const ColourRGB &colour);
     Object3D(const Object3D &obj);

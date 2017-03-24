@@ -84,6 +84,9 @@ ColourRGB RayTracer::rayTraceRecursive(const Ray3D &ray, int depth, const Object
     if (firstHit.none) {
         return ColourRGB(0, 0, 0);  // Probably will change latter to be the skybox
     }
+    else if (firstHit.isLight) {    // Lights just emmit their colour
+        return firstHit.colour;
+    }
     
     return shade(firstHit, ray, depth);
 }

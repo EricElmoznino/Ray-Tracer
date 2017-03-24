@@ -23,6 +23,7 @@
 #include "RayTracer.h"
 #include "ObjectTypes/ObjectSubclasses/Plane.h"
 #include "ObjectTypes/ObjectSubclasses/Sphere.h"
+#include "ObjectTypes/ObjectSubclasses/PlaneLightSource.h"
 
 #define PI 3.14159265354
 
