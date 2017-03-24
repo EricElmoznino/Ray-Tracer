@@ -201,6 +201,7 @@ int main(int argc, char *argv[])
     fprintf(stderr,"\n");
     
     // Render the image with ray tracing
+    rayTracer.antialiasingEnabled = antialiasing;
     rayTracer.renderImage(cam, objects, lights, MAX_DEPTH, im, output_name);
     
     // Exit section. Clean up and return.

@@ -33,7 +33,7 @@ void RayTracer::renderImage(View camera, list<Object3D*> objects, list<PointLigh
                       (camera.cameraToWorld * direction).normalized());
             
             // Trace the pixel and store it in the image
-            ColourRGB pixelColour = rayTrace(ray);
+            ColourRGB pixelColour = rayTrace(ray, camera.wsize / output->sx);
             output->setColourAtPixel(i, j, pixelColour);
         }
     }
@@ -44,8 +44,34 @@ void RayTracer::renderImage(View camera, list<Object3D*> objects, list<PointLigh
     output->outputImage(name);
 }
 
-ColourRGB RayTracer::rayTrace(const Ray3D &ray) {
-    return rayTraceRecursive(ray, maxDepth, NULL);
+ColourRGB RayTracer::rayTrace(const Ray3D &ray, double pixelSize) {
+    if (antialiasingEnabled) {
+        ColourRGB pixelColour(0, 0, 0);
+        double subPixelSize = pixelSize / superSamplingResolution;
+        for (int i = 0; i < superSamplingResolution; i++) {
+            for (int j = 0; j < superSamplingResolution; j++) {
+                // Compute a random x,y offset within the subPixelSize
+                Point3D offset((double)rand()/RAND_MAX*subPixelSize - 0.5*subPixelSize,
+                               (double)rand()/RAND_MAX*subPixelSize - 0.5*subPixelSize,
+                               0, true);
+                
+                // Move the ray by the random offset
+                Ray3D subRay(ray.origin,
+                             (ray.direction + offset).normalized());
+                
+                // Cast the ray. We divide by the number of super-samples we have
+                // in order to compute the average colour over all rays for this pixel
+                pixelColour += rayTraceRecursive(subRay, maxDepth, NULL) *
+                        (1.0 / (superSamplingResolution*superSamplingResolution));
+            }
+        }
+        
+        return pixelColour;
+    }
+    
+    else {
+        return rayTraceRecursive(ray, maxDepth, NULL);
+    }
 }
 
 ColourRGB RayTracer::rayTraceRecursive(const Ray3D &ray, int depth, const Object3D *source) {

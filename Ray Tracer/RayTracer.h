@@ -9,6 +9,8 @@
 #include "View.h"
 
 class RayTracer {
+    const bool superSamplingResolution = 5;
+    
     list<Object3D*> objects;
     list<PointLightSource> lights;
     int maxDepth;
@@ -19,8 +21,10 @@ class RayTracer {
     // colour.
     //
     // Since Ray-Tracing is recursive, this is the entry point that simply
-    // calls the recursive version with the appropriate starting parameters.    //
-    ColourRGB rayTrace(const Ray3D &ray);
+    // calls the recursive version with the appropriate starting parameters.
+    //
+    // pixelSize is used if antialiasing is enabled
+    ColourRGB rayTrace(const Ray3D &ray, double pixelSize);
     
     // Recursive version of rayTrace. rayTrace is basically the public interface
     // that delegates to this function with the correct parameters
@@ -61,6 +65,8 @@ class RayTracer {
     ColourRGB reflection(const Intersection &intersection, const Ray3D &ray, int depth);
     
 public:
+    bool antialiasingEnabled = false;
+    
     void renderImage(View camera, list<Object3D*> objects, list<PointLightSource> lights,
                      int maxDepth, Image *output, char * name);
 };
