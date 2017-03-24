@@ -123,10 +123,21 @@ Intersection RayTracer::findFirstHit(const Ray3D &ray, const Object3D *source) {
 	// TO DO: Implement this function. See the notes for
 	// reference of what to do in here
 	/////////////////////////////////////////////////////////////
-    
-    intersection.none = true;   // TEMPORARY UNTIL WE WRITE THIS FUNCTION
-    
-    return intersection;
+	double closestDistance = INFINITY;
+	Intersection closestIntersection = NULL;
+
+	for (list<Object3D*>::iterator it = objects.begin(); it != objects.end(); ++it)
+	{
+		Intersection intersection = it->intersect(ray);
+		if (!intersection.none) {
+			double distance = (intersection.point - ray.origin).magnitude();
+			if (distance < closestDistance && intersection.obj != source) {
+				closestDistance = distance;
+				closestIntersection = intersection;
+			}
+		}
+	}
+    return closestIntersection;
 }
 
 ColourRGB RayTracer::phongModel(const Intersection &intersection, const Ray3D &ray) {
