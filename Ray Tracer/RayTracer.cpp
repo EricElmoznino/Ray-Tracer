@@ -46,8 +46,9 @@ void RayTracer::renderImage(View camera, list<Object3D*> objects, list<PointLigh
 }
 
 ColourRGB RayTracer::rayTrace(Ray3D ray, double pixelSize) {
+    ColourRGB pixelColour(0, 0, 0);
+    
     if (antialiasingEnabled) {
-        ColourRGB pixelColour(0, 0, 0);
         double subPixelSize = pixelSize / superSamplingResolution;
         for (int i = 0; i < superSamplingResolution; i++) {
             for (int j = 0; j < superSamplingResolution; j++) {
@@ -65,14 +66,14 @@ ColourRGB RayTracer::rayTrace(Ray3D ray, double pixelSize) {
                         (1.0 / (superSamplingResolution*superSamplingResolution));
             }
         }
-        
-        return pixelColour;
     }
     
     else {
         ray = ray.normalized();
-        return rayTraceRecursive(ray, maxDepth, NULL);
+        pixelColour = rayTraceRecursive(ray, maxDepth, NULL);
     }
+    
+    return pixelColour;
 }
 
 ColourRGB RayTracer::rayTraceRecursive(const Ray3D &ray, int depth, const Object3D *source) {

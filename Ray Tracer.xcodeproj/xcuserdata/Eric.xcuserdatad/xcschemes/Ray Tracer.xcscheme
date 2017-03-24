@@ -72,11 +72,11 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "1"
+            argument = "0"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "RenderedImageAntialiased.ppm"
+            argument = "RenderedImage.ppm"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
