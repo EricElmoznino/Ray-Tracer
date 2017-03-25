@@ -8,13 +8,13 @@ Object3D::Object3D(material, colour) {
 
 ColourRGB Plane::colourAtLocalPoint(const Point3D &p) const {
     // If no texture, return this object's standard color
-    if (textureImage == NULL) {
+    if (textureImage.rgbImageData == NULL) {
         return colour;
     }
     
     double a = (p.x - p3.x) / (p1.x - p3.x);
     double b = (p.y - p3.y) / (p1.y - p3.y);
-    return textureImage->textureMap(a, b);
+    return textureImage.textureMap(a, b);
 }
 
 Intersection Plane::intersect(const Ray3D &ray) {

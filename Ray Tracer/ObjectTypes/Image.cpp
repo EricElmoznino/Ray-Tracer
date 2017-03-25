@@ -12,7 +12,7 @@ Image::Image(int sx, int sy) {
     this->sx = sx;
     this->sy = sy;
     
-    rgbImageData = (void *)calloc(sx*sy*3,sizeof(double));
+    rgbImageData = (unsigned char *)calloc(sx*sy*3,sizeof(unsigned char));
     if (rgbImageData == NULL)
         fprintf(stderr,"Unable to allocate memory for new image\n");
 }
@@ -23,8 +23,8 @@ Image::Image(const Image &im) {
     if (im.rgbImageData == NULL)
         rgbImageData = NULL;
     else {
-        rgbImageData = (void *)calloc(im.sx*im.sy*3,sizeof(double));
-        memcpy(rgbImageData, im.rgbImageData, im.sx*im.sy*3*sizeof(double));
+        rgbImageData = (unsigned char *)calloc(im.sx*im.sy*3,sizeof(unsigned char));
+        memcpy(rgbImageData, im.rgbImageData, im.sx*im.sy*3*sizeof(unsigned char));
     }
 }
 
@@ -41,8 +41,8 @@ Image& Image::operator=(const Image &im) {
     if (im.rgbImageData == NULL)
         rgbImageData = NULL;
     else {
-        rgbImageData = (void *)calloc(im.sx*im.sy*3,sizeof(double));
-        memcpy(rgbImageData, im.rgbImageData, im.sx*im.sy*3*sizeof(double));
+        rgbImageData = (unsigned char *)calloc(im.sx*im.sy*3,sizeof(unsigned char));
+        memcpy(rgbImageData, im.rgbImageData, im.sx*im.sy*3*sizeof(unsigned char));
     }
     
     return *(this);
@@ -72,11 +72,11 @@ ColourRGB Image::textureMap(double a, double b) const {
     
     // NOTE: Assuming that texture wraps around at the edges
     
-    int i = (int)a*sx;
-    int j = (int)b*sy;
+    int i = (int)(a*sx);
+    int j = (int)(b*sy);
     
-    double aPrime = a - i*(1.0 / sx);
-    double bPrime = b - j*(1.0 / sy);
+    double aPrime = a - (double)i/sx;
+    double bPrime = b - (double)j/sy;
     
     return getColourAtPixel(i, j)*(1-aPrime)*(1-bPrime) +
         getColourAtPixel((i+1)%sx, j)*aPrime*(1-bPrime) +
@@ -84,7 +84,7 @@ ColourRGB Image::textureMap(double a, double b) const {
         getColourAtPixel((i+1)%sx, (j+1)%sy)*aPrime*bPrime;
 }
 
-Image* Image::readPPMimage(const char *filename) {
+bool Image::readPPMimage(const char *filename, Image *im) {
     // Reads an image from a .ppm file. A .ppm file is a very simple image representation
     // format with a text header followed by the binary RGB data at 24bits per pixel.
     // The header has the following form:
@@ -112,15 +112,11 @@ Image* Image::readPPMimage(const char *filename) {
     // the texture mapping function doesn't have to do the conversion every time
     // it is asked to return the colour at a specific location.
     //
-
-    Image *im = new Image;
     
     FILE *f;
     char line[1024];
     int sizx,sizy;
-    int i;
-    unsigned char *tmp;
-    double *fRGB;
+    unsigned char *rgb;
     
     if (im!=NULL)
     {
@@ -129,59 +125,48 @@ Image* Image::readPPMimage(const char *filename) {
         if (f == NULL)
         {
             fprintf(stderr,"Unable to open file %s for reading, please check name and path\n", filename);
-            delete im;
-            return NULL;
+            return false;
         }
-        if (fgets(&line[0],1000,f))
-        	printf("Error in fgets\n");
+        if (fgets(&line[0],1000,f));
         if (strcmp(&line[0],"P6\n")!=0)
         {
             fprintf(stderr,"Wrong file format, not a .ppm file or header end-of-line characters missing\n");
-            delete im;
             fclose(f);
-            return NULL;
+            return false;
         }
         fprintf(stderr,"%s\n",line);
         // Skip over comments
-        if (fgets(&line[0],511,f))
-			printf("Error in fgets\n");
+        if (fgets(&line[0],511,f));
         while (line[0]=='#')
         {
             fprintf(stderr,"%s",line);
-            if (fgets(&line[0],511,f))
-				printf("Error in fgets\n");
+            if (fgets(&line[0],511,f));
         }
         sscanf(&line[0],"%d %d\n",&sizx,&sizy);           // Read file size
         fprintf(stderr,"nx=%d, ny=%d\n\n",sizx,sizy);
         im->sx=sizx;
         im->sy=sizy;
         
-        if (fgets(&line[0],9,f))			// Read the remaining header line
-			printf("Error in fgets\n");
+        if (fgets(&line[0],9,f));			// Read the remaining header line
         fprintf(stderr,"%s\n",line);
-        tmp=(unsigned char *)calloc(sizx*sizy*3,sizeof(unsigned char));
-        fRGB=(double *)calloc(sizx*sizy*3,sizeof(double));
-        if (tmp==NULL||fRGB==NULL)
+        rgb=(unsigned char *)calloc(sizx*sizy*3,sizeof(unsigned char));
+        if (rgb==NULL)
         {
             fprintf(stderr,"Out of memory allocating space for image\n");
-            delete im;
             fclose(f);
-            return(NULL);
+            return false;
         }
         
-        size_t sizeRead = fread(tmp,sizx*sizy*3*sizeof(unsigned char),1,f);
+        size_t sizeRead = fread(rgb,sizx*sizy*3*sizeof(unsigned char),1,f);
         fclose(f);
         
         // Conversion to floating point
-        for (i=0; i<sizx*sizy*3; i++) *(fRGB+i)=((double)*(tmp+i))/255.0;
-        free(tmp);
-        im->rgbImageData=(void *)fRGB;
-        
-        return im;
+        im->rgbImageData=rgb;
+        return true;
     }
     
     fprintf(stderr,"Unable to allocate memory for image structure\n");
-    return(NULL);
+    return false;
 }
 
 void Image::setColourAtPixel(int x, int y, ColourRGB colour) {
@@ -199,9 +184,9 @@ void Image::setColourAtPixel(int x, int y, ColourRGB colour) {
     unsigned char G = (unsigned char)(int)(255 * colour.green);
     unsigned char B = (unsigned char)(int)(255 * colour.blue);
     
-    *((unsigned char *)rgbImageData + 3*(x*sy + y) + 0) = R;
-    *((unsigned char *)rgbImageData + 3*(x*sy + y) + 1) = G;
-    *((unsigned char *)rgbImageData + 3*(x*sy + y) + 2) = B;
+    *((unsigned char *)rgbImageData + 3*(y*sx + x) + 0) = R;
+    *((unsigned char *)rgbImageData + 3*(y*sx + x) + 1) = G;
+    *((unsigned char *)rgbImageData + 3*(y*sx + x) + 2) = B;
 }
 
 ColourRGB Image::getColourAtPixel(int x, int y) const {
@@ -210,11 +195,11 @@ ColourRGB Image::getColourAtPixel(int x, int y) const {
         return ColourRGB(-1, -1, -1);   // return invalid colour
     }
     
-    unsigned char R = *((unsigned char *)rgbImageData + 3*(x*sy + y) + 0);
-    unsigned char G = *((unsigned char *)rgbImageData + 3*(x*sy + y) + 1);
-    unsigned char B = *((unsigned char *)rgbImageData + 3*(x*sy + y) + 2);
+    unsigned char R = *((unsigned char *)rgbImageData + 3*(y*sx + x) + 0);
+    unsigned char G = *((unsigned char *)rgbImageData + 3*(y*sx + x) + 1);
+    unsigned char B = *((unsigned char *)rgbImageData + 3*(y*sx + x) + 2);
     
-    return ColourRGB((double)R/255, (double)G/255, (double)B/255);
+    return ColourRGB(R/255.0, G/255.0, B/255.0);
 }
 
 void Image::outputImage(const char *filename) {

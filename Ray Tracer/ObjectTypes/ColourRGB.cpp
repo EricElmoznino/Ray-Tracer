@@ -41,3 +41,13 @@ ColourRGB ColourRGB::filter(const ColourRGB &filterColour) {
                      green * filterColour.green,
                      blue * filterColour.blue);
 }
+
+bool ColourRGB::outOfBounds() {
+    return red > 1.0 || green > 1.0 || blue > 1.0;
+}
+
+void ColourRGB::normalize() {
+    if (red > 1.0) red = 1.0;
+    if (green > 1.0) green = 1.0;
+    if (blue > 1.0) blue = 1.0;
+}

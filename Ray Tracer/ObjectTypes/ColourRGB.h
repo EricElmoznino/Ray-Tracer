@@ -19,6 +19,9 @@ public:
     ColourRGB operator*(double scale) const;
     
     ColourRGB filter(const ColourRGB &filterColour);
+    
+    bool outOfBounds();
+    void normalize();
 };
 
 #endif

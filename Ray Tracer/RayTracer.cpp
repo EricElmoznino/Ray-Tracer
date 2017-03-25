@@ -35,6 +35,9 @@ void RayTracer::renderImage(View camera, list<Object3D*> objects, list<PointLigh
             
             // Trace the pixel and store it in the image
             ColourRGB pixelColour = rayTrace(ray, camera.wsize / output->sx);
+            if (pixelColour.outOfBounds()) {
+                pixelColour.normalize();
+            }
             output->setColourAtPixel(i, j, pixelColour);
         }
     }

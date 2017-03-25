@@ -9,7 +9,7 @@ Object3D::Object3D(material, colour) {
 
 ColourRGB Sphere::colourAtLocalPoint(const Point3D &p) const {
     // If no texture, return this object's standard color
-    if (textureImage == NULL) {
+    if (textureImage.rgbImageData == NULL) {
         return colour;
     }
     
@@ -17,7 +17,7 @@ ColourRGB Sphere::colourAtLocalPoint(const Point3D &p) const {
     double phi = atan(p.y / p.x);
     double a = fmod(phi, 2*M_PI) / (2*M_PI);
     double b = (M_PI - theta) / M_PI;
-    return textureImage->textureMap(a, b);
+    return textureImage.textureMap(a, b);
 }
 
 Intersection Sphere::intersect(const Ray3D &ray) {

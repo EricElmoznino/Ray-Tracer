@@ -6,7 +6,7 @@
 
 class Image {
 public:
-    void *rgbImageData;
+    unsigned char *rgbImageData;
     int sx;
     int sy;
     
@@ -21,7 +21,7 @@ public:
     // texture colour at that point using bi-linear interpolation
     ColourRGB textureMap(double a, double b) const;
     
-    static Image* readPPMimage(const char *filename);
+    static bool readPPMimage(const char *filename, Image *im);
     
     // Writes out a .ppm file from the image data contained in 'im'.
     // Note that Windows typically doesn't know how to open .ppm

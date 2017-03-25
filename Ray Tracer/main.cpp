@@ -76,8 +76,6 @@ void buildScene(void)
     // meaningless since alpha=1
     Object3D *obj = new Plane(Material(0.05, 0.75, 0.05, 0.05, 1, 1, 2),
                               ColourRGB(0.55, 0.8, 0.75));
-    
-    // Do a few transforms...
     obj->scale(12, 12, 2);
     obj->rotateZ(PI/1.20);
     obj->rotateX(PI/2.25);
@@ -85,7 +83,6 @@ void buildScene(void)
     obj->updateInverse();       // Very important! compute
     // and store the inverse
     // transform for this object!
-    
     objects.push_front(obj);    // Insert into object list
     
     // Let's add a couple spheres

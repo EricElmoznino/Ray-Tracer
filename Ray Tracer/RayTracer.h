@@ -9,7 +9,7 @@
 #include "View.h"
 
 class RayTracer {
-    const int superSamplingResolution = 5;
+    const int superSamplingResolution = 10;
     
     list<Object3D*> objects;
     list<PointLightSource> lights;

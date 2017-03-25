@@ -8,7 +8,6 @@ Object3D::Object3D(const Material &material, const ColourRGB &colour) :
 material(material), colour(colour) {
     this->material = material;
     this->colour = colour;
-    this->textureImage = NULL;
     this->transform = Transform3D::identity();
     this->invTransform = Transform3D::identity();
     this->bothSidesLit = false;         // default
@@ -23,16 +22,7 @@ material(obj.material), colour(obj.colour) {
     invTransform = obj.invTransform;
     bothSidesLit = obj.bothSidesLit;
     isLight = obj.isLight;
-    
-    if (obj.textureImage == NULL)
-        textureImage = NULL;
-    else
-        textureImage = new Image(*obj.textureImage);
-}
-
-Object3D::~Object3D() {
-    if (textureImage != NULL)
-        delete textureImage;
+    textureImage = obj.textureImage;
 }
 
 Object3D& Object3D::operator=(const Object3D &obj) {
@@ -42,16 +32,7 @@ Object3D& Object3D::operator=(const Object3D &obj) {
     invTransform = obj.invTransform;
     bothSidesLit = obj.bothSidesLit;
     isLight = obj.isLight;
-    
-    if (textureImage != NULL && obj.textureImage != NULL)
-        *textureImage = *obj.textureImage;
-    else if(textureImage == NULL && obj.textureImage != NULL)
-        textureImage = new Image(*obj.textureImage);
-    else if(textureImage != NULL && obj.textureImage == NULL) {
-        delete textureImage;
-        textureImage = NULL;
-    }
-    // else both NULL, nothing to do
+    textureImage = textureImage;
     
     return (*this);
 }
@@ -87,8 +68,8 @@ void Object3D::updateInverse() {
 // Load a texture image from file and assign it to the
 // specified object
 void Object3D::loadTexture(const char *filename) {
-    if (textureImage != NULL)   // Already had a texture loaded
-        delete textureImage;
-    
-    textureImage = Image::readPPMimage(filename);
+    bool success = Image::readPPMimage(filename, &textureImage);
+    if (!success) {
+        printf("Error: could not load texture %s\n", filename);
+    }
 }
