@@ -127,7 +127,8 @@ bool Image::readPPMimage(const char *filename, Image *im) {
             fprintf(stderr,"Unable to open file %s for reading, please check name and path\n", filename);
             return false;
         }
-        if (fgets(&line[0],1000,f));
+        if (fgets(&line[0],1000,f))
+            ;
         if (strcmp(&line[0],"P6\n")!=0)
         {
             fprintf(stderr,"Wrong file format, not a .ppm file or header end-of-line characters missing\n");
@@ -136,18 +137,21 @@ bool Image::readPPMimage(const char *filename, Image *im) {
         }
         fprintf(stderr,"%s\n",line);
         // Skip over comments
-        if (fgets(&line[0],511,f));
+        if (fgets(&line[0],511,f))
+            ;
         while (line[0]=='#')
         {
             fprintf(stderr,"%s",line);
-            if (fgets(&line[0],511,f));
+            if (fgets(&line[0],511,f))
+                ;
         }
         sscanf(&line[0],"%d %d\n",&sizx,&sizy);           // Read file size
         fprintf(stderr,"nx=%d, ny=%d\n\n",sizx,sizy);
         im->sx=sizx;
         im->sy=sizy;
         
-        if (fgets(&line[0],9,f));			// Read the remaining header line
+        if (fgets(&line[0],9,f))    // Read the remaining header line
+            ;
         fprintf(stderr,"%s\n",line);
         rgb=(unsigned char *)calloc(sizx*sizy*3,sizeof(unsigned char));
         if (rgb==NULL)

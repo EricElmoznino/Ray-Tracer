@@ -12,6 +12,7 @@ void RayTracer::renderImage(View camera, list<Object3D*> objects, list<PointLigh
     
     // Itterate through all the pixels and do the ray tracing
     fprintf(stderr,"Rendering row: ");
+#pragma omp parallel for
     for (int i = 0; i < output->sx; i++)		// For each pixel in the image
     {
         fprintf(stderr,"%d/%d, ", i, output->sx);
@@ -218,15 +219,15 @@ ColourRGB RayTracer::reflection(const Intersection &intersection, const Ray3D &r
 	
     // Randomly displace the ray to simulate a rough surface
 	if (glossyreflEnabled) {
-		double roughness = 0.1; // Added as a material property later for glossy reflections.
+		double roughness = 0.05; // Added as a material property later for glossy reflections.
 
 		// Create orthonormal basis at intersection point
 		Point3D u = r.crossUnit(intersection.normal);
 		Point3D v = r.crossUnit(u);
 
 		// Choose uniformly sampled random direction to send the ray in
-		double theta = 2 * M_PI * drand48() * roughness;
-		double phi = 2 * M_PI * drand48() * roughness;
+		double theta = 2 * M_PI * (drand48() - 0.5) * roughness;
+		double phi = 2 * M_PI * (drand48() - 0.5) * roughness;
 		double x = sin(theta)*cos(phi);
 		double y = sin(theta)*sin(phi);
 		double z = cos(theta);

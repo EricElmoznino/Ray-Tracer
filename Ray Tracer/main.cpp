@@ -76,6 +76,7 @@ void buildScene(void)
     // meaningless since alpha=1
     Object3D *obj = new Plane(Material(0.05, 0.75, 0.05, 0.05, 1, 1, 2),
                               ColourRGB(0.55, 0.8, 0.75));
+    obj->loadTexture("Textures/webtreats_stone_5.ppm");
     obj->scale(12, 12, 2);
     obj->rotateZ(PI/1.20);
     obj->rotateX(PI/2.25);
@@ -200,7 +201,7 @@ int main(int argc, char *argv[])
     
     // Render the image with ray tracing
     rayTracer.antialiasingEnabled = antialiasing;
-    rayTracer.glossyreflEnabled = false;
+    rayTracer.glossyreflEnabled = true;
     rayTracer.renderImage(cam, objects, lights, MAX_DEPTH, im, output_name);
     
     // Exit section. Clean up and return.

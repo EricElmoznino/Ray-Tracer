@@ -11,7 +11,7 @@
 		07DB7B4C1E78CD62004BED96 /* Intersection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07DB7B4A1E78CD62004BED96 /* Intersection.cpp */; };
 		07EA015F1E74B378000C4026 /* RayTracer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01591E74B378000C4026 /* RayTracer.cpp */; };
 		07EA018B1E75979F000C4026 /* Point3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01851E75979F000C4026 /* Point3D.cpp */; };
-		07EA018C1E75979F000C4026 /* svdDynamic.c in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01871E75979F000C4026 /* svdDynamic.c */; };
+		07EA018C1E75979F000C4026 /* svdDynamic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01871E75979F000C4026 /* svdDynamic.cpp */; };
 		07EA018D1E75979F000C4026 /* Transform3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01891E75979F000C4026 /* Transform3D.cpp */; };
 		07EA01BA1E75983E000C4026 /* Material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01A91E75983E000C4026 /* Material.cpp */; };
 		07EA01BB1E75983E000C4026 /* ColourRGB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01AB1E75983E000C4026 /* ColourRGB.cpp */; };
@@ -60,7 +60,7 @@
 		07EA01621E74D181000C4026 /* run.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = run.sh; sourceTree = "<group>"; };
 		07EA01851E75979F000C4026 /* Point3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Point3D.cpp; sourceTree = "<group>"; };
 		07EA01861E75979F000C4026 /* Point3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Point3D.h; sourceTree = "<group>"; };
-		07EA01871E75979F000C4026 /* svdDynamic.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = svdDynamic.c; sourceTree = "<group>"; };
+		07EA01871E75979F000C4026 /* svdDynamic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svdDynamic.cpp; sourceTree = "<group>"; };
 		07EA01881E75979F000C4026 /* svdDynamic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svdDynamic.h; sourceTree = "<group>"; };
 		07EA01891E75979F000C4026 /* Transform3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Transform3D.cpp; sourceTree = "<group>"; };
 		07EA018A1E75979F000C4026 /* Transform3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transform3D.h; sourceTree = "<group>"; };
@@ -157,7 +157,7 @@
 			children = (
 				07EA01851E75979F000C4026 /* Point3D.cpp */,
 				07EA01861E75979F000C4026 /* Point3D.h */,
-				07EA01871E75979F000C4026 /* svdDynamic.c */,
+				07EA01871E75979F000C4026 /* svdDynamic.cpp */,
 				07EA01881E75979F000C4026 /* svdDynamic.h */,
 				07EA01891E75979F000C4026 /* Transform3D.cpp */,
 				07EA018A1E75979F000C4026 /* Transform3D.h */,
@@ -274,7 +274,7 @@
 				07EA01C71E759D2F000C4026 /* Plane.cpp in Sources */,
 				07DB7B491E78CB56004BED96 /* PointLightSource.cpp in Sources */,
 				07EA01D01E75F033000C4026 /* main.cpp in Sources */,
-				07EA018C1E75979F000C4026 /* svdDynamic.c in Sources */,
+				07EA018C1E75979F000C4026 /* svdDynamic.cpp in Sources */,
 				07EA01BC1E75983E000C4026 /* Image.cpp in Sources */,
 				07EA01BA1E75983E000C4026 /* Material.cpp in Sources */,
 				07EA01C81E759D2F000C4026 /* Sphere.cpp in Sources */,
