@@ -1,4 +1,5 @@
 #include "PointLightSource.h"
+#include "ObjectTypes/ObjectSubclasses/PlaneLightSource.h"
 
 PointLightSource::PointLightSource(const ColourRGB &colour, const Point3D &location) :
 colour(colour), location(location) {}
@@ -28,9 +29,11 @@ void PointLightSource::addAreaLight(float width, float height, const Point3D &no
                             (i+0.5)*deltaX*xBasis +
                             (j+0.5)*deltaY*yBasis;
             PointLightSource light(colour * (1.0/(numHori*numVert)), lightLocation);
-            lights.push_back(light);
+            lights.push_front(light);
         }
     }
     
-    // TODO: Add the actual PlaneLightSource object
+    // Add the actual PlaneLightSource object so that we can see it in the scene
+    PlaneLightSource *lightPlane = new PlaneLightSource(colour, centre, xBasis, yBasis, zBasis, width, height);
+    objects.push_front(lightPlane);
 }

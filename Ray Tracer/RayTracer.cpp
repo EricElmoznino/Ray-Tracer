@@ -178,7 +178,7 @@ ColourRGB RayTracer::phongModel(const Intersection &intersection, const Ray3D &r
             ColourRGB diffuseColour = light->colour * diffuse;
             
             //Specular component
-            Point3D r = -1*s + 2*intersection.normal*s.dot(intersection.normal);    // reflection direction
+            Point3D r = -1*s + 2*intersection.normal*(s.dot(intersection.normal));    // reflection direction
             Point3D b = -1 * ray.direction;
             double mag_spec = (0 < r.dot(b))?r.dot(b):0;
             mag_spec = pow(mag_spec, intersection.material.shinyness);
@@ -210,12 +210,12 @@ bool RayTracer::isInShadow(const Intersection &intersection, const PointLightSou
     shadowRay = shadowRay.bias(intersection.normal);
     
     Intersection firstHit = findFirstHit(shadowRay, NULL);
-    return !firstHit.none;
+    return !firstHit.none && !firstHit.isLight;
 }
 
 ColourRGB RayTracer::reflection(const Intersection &intersection, const Ray3D &ray, int depth) {
     // Reflection direction
-    Point3D r = ray.direction - 2 * intersection.normal*ray.direction.dot(intersection.normal);
+    Point3D r = ray.direction - 2 * intersection.normal*(ray.direction.dot(intersection.normal));
 	
     // Randomly displace the ray to simulate a rough surface
 	if (glossyreflEnabled) {
@@ -233,7 +233,7 @@ ColourRGB RayTracer::reflection(const Intersection &intersection, const Ray3D &r
 		double z = cos(theta);
 
 		// Convert sample to world coord using the orthonormal basis
-		r = x * u + y * v + z * r;  // already unit length, no need to normalize
+		r = (x * u) + (y * v) + (z * r);  // already unit length, no need to normalize
 	}
     
 	Ray3D reflectionRay(intersection.point, r);
