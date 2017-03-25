@@ -200,6 +200,7 @@ int main(int argc, char *argv[])
     
     // Render the image with ray tracing
     rayTracer.antialiasingEnabled = antialiasing;
+    rayTracer.glossyreflEnabled = false;
     rayTracer.renderImage(cam, objects, lights, MAX_DEPTH, im, output_name);
     
     // Exit section. Clean up and return.
