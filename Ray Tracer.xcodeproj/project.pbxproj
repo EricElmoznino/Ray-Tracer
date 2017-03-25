@@ -39,6 +39,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		075B4D391E86ED6E00FA30D3 /* compileMac.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = compileMac.sh; sourceTree = "<group>"; };
+		075B4D3A1E86ED6E00FA30D3 /* runMac.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = runMac.sh; sourceTree = "<group>"; };
 		0762AE5A1E85EF9E00772C5D /* greyscale_natural_grunge1.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = greyscale_natural_grunge1.ppm; sourceTree = "<group>"; };
 		0762AE5B1E85EF9E00772C5D /* greyscale_natural_grunge2.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = greyscale_natural_grunge2.ppm; sourceTree = "<group>"; };
 		0762AE5C1E85EF9E00772C5D /* greyscale_natural_grunge3.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = greyscale_natural_grunge3.ppm; sourceTree = "<group>"; };
@@ -99,6 +101,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		075B4D371E86ED3F00FA30D3 /* MacBuild */ = {
+			isa = PBXGroup;
+			children = (
+				075B4D391E86ED6E00FA30D3 /* compileMac.sh */,
+				075B4D3A1E86ED6E00FA30D3 /* runMac.sh */,
+			);
+			name = MacBuild;
+			sourceTree = "<group>";
+		};
+		075B4D381E86ED5200FA30D3 /* NormalBuild */ = {
+			isa = PBXGroup;
+			children = (
+				07EA01581E74B378000C4026 /* compile.sh */,
+				07EA01621E74D181000C4026 /* run.sh */,
+			);
+			name = NormalBuild;
+			sourceTree = "<group>";
+		};
 		0762AE591E85EE9600772C5D /* Textures */ = {
 			isa = PBXGroup;
 			children = (
@@ -134,13 +154,13 @@
 		07EA014F1E74B282000C4026 /* Ray Tracer */ = {
 			isa = PBXGroup;
 			children = (
+				075B4D381E86ED5200FA30D3 /* NormalBuild */,
+				075B4D371E86ED3F00FA30D3 /* MacBuild */,
 				0762AE591E85EE9600772C5D /* Textures */,
 				07A416571E774097000ABADA /* Handout.pdf */,
 				07EA01A81E75983E000C4026 /* ObjectTypes */,
 				07EA01841E75979F000C4026 /* GeometricTypes */,
 				07EA01571E74B378000C4026 /* CHECKLIST */,
-				07EA01581E74B378000C4026 /* compile.sh */,
-				07EA01621E74D181000C4026 /* run.sh */,
 				07EA01591E74B378000C4026 /* RayTracer.cpp */,
 				07EA015A1E74B378000C4026 /* RayTracer.h */,
 				07DB7B471E78CB56004BED96 /* PointLightSource.cpp */,

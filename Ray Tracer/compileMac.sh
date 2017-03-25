@@ -1,0 +1,2 @@
+#!/bin/sh
+gcc-6 -lstdc++ -std=c++11 -O4 -fopenmp -g -fopenmp main.cpp GeometricTypes/svdDynamic.cpp RayTracer.cpp GeometricTypes/Point3D.cpp GeometricTypes/Transform3D.cpp ObjectTypes/ObjectSubclasses/Plane.cpp ObjectTypes/ObjectSubclasses/Sphere.cpp ObjectTypes/ObjectSubclasses/PlaneLightSource.cpp ObjectTypes/Image.cpp PointLightSource.cpp ObjectTypes/ColourRGB.cpp ObjectTypes/Ray3D.cpp ObjectTypes/Material.cpp ObjectTypes/Object3D.cpp View.cpp -lm -o RayTracer

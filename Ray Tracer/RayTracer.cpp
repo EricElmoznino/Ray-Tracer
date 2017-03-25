@@ -12,7 +12,7 @@ void RayTracer::renderImage(View camera, list<Object3D*> objects, list<PointLigh
     
     // Itterate through all the pixels and do the ray tracing
     fprintf(stderr,"Rendering row: ");
-#pragma omp parallel for
+#pragma omp parallel for    // Multithread rendering
     for (int i = 0; i < output->sx; i++)		// For each pixel in the image
     {
         fprintf(stderr,"%d/%d, ", i, output->sx);
