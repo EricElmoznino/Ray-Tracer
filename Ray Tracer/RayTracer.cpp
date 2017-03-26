@@ -4,7 +4,7 @@
 #include "RayTracer.h"
 #include "Utilities/ProgressManager.h"
 
-void RayTracer::renderImage(View camera, list<Object3D*> objects, list<PointLightSource> lights,
+void RayTracer::renderImage(View camera, list<Object3D*> objects, list<Light*> lights,
                             Image *output, char * name) {
     // Store local copies of these that way we don't have to keep passing them around
     // between the functions that do the actual ray tracing work
@@ -165,10 +165,13 @@ ColourRGB RayTracer::phongModel(const Intersection &intersection, const Ray3D &r
     ColourRGB ambientColour = ColourRGB(1, 1, 1) * ambient;
     phongColour += ambientColour.filter(intersection.colour);
     
-    list<PointLightSource>::iterator light;
-    for (light=lights.begin(); light!=lights.end(); light++)
+    list<Light*>::iterator it;
+    for (it=lights.begin(); it!=lights.end(); it++)
     {
-        if (!isInShadow(intersection, *light)) {
+        Light *light = *it;
+        Point3D lightLocation = light->getLocation();
+        
+        if (!isInShadow(intersection, lightLocation)) {
             // Note: Light have the same Ia, Id, and Is,
             // which for every colour component is equal
             // to the light's magnitude of that colour.
@@ -176,11 +179,11 @@ ColourRGB RayTracer::phongModel(const Intersection &intersection, const Ray3D &r
             //      Is.b = light.blue, etc.
             
             //Diffuse component
-            Point3D s = (light->location - intersection.point).normalized();    // light direction
+            Point3D s = (lightLocation - intersection.point).normalized();    // light direction
             double n_dot_s = (intersection.normal).dot(s);
             double mag_diffuse = (0 < n_dot_s)?n_dot_s:0;
             double diffuse = (intersection.material.diffuse)*mag_diffuse;
-            ColourRGB diffuseColour = light->colour * diffuse;
+            ColourRGB diffuseColour = light->getColour() * diffuse;
             
             //Specular component
             Point3D r = -1*s + 2*intersection.normal*(s.dot(intersection.normal));    // reflection direction
@@ -188,7 +191,7 @@ ColourRGB RayTracer::phongModel(const Intersection &intersection, const Ray3D &r
             double mag_spec = (0 < r.dot(b))?r.dot(b):0;
             mag_spec = pow(mag_spec, intersection.material.shinyness);
             double specular = (intersection.material.specular)*mag_spec;
-            ColourRGB specularColour = light->colour * specular;
+            ColourRGB specularColour = light->getColour() * specular;
             
             // Filter the ambient and diffuse components by the object's
             // colour, but the specular should just be a pure reflectance
@@ -201,10 +204,10 @@ ColourRGB RayTracer::phongModel(const Intersection &intersection, const Ray3D &r
     return phongColour;
 }
 
-bool RayTracer::isInShadow(const Intersection &intersection, const PointLightSource &light) {
+bool RayTracer::isInShadow(const Intersection &intersection, const Point3D &lightLocation) {
     // Create the shadow ray
     Point3D origin = intersection.point;
-    Point3D direction = (light.location - origin).normalized();
+    Point3D direction = (lightLocation - origin).normalized();
     Ray3D shadowRay = Ray3D(origin, direction);
     
     // Bias the ray's origin slightly away from the object

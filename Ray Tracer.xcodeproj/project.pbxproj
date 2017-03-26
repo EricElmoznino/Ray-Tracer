@@ -9,7 +9,9 @@
 /* Begin PBXBuildFile section */
 		075B4D451E87156900FA30D3 /* Skybox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 075B4D431E87156900FA30D3 /* Skybox.cpp */; };
 		075B4D551E87894800FA30D3 /* ProgressManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 075B4D531E87894800FA30D3 /* ProgressManager.cpp */; };
-		07DB7B491E78CB56004BED96 /* PointLightSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07DB7B471E78CB56004BED96 /* PointLightSource.cpp */; };
+		075B4D591E881DB700FA30D3 /* PointLightSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 075B4D571E881DB700FA30D3 /* PointLightSource.cpp */; };
+		075B4D5C1E881DD800FA30D3 /* Light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 075B4D5A1E881DD800FA30D3 /* Light.cpp */; };
+		075B4D5F1E8820D800FA30D3 /* AreaLightElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 075B4D5D1E8820D800FA30D3 /* AreaLightElement.cpp */; };
 		07DB7B4C1E78CD62004BED96 /* Intersection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07DB7B4A1E78CD62004BED96 /* Intersection.cpp */; };
 		07EA015F1E74B378000C4026 /* RayTracer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01591E74B378000C4026 /* RayTracer.cpp */; };
 		07EA018B1E75979F000C4026 /* Point3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01851E75979F000C4026 /* Point3D.cpp */; };
@@ -65,6 +67,12 @@
 		075B4D511E87681200FA30D3 /* darkskies_up.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = darkskies_up.ppm; sourceTree = "<group>"; };
 		075B4D531E87894800FA30D3 /* ProgressManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProgressManager.cpp; sourceTree = "<group>"; };
 		075B4D541E87894800FA30D3 /* ProgressManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressManager.h; sourceTree = "<group>"; };
+		075B4D571E881DB700FA30D3 /* PointLightSource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PointLightSource.cpp; sourceTree = "<group>"; };
+		075B4D581E881DB700FA30D3 /* PointLightSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointLightSource.h; sourceTree = "<group>"; };
+		075B4D5A1E881DD800FA30D3 /* Light.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Light.cpp; sourceTree = "<group>"; };
+		075B4D5B1E881DD800FA30D3 /* Light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Light.h; sourceTree = "<group>"; };
+		075B4D5D1E8820D800FA30D3 /* AreaLightElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AreaLightElement.cpp; sourceTree = "<group>"; };
+		075B4D5E1E8820D800FA30D3 /* AreaLightElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AreaLightElement.h; sourceTree = "<group>"; };
 		0762AE5A1E85EF9E00772C5D /* greyscale_natural_grunge1.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = greyscale_natural_grunge1.ppm; sourceTree = "<group>"; };
 		0762AE5B1E85EF9E00772C5D /* greyscale_natural_grunge2.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = greyscale_natural_grunge2.ppm; sourceTree = "<group>"; };
 		0762AE5C1E85EF9E00772C5D /* greyscale_natural_grunge3.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = greyscale_natural_grunge3.ppm; sourceTree = "<group>"; };
@@ -74,8 +82,6 @@
 		0762AE601E85EF9E00772C5D /* webtreats_stone_4.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = webtreats_stone_4.ppm; sourceTree = "<group>"; };
 		0762AE611E85EF9E00772C5D /* webtreats_stone_5.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = webtreats_stone_5.ppm; sourceTree = "<group>"; };
 		07A416571E774097000ABADA /* Handout.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Handout.pdf; sourceTree = "<group>"; };
-		07DB7B471E78CB56004BED96 /* PointLightSource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PointLightSource.cpp; sourceTree = "<group>"; };
-		07DB7B481E78CB56004BED96 /* PointLightSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointLightSource.h; sourceTree = "<group>"; };
 		07DB7B4A1E78CD62004BED96 /* Intersection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Intersection.cpp; sourceTree = "<group>"; };
 		07DB7B4B1E78CD62004BED96 /* Intersection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Intersection.h; sourceTree = "<group>"; };
 		07EA014D1E74B282000C4026 /* Ray Tracer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Ray Tracer"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -177,6 +183,19 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		075B4D561E881D4900FA30D3 /* Lights */ = {
+			isa = PBXGroup;
+			children = (
+				075B4D571E881DB700FA30D3 /* PointLightSource.cpp */,
+				075B4D581E881DB700FA30D3 /* PointLightSource.h */,
+				075B4D5A1E881DD800FA30D3 /* Light.cpp */,
+				075B4D5B1E881DD800FA30D3 /* Light.h */,
+				075B4D5D1E8820D800FA30D3 /* AreaLightElement.cpp */,
+				075B4D5E1E8820D800FA30D3 /* AreaLightElement.h */,
+			);
+			path = Lights;
+			sourceTree = "<group>";
+		};
 		0762AE591E85EE9600772C5D /* Textures */ = {
 			isa = PBXGroup;
 			children = (
@@ -212,6 +231,7 @@
 		07EA014F1E74B282000C4026 /* Ray Tracer */ = {
 			isa = PBXGroup;
 			children = (
+				075B4D561E881D4900FA30D3 /* Lights */,
 				075B4D521E87893400FA30D3 /* Utilities */,
 				075B4D3C1E8714CC00FA30D3 /* Skyboxes */,
 				075B4D381E86ED5200FA30D3 /* NormalBuild */,
@@ -223,8 +243,6 @@
 				07EA01571E74B378000C4026 /* CHECKLIST */,
 				07EA01591E74B378000C4026 /* RayTracer.cpp */,
 				07EA015A1E74B378000C4026 /* RayTracer.h */,
-				07DB7B471E78CB56004BED96 /* PointLightSource.cpp */,
-				07DB7B481E78CB56004BED96 /* PointLightSource.h */,
 				07EA01CC1E75D7EE000C4026 /* View.cpp */,
 				07EA01CD1E75D7EE000C4026 /* View.h */,
 				07EA01CF1E75F033000C4026 /* main.cpp */,
@@ -353,15 +371,17 @@
 				07DB7B4C1E78CD62004BED96 /* Intersection.cpp in Sources */,
 				07EA01C11E75983E000C4026 /* Ray3D.cpp in Sources */,
 				07EA018B1E75979F000C4026 /* Point3D.cpp in Sources */,
+				075B4D591E881DB700FA30D3 /* PointLightSource.cpp in Sources */,
 				07EA01C71E759D2F000C4026 /* Plane.cpp in Sources */,
 				075B4D451E87156900FA30D3 /* Skybox.cpp in Sources */,
-				07DB7B491E78CB56004BED96 /* PointLightSource.cpp in Sources */,
 				07EA01D01E75F033000C4026 /* main.cpp in Sources */,
 				075B4D551E87894800FA30D3 /* ProgressManager.cpp in Sources */,
 				07EA018C1E75979F000C4026 /* svdDynamic.cpp in Sources */,
+				075B4D5C1E881DD800FA30D3 /* Light.cpp in Sources */,
 				07EA01BC1E75983E000C4026 /* Image.cpp in Sources */,
 				07EA01BA1E75983E000C4026 /* Material.cpp in Sources */,
 				07EA01C81E759D2F000C4026 /* Sphere.cpp in Sources */,
+				075B4D5F1E8820D800FA30D3 /* AreaLightElement.cpp in Sources */,
 				07EA01BB1E75983E000C4026 /* ColourRGB.cpp in Sources */,
 				0A850D581E84B3F6008132E1 /* PlaneLightSource.cpp in Sources */,
 				07EA01BF1E75983E000C4026 /* Object3D.cpp in Sources */,

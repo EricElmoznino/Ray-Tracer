@@ -3,16 +3,22 @@
 
 #include<stdio.h>
 #include<stdlib.h>
+#include <list>
 #include<math.h>
 #include<string.h>
-#include "PointLightSource.h"
+#include "Lights/Light.h"
+#include "ObjectTypes/Object3D.h"
+#include "ObjectTypes/Intersection.h"
+#include "ObjectTypes/Ray3D.h"
 #include "View.h"
 #include "Skybox.h"
+
+using namespace std;
 
 class RayTracer {
     
     list<Object3D*> objects;
-    list<PointLightSource> lights;
+    list<Light*> lights;
     
     // Ray-Tracing function. It finds the closest intersection between
     // the ray and any scene objects, calls the shading function to
@@ -59,7 +65,7 @@ class RayTracer {
     
     ColourRGB phongModel(const Intersection &intersection, const Ray3D &ray);
     
-    bool isInShadow(const Intersection &intersection, const PointLightSource &light);
+    bool isInShadow(const Intersection &intersection, const Point3D &lightLocation);
     
     ColourRGB reflection(const Intersection &intersection, const Ray3D &ray, int depth);
     
@@ -70,7 +76,7 @@ public:
     int superSamplingResolution = 5;
     Skybox *skybox = NULL;
     
-    void renderImage(View camera, list<Object3D*> objects, list<PointLightSource> lights,
+    void renderImage(View camera, list<Object3D*> objects, list<Light*> lights,
                      Image *output, char * name);
 };
 
