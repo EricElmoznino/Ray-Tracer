@@ -12,8 +12,6 @@ public:
     Point3D w;  // w vector
     
     double f;   // focal length
-    double wl;  // left edge in camera coordinates
-    double wt;  // top edge in camera coordinates
     double wsize;   // window size in distance units (not pixels!)
     
     Transform3D worldToCamera;
@@ -28,7 +26,7 @@ public:
      f - focal length
      */
     View(const Point3D &e, const Point3D &g, const Point3D &up,
-         double f, double wl, double wt, double wsize);
+         double f, double wsize);
 };
 
 #endif

@@ -7,13 +7,12 @@
 #include<string.h>
 #include "PointLightSource.h"
 #include "View.h"
+#include "Skybox.h"
 
 class RayTracer {
-    const int superSamplingResolution = 5;
     
     list<Object3D*> objects;
     list<PointLightSource> lights;
-    int maxDepth;
     
     // Ray-Tracing function. It finds the closest intersection between
     // the ray and any scene objects, calls the shading function to
@@ -66,10 +65,13 @@ class RayTracer {
     
 public:
     bool antialiasingEnabled = false;
-	bool glossyreflEnabled = false;
+    bool glossyreflEnabled = false;
+    int maxDepth = 3;
+    int superSamplingResolution = 5;
+    Skybox *skybox = NULL;
     
     void renderImage(View camera, list<Object3D*> objects, list<PointLightSource> lights,
-                     int maxDepth, Image *output, char * name);
+                     Image *output, char * name);
 };
 
 #endif

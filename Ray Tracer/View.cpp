@@ -1,7 +1,7 @@
 #include "View.h"
 
 View::View(const Point3D &e, const Point3D &g, const Point3D &up,
-     double f, double wl, double wt, double wsize) {
+     double f, double wsize) {
     // Setup camera position and basis vectors
     this->e = e;
     w = (-1*g).normalized();
@@ -10,8 +10,6 @@ View::View(const Point3D &e, const Point3D &g, const Point3D &up,
     
     // Copy focal length and window size parameters
     this->f = f;
-    this->wl = wl;
-    this->wt = wt;
     this->wsize = wsize;
     
     // Setup coordinate conversion matrices

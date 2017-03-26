@@ -1,21 +1,24 @@
 #include <list>
+#include <time.h>
 #include <float.h>
 #include "RayTracer.h"
+#include "Utilities/ProgressManager.h"
 
 void RayTracer::renderImage(View camera, list<Object3D*> objects, list<PointLightSource> lights,
-                            int maxDepth, Image *output, char * name) {
+                            Image *output, char * name) {
     // Store local copies of these that way we don't have to keep passing them around
     // between the functions that do the actual ray tracing work
     this->objects = objects;
     this->lights = lights;
-    this->maxDepth = maxDepth;
+    
+    // Object to keep track of the progress and give us some feedback
+    ProgressManager progressManager(output->sx * output->sy);
+    progressManager.startTimer();
     
     // Itterate through all the pixels and do the ray tracing
-    fprintf(stderr,"Rendering row: ");
 #pragma omp parallel for    // Multithread rendering
     for (int i = 0; i < output->sx; i++)		// For each pixel in the image
     {
-        fprintf(stderr,"%d/%d, ", i, output->sx);
         for (int j = 0; j < output->sy; j++)
         {
             ///////////////////////////////////////////////////////////////////
@@ -27,8 +30,8 @@ void RayTracer::renderImage(View camera, list<Object3D*> objects, list<PointLigh
             Point3D origin(0, 0, 0, false);
             double xIncrement = ((i+0.5)/output->sx) * camera.wsize;
             double yIncrement = ((j+0.5)/output->sy) * camera.wsize;
-            Point3D targetPixel(camera.wl + xIncrement,
-                                camera.wt - yIncrement,
+            Point3D targetPixel(camera.wsize/2 - xIncrement,
+                                camera.wsize/2 - yIncrement,
                                 camera.f, false);
             Point3D direction = targetPixel - origin;
             Ray3D ray(camera.cameraToWorld * origin,
@@ -40,10 +43,10 @@ void RayTracer::renderImage(View camera, list<Object3D*> objects, list<PointLigh
                 pixelColour.normalize();
             }
             output->setColourAtPixel(i, j, pixelColour);
+            
+            progressManager.advance();
         }
     }
-    
-    fprintf(stderr,"\nDone!\n");
     
     // Output rendered image
     output->outputImage(name);
@@ -88,7 +91,10 @@ ColourRGB RayTracer::rayTraceRecursive(const Ray3D &ray, int depth, const Object
     
     Intersection firstHit = findFirstHit(ray, source);
     if (firstHit.none) {
-        return ColourRGB(0, 0, 0);  // Probably will change latter to be the skybox
+        if (skybox != NULL) {
+            return skybox->colourInDirection(ray.direction);
+        }
+        return ColourRGB(0, 0, 0);
     }
     else if (firstHit.isLight) {    // Lights just emmit their colour
         return firstHit.colour;

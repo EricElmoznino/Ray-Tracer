@@ -83,6 +83,7 @@ void buildScene(void)
     obj->updateInverse();       // Very important! compute
     // and store the inverse
     // transform for this object!
+    obj->loadTexture("Textures/greyscale_natural_grunge2.ppm");
     objects.push_front(obj);    // Insert into object list
     
     // Let's add a couple spheres
@@ -92,6 +93,7 @@ void buildScene(void)
     obj->rotateY(PI/2.0);
     obj->translate(-1.45, 1.1, 3.5);
     obj->updateInverse();
+    obj->loadTexture("Textures/webtreats_stone_5.ppm");
     objects.push_front(obj);
     
     obj = new Sphere(Material(0.05, 0.95, 0.95, 0.75, 1, 1, 6),
@@ -100,12 +102,14 @@ void buildScene(void)
     obj->rotateZ(PI/1.5);
     obj->translate(1.75, 1.25, 5.0);
     obj->updateInverse();
+    obj->loadTexture("Textures/webtreats_stone_4.ppm");
     objects.push_front(obj);
     
     // Insert a single point light source.
-    PointLightSource light(ColourRGB(0.95, 0.95, 0.95),
-                           Point3D(0.0, 15.5, -5.5, false));
-    lights.push_front(light);
+//    PointLightSource light(ColourRGB(0.95, 0.95, 0.95),       // original
+//                           Point3D(0.0, 15.5, -5.5, false));
+//    lights.push_front(light);
+    PointLightSource::addAreaLight(5, 5, Point3D(0, -1, 0, true), Point3D(1, 0, 0, true), Point3D(0.0, 15.5, -5.5, false), 20, 20, ColourRGB(0.95, 0.95, 0.95), objects, lights);
     
     // End of simple scene for Assignment 3
     // Keep in mind that you can define new types of objects such as cylinders and parametric surfaces,
@@ -186,12 +190,18 @@ int main(int argc, char *argv[])
     
     // Set up view with given the above vectors, a 4x4 window,
     // and a focal length of -1 (why? where is the image plane?)
-    // Note that the top-left corner of the window is at (-2, 2)
+    // Note that the top-left corner of the window is at (2, 2)
     // in camera coordinates.
-    View cam(e, g, up, -3, -2, 2, 4);
+    View cam(e, g, up, -3, 4);
+    
+    // Setup the skybox
+    Skybox *skybox = NULL;
+    skybox = new Skybox("Skyboxes/lagoon_lf.ppm", "Skyboxes/lagoon_rt.ppm",
+                        "Skyboxes/lagoon_dn.ppm", "Skyboxes/lagoon_up.ppm",
+                        "Skyboxes/lagoon_bk.ppm", "Skyboxes/lagoon_ft.ppm");
     
     fprintf(stderr,"View parameters:\n");
-    fprintf(stderr,"Left=%f, Top=%f, Width=%f, f=%f\n",cam.wl,cam.wt,cam.wsize,cam.f);
+    fprintf(stderr,"Width=%f, f=%f\n", cam.wsize,cam.f);
     fprintf(stderr,"Camera to world conversion matrix (make sure it makes sense!):\n");
     cam.cameraToWorld.printTransform3D();
     fprintf(stderr,"World to camera conversion matrix\n");
@@ -199,12 +209,18 @@ int main(int argc, char *argv[])
     fprintf(stderr,"\n");
     
     // Render the image with ray tracing
+    rayTracer.skybox = skybox;
+    rayTracer.maxDepth = MAX_DEPTH;
     rayTracer.antialiasingEnabled = antialiasing;
+    rayTracer.superSamplingResolution = 5;
     rayTracer.glossyreflEnabled = true;
-    rayTracer.renderImage(cam, objects, lights, MAX_DEPTH, im, output_name);
+    rayTracer.renderImage(cam, objects, lights, im, output_name);
     
     // Exit section. Clean up and return.
     delete im;
+    if (skybox != NULL) {
+        delete skybox;
+    }
     while (!objects.empty()) {
         delete objects.front();
         objects.pop_front();

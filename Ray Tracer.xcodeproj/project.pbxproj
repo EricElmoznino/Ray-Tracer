@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		075B4D451E87156900FA30D3 /* Skybox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 075B4D431E87156900FA30D3 /* Skybox.cpp */; };
+		075B4D551E87894800FA30D3 /* ProgressManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 075B4D531E87894800FA30D3 /* ProgressManager.cpp */; };
 		07DB7B491E78CB56004BED96 /* PointLightSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07DB7B471E78CB56004BED96 /* PointLightSource.cpp */; };
 		07DB7B4C1E78CD62004BED96 /* Intersection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07DB7B4A1E78CD62004BED96 /* Intersection.cpp */; };
 		07EA015F1E74B378000C4026 /* RayTracer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01591E74B378000C4026 /* RayTracer.cpp */; };
@@ -41,6 +43,28 @@
 /* Begin PBXFileReference section */
 		075B4D391E86ED6E00FA30D3 /* compileMac.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = compileMac.sh; sourceTree = "<group>"; };
 		075B4D3A1E86ED6E00FA30D3 /* runMac.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = runMac.sh; sourceTree = "<group>"; };
+		075B4D3D1E8714DA00FA30D3 /* YellowCloud_bk.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = YellowCloud_bk.ppm; sourceTree = "<group>"; };
+		075B4D3E1E8714DA00FA30D3 /* YellowCloud_dn.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = YellowCloud_dn.ppm; sourceTree = "<group>"; };
+		075B4D3F1E8714DA00FA30D3 /* YellowCloud_ft.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = YellowCloud_ft.ppm; sourceTree = "<group>"; };
+		075B4D401E8714DA00FA30D3 /* YellowCloud_lf.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = YellowCloud_lf.ppm; sourceTree = "<group>"; };
+		075B4D411E8714DA00FA30D3 /* YellowCloud_rt.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = YellowCloud_rt.ppm; sourceTree = "<group>"; };
+		075B4D421E8714DA00FA30D3 /* YellowCloud_up.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = YellowCloud_up.ppm; sourceTree = "<group>"; };
+		075B4D431E87156900FA30D3 /* Skybox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Skybox.cpp; sourceTree = "<group>"; };
+		075B4D441E87156900FA30D3 /* Skybox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Skybox.h; sourceTree = "<group>"; };
+		075B4D461E872BC000FA30D3 /* lagoon_up.ppm */ = {isa = PBXFileReference; lastKnownFileType = file; path = lagoon_up.ppm; sourceTree = "<group>"; };
+		075B4D471E872BC000FA30D3 /* lagoon_lf.ppm */ = {isa = PBXFileReference; lastKnownFileType = file; path = lagoon_lf.ppm; sourceTree = "<group>"; };
+		075B4D481E872BC000FA30D3 /* lagoon_rt.ppm */ = {isa = PBXFileReference; lastKnownFileType = file; path = lagoon_rt.ppm; sourceTree = "<group>"; };
+		075B4D491E872BC000FA30D3 /* lagoon_dn.ppm */ = {isa = PBXFileReference; lastKnownFileType = file; path = lagoon_dn.ppm; sourceTree = "<group>"; };
+		075B4D4A1E872BC000FA30D3 /* lagoon_bk.ppm */ = {isa = PBXFileReference; lastKnownFileType = file; path = lagoon_bk.ppm; sourceTree = "<group>"; };
+		075B4D4B1E872BC000FA30D3 /* lagoon_ft.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = lagoon_ft.ppm; sourceTree = "<group>"; };
+		075B4D4C1E87681200FA30D3 /* darkskies_bk.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = darkskies_bk.ppm; sourceTree = "<group>"; };
+		075B4D4D1E87681200FA30D3 /* darkskies_dn.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = darkskies_dn.ppm; sourceTree = "<group>"; };
+		075B4D4E1E87681200FA30D3 /* darkskies_ft.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = darkskies_ft.ppm; sourceTree = "<group>"; };
+		075B4D4F1E87681200FA30D3 /* darkskies_lf.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = darkskies_lf.ppm; sourceTree = "<group>"; };
+		075B4D501E87681200FA30D3 /* darkskies_rt.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = darkskies_rt.ppm; sourceTree = "<group>"; };
+		075B4D511E87681200FA30D3 /* darkskies_up.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = darkskies_up.ppm; sourceTree = "<group>"; };
+		075B4D531E87894800FA30D3 /* ProgressManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProgressManager.cpp; sourceTree = "<group>"; };
+		075B4D541E87894800FA30D3 /* ProgressManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressManager.h; sourceTree = "<group>"; };
 		0762AE5A1E85EF9E00772C5D /* greyscale_natural_grunge1.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = greyscale_natural_grunge1.ppm; sourceTree = "<group>"; };
 		0762AE5B1E85EF9E00772C5D /* greyscale_natural_grunge2.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = greyscale_natural_grunge2.ppm; sourceTree = "<group>"; };
 		0762AE5C1E85EF9E00772C5D /* greyscale_natural_grunge3.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = greyscale_natural_grunge3.ppm; sourceTree = "<group>"; };
@@ -119,6 +143,40 @@
 			name = NormalBuild;
 			sourceTree = "<group>";
 		};
+		075B4D3C1E8714CC00FA30D3 /* Skyboxes */ = {
+			isa = PBXGroup;
+			children = (
+				075B4D4C1E87681200FA30D3 /* darkskies_bk.ppm */,
+				075B4D4D1E87681200FA30D3 /* darkskies_dn.ppm */,
+				075B4D4E1E87681200FA30D3 /* darkskies_ft.ppm */,
+				075B4D4F1E87681200FA30D3 /* darkskies_lf.ppm */,
+				075B4D501E87681200FA30D3 /* darkskies_rt.ppm */,
+				075B4D511E87681200FA30D3 /* darkskies_up.ppm */,
+				075B4D461E872BC000FA30D3 /* lagoon_up.ppm */,
+				075B4D471E872BC000FA30D3 /* lagoon_lf.ppm */,
+				075B4D481E872BC000FA30D3 /* lagoon_rt.ppm */,
+				075B4D491E872BC000FA30D3 /* lagoon_dn.ppm */,
+				075B4D4A1E872BC000FA30D3 /* lagoon_bk.ppm */,
+				075B4D4B1E872BC000FA30D3 /* lagoon_ft.ppm */,
+				075B4D3D1E8714DA00FA30D3 /* YellowCloud_bk.ppm */,
+				075B4D3E1E8714DA00FA30D3 /* YellowCloud_dn.ppm */,
+				075B4D3F1E8714DA00FA30D3 /* YellowCloud_ft.ppm */,
+				075B4D401E8714DA00FA30D3 /* YellowCloud_lf.ppm */,
+				075B4D411E8714DA00FA30D3 /* YellowCloud_rt.ppm */,
+				075B4D421E8714DA00FA30D3 /* YellowCloud_up.ppm */,
+			);
+			path = Skyboxes;
+			sourceTree = "<group>";
+		};
+		075B4D521E87893400FA30D3 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				075B4D531E87894800FA30D3 /* ProgressManager.cpp */,
+				075B4D541E87894800FA30D3 /* ProgressManager.h */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		0762AE591E85EE9600772C5D /* Textures */ = {
 			isa = PBXGroup;
 			children = (
@@ -154,6 +212,8 @@
 		07EA014F1E74B282000C4026 /* Ray Tracer */ = {
 			isa = PBXGroup;
 			children = (
+				075B4D521E87893400FA30D3 /* Utilities */,
+				075B4D3C1E8714CC00FA30D3 /* Skyboxes */,
 				075B4D381E86ED5200FA30D3 /* NormalBuild */,
 				075B4D371E86ED3F00FA30D3 /* MacBuild */,
 				0762AE591E85EE9600772C5D /* Textures */,
@@ -168,6 +228,8 @@
 				07EA01CC1E75D7EE000C4026 /* View.cpp */,
 				07EA01CD1E75D7EE000C4026 /* View.h */,
 				07EA01CF1E75F033000C4026 /* main.cpp */,
+				075B4D431E87156900FA30D3 /* Skybox.cpp */,
+				075B4D441E87156900FA30D3 /* Skybox.h */,
 			);
 			path = "Ray Tracer";
 			sourceTree = "<group>";
@@ -292,8 +354,10 @@
 				07EA01C11E75983E000C4026 /* Ray3D.cpp in Sources */,
 				07EA018B1E75979F000C4026 /* Point3D.cpp in Sources */,
 				07EA01C71E759D2F000C4026 /* Plane.cpp in Sources */,
+				075B4D451E87156900FA30D3 /* Skybox.cpp in Sources */,
 				07DB7B491E78CB56004BED96 /* PointLightSource.cpp in Sources */,
 				07EA01D01E75F033000C4026 /* main.cpp in Sources */,
+				075B4D551E87894800FA30D3 /* ProgressManager.cpp in Sources */,
 				07EA018C1E75979F000C4026 /* svdDynamic.cpp in Sources */,
 				07EA01BC1E75983E000C4026 /* Image.cpp in Sources */,
 				07EA01BA1E75983E000C4026 /* Material.cpp in Sources */,

@@ -72,8 +72,12 @@ ColourRGB Image::textureMap(double a, double b) const {
     
     // NOTE: Assuming that texture wraps around at the edges
     
+    b = 1-b; // in immages space, b increases downwards
+    
     int i = (int)(a*sx);
+    if (i == sx) i -= 1;    // Was just at the edge of the last pixel
     int j = (int)(b*sy);
+    if (j == sy) j -= 1;    // Was just at the edge of the last pixel
     
     double aPrime = a - (double)i/sx;
     double bPrime = b - (double)j/sy;
