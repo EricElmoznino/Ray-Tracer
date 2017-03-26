@@ -106,10 +106,10 @@ void buildScene(void)
     objects.push_front(obj);
     
     // Insert a single point light source.
-//    PointLightSource light(ColourRGB(0.95, 0.95, 0.95),       // original
-//                           Point3D(0.0, 15.5, -5.5, false));
-//    lights.push_front(light);
-    PointLightSource::addAreaLight(5, 5, Point3D(0, -1, 0, true), Point3D(1, 0, 0, true), Point3D(0.0, 15.5, -5.5, false), 20, 20, ColourRGB(0.95, 0.95, 0.95), objects, lights);
+    PointLightSource light(ColourRGB(0.95, 0.95, 0.95),       // original
+                           Point3D(0.0, 15.5, -5.5, false));
+    lights.push_front(light);
+//    PointLightSource::addAreaLight(5, 5, Point3D(0, -1, 0, true), Point3D(1, 0, 0, true), Point3D(0.0, 15.5, -5.5, false), 20, 20, ColourRGB(0.95, 0.95, 0.95), objects, lights);
     
     // End of simple scene for Assignment 3
     // Keep in mind that you can define new types of objects such as cylinders and parametric surfaces,

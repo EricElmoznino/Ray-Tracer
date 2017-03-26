@@ -137,7 +137,7 @@ Intersection RayTracer::findFirstHit(const Ray3D &ray, const Object3D *source) {
 	// reference of what to do in here
 	/////////////////////////////////////////////////////////////
     
-	double closestDistance = DBL_MAX;
+	double closestLambda = DBL_MAX;
 	Intersection closestIntersection;
     closestIntersection.none = true;
 
@@ -146,9 +146,8 @@ Intersection RayTracer::findFirstHit(const Ray3D &ray, const Object3D *source) {
         Object3D *object = *it;
 		Intersection intersection = object->intersect(ray);
 		if (!intersection.none) {
-			double distance = (intersection.point - ray.origin).magnitude();
-			if (distance < closestDistance && intersection.obj != source) {
-				closestDistance = distance;
+			if (intersection.lambda < closestLambda && intersection.obj != source) {
+				closestLambda = intersection.lambda;
 				closestIntersection = intersection;
 			}
 		}
