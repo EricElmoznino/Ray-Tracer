@@ -229,10 +229,13 @@ ColourRGB RayTracer::reflection(const Intersection &intersection, const Ray3D &r
 	
     // Randomly displace the ray to simulate a rough surface
 	if (glossyreflEnabled) {
-		double roughness = 0.02; // Added as a material property later for glossy reflections.
-        Ray3D reflectionRay(intersection.point,
-                            r.randomlyPerturb(intersection.normal, roughness));
-        reflectedColour += rayTraceRecursive(reflectionRay, depth, intersection.obj);
+		double roughness = 0.0; // Added as a material property later for glossy reflections.
+        int resolution = 1;
+        for (int i = 0; i < resolution; i++) {
+            Ray3D reflectionRay(intersection.point,
+                                r.randomlyPerturb(intersection.normal, roughness));
+            reflectedColour += rayTraceRecursive(reflectionRay, depth, intersection.obj) * (1.0/resolution);
+        }
 	}
     else {
         Ray3D reflectionRay(intersection.point, r);
