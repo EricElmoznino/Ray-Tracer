@@ -84,7 +84,7 @@ void buildScene(void)
     obj->updateInverse();       // Very important! compute
     // and store the inverse
     // transform for this object!
-    //obj->loadTexture("Textures/greyscale_natural_grunge2.ppm");
+    obj->loadTexture("Textures/greyscale_natural_grunge2.ppm");
     objects.push_front(obj);    // Insert into object list
     
     // Let's add a couple spheres
@@ -94,7 +94,7 @@ void buildScene(void)
     obj->rotateY(PI/2.0);
     obj->translate(-1.45, 1.1, 3.5);
     obj->updateInverse();
-    //obj->loadTexture("Textures/webtreats_stone_5.ppm");
+    obj->loadTexture("Textures/webtreats_stone_5.ppm");
     objects.push_front(obj);
     
     obj = new Sphere(Material(0.05, 0.95, 0.95, 0.75, 1, 1, 6),
@@ -103,7 +103,7 @@ void buildScene(void)
     obj->rotateZ(PI/1.5);
     obj->translate(1.75, 1.25, 5.0);
     obj->updateInverse();
-//    obj->loadTexture("Textures/webtreats_stone_4.ppm");
+    obj->loadTexture("Textures/webtreats_stone_4.ppm");
     objects.push_front(obj);
     
     // Test glossy
@@ -115,12 +115,12 @@ void buildScene(void)
 //    objects.push_front(obj);
     
     // Insert a single point light source.
-    PointLightSource *light = new PointLightSource(ColourRGB(0.95, 0.95, 0.95),       // original
-                                                   Point3D(0.0, 15.5, -5.5, false));
-    lights.push_front(light);
-//    AreaLightElement::addAreaLight(5, 5, Point3D(0, -1, 0, true), Point3D(1, 0, 0, true),
-//                                   Point3D(0.0, 15.5, -5.5, false), 8, 8,
-//                                   ColourRGB(0.95, 0.95, 0.95), lights);
+//    PointLightSource *light = new PointLightSource(ColourRGB(0.95, 0.95, 0.95),       // original
+//                                                   Point3D(0.0, 15.5, -5.5, false));
+//    lights.push_front(light);
+    AreaLightElement::addAreaLight(5, 5, Point3D(0, -1, 0, true), Point3D(1, 0, 0, true),
+                                   Point3D(0.0, 15.5, -5.5, false), 8, 8,
+                                   ColourRGB(0.95, 0.95, 0.95), lights);
     
     // End of simple scene for Assignment 3
     // Keep in mind that you can define new types of objects such as cylinders and parametric surfaces,
