@@ -1,6 +1,7 @@
 #include "Point3D.h"
 #include "../ObjectTypes/Object3D.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 
 Point3D::Point3D() {
@@ -69,12 +70,20 @@ Point3D Point3D::linearInterpolate(const Point3D &end, double progress) const {
     return (*this) + difference*progress;
 }
 
-Point3D Point3D::normalTransform(const Object3D &obj) const {
-    ///////////////////////////////////////////
-    // TO DO: Complete this function
-    ///////////////////////////////////////////
+Point3D Point3D::randomlyPerturb(const Point3D &normal, double degree) const {
+    // Create orthonormal basis at intersection point
+    Point3D u = (*this).crossUnit(normal);
+    Point3D v = (*this).crossUnit(u);
     
-    return Point3D();   // temporary to avoid errors
+    // Choose uniformly sampled random direction to send the ray in
+    double theta = 2 * M_PI * (drand48()) * degree;
+    double phi = 2 * M_PI * (drand48()) * degree;
+    double x = sin(theta)*cos(phi);
+    double y = sin(theta)*sin(phi);
+    double z = cos(theta);
+    
+    // Convert sample to world coord using the orthonormal basis
+    return ((x * u) + (y * v) + (z * (*this))).normalized();
 }
 
 void Point3D::printPoint3D() const {

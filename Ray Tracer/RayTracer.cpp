@@ -222,28 +222,22 @@ bool RayTracer::isInShadow(const Intersection &intersection, const Point3D &ligh
 }
 
 ColourRGB RayTracer::reflection(const Intersection &intersection, const Ray3D &ray, int depth) {
+    ColourRGB reflectedColour(0, 0, 0);
+    
     // Reflection direction
     Point3D r = ray.direction - 2 * intersection.normal*(ray.direction.dot(intersection.normal));
 	
     // Randomly displace the ray to simulate a rough surface
 	if (glossyreflEnabled) {
-		double roughness = 0.05; // Added as a material property later for glossy reflections.
-
-		// Create orthonormal basis at intersection point
-		Point3D u = r.crossUnit(intersection.normal);
-		Point3D v = r.crossUnit(u);
-
-		// Choose uniformly sampled random direction to send the ray in
-		double theta = 2 * M_PI * (drand48() - 0.5) * roughness;
-		double phi = 2 * M_PI * (drand48() - 0.5) * roughness;
-		double x = sin(theta)*cos(phi);
-		double y = sin(theta)*sin(phi);
-		double z = cos(theta);
-
-		// Convert sample to world coord using the orthonormal basis
-		r = (x * u) + (y * v) + (z * r);  // already unit length, no need to normalize
+		double roughness = 0.02; // Added as a material property later for glossy reflections.
+        Ray3D reflectionRay(intersection.point,
+                            r.randomlyPerturb(intersection.normal, roughness));
+        reflectedColour += rayTraceRecursive(reflectionRay, depth, intersection.obj);
 	}
+    else {
+        Ray3D reflectionRay(intersection.point, r);
+        reflectedColour = rayTraceRecursive(reflectionRay, depth, intersection.obj);
+    }
     
-	Ray3D reflectionRay(intersection.point, r);
-	return rayTraceRecursive(reflectionRay, depth, intersection.obj) * intersection.material.global;
+    return reflectedColour * intersection.material.global;
 }

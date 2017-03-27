@@ -75,7 +75,7 @@ void buildScene(void)
     // Colour is close to cyan, and currently the plane is
     // completely opaque (alpha=1). The refraction index is
     // meaningless since alpha=1
-    Object3D *obj = new Plane(Material(0.05, 0.75, 0.05, 0.05, 1, 1, 2),
+    Object3D *obj = new Plane(Material(0.05, 0.75, 0.05, 0.05, 1, 1, 2),  // original
                               ColourRGB(0.55, 0.8, 0.75));
     obj->scale(12, 12, 2);
     obj->rotateZ(PI/1.20);
@@ -103,16 +103,24 @@ void buildScene(void)
     obj->rotateZ(PI/1.5);
     obj->translate(1.75, 1.25, 5.0);
     obj->updateInverse();
-    //obj->loadTexture("Textures/webtreats_stone_4.ppm");
+//    obj->loadTexture("Textures/webtreats_stone_4.ppm");
     objects.push_front(obj);
     
+    // Test glossy
+//    Object3D *obj = new Sphere(Material(0.0, 0.6, 0.0, 1.0, 1, 1, 6),
+//                               ColourRGB(0.9, 0.9, 0.9));
+//    obj->scale(4.0, 4.0, 4.0);
+//    obj->translate(0.0, 0.0, 5.0);
+//    obj->updateInverse();
+//    objects.push_front(obj);
+    
     // Insert a single point light source.
-//    PointLightSource *light = new PointLightSource(ColourRGB(0.95, 0.95, 0.95),       // original
-//                                                   Point3D(0.0, 15.5, -5.5, false));
-//    lights.push_front(light);
-    AreaLightElement::addAreaLight(5, 5, Point3D(0, -1, 0, true), Point3D(1, 0, 0, true),
-                                   Point3D(0.0, 15.5, -5.5, false), 8, 8,
-                                   ColourRGB(0.95, 0.95, 0.95), lights);
+    PointLightSource *light = new PointLightSource(ColourRGB(0.95, 0.95, 0.95),       // original
+                                                   Point3D(0.0, 15.5, -5.5, false));
+    lights.push_front(light);
+//    AreaLightElement::addAreaLight(5, 5, Point3D(0, -1, 0, true), Point3D(1, 0, 0, true),
+//                                   Point3D(0.0, 15.5, -5.5, false), 8, 8,
+//                                   ColourRGB(0.95, 0.95, 0.95), lights);
     
     // End of simple scene for Assignment 3
     // Keep in mind that you can define new types of objects such as cylinders and parametric surfaces,
@@ -199,9 +207,9 @@ int main(int argc, char *argv[])
     
     // Setup the skybox
     Skybox *skybox = NULL;
-//    skybox = new Skybox("Skyboxes/lagoon_lf.ppm", "Skyboxes/lagoon_rt.ppm",
-//                        "Skyboxes/lagoon_dn.ppm", "Skyboxes/lagoon_up.ppm",
-//                        "Skyboxes/lagoon_bk.ppm", "Skyboxes/lagoon_ft.ppm");
+    skybox = new Skybox("Skyboxes/lagoon_lf.ppm", "Skyboxes/lagoon_rt.ppm",
+                        "Skyboxes/lagoon_dn.ppm", "Skyboxes/lagoon_up.ppm",
+                        "Skyboxes/lagoon_bk.ppm", "Skyboxes/lagoon_ft.ppm");
     
     fprintf(stderr,"View parameters:\n");
     fprintf(stderr,"Width=%f, f=%f\n", cam.wsize,cam.f);

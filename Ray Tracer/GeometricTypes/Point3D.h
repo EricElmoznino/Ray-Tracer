@@ -29,9 +29,11 @@ public:
     
     Point3D linearInterpolate(const Point3D &end, double progress) const; // progress: [0,1]
     
-    // Computes the normal at an affinely transformed point given the original normal and the
-    // object's inverse transformation
-    Point3D normalTransform(const Object3D &obj) const;
+    // Randomly perturb the direction of a vector within the bouds of 'degree'.
+    // 'normal' is used to make a basis with the current vector
+    // 'degree' in bounds 0 to 1
+    // Return value will have unit length
+    Point3D randomlyPerturb(const Point3D &normal, double degree) const;
     
     // debugging
     void printPoint3D() const;
