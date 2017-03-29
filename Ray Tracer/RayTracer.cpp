@@ -227,14 +227,15 @@ ColourRGB RayTracer::reflection(const Intersection &intersection, const Ray3D &r
     // Reflection direction
     Point3D r = ray.direction - 2 * intersection.normal*(ray.direction.dot(intersection.normal));
 	
-    // Randomly displace the ray to simulate a rough surface
+    // Randomly perturb the ray in a number of samples and compute a weighted average
+    // of the colour traced by these samples. The weighted average is due to the fact
+    // that rays which deviated larger should have less contribution (similar to spectral in phong).
+    // Weights are equal to deflected.dot(original))^shinyness.
 	if (glossyreflEnabled) {
-        double roughness = 0.3; // Added as a material property later for glossy reflections.
-        int resolution = 10;
         double totalEnergy = 0;
-        for (int i = 0; i < resolution; i++) {
+        for (int i = 0; i < glossyResolution; i++) {
             Ray3D reflectionRay(intersection.point,
-                                r.randomlyPerturb(intersection.normal, roughness));
+                                r.randomlyPerturb(intersection.normal, intersection.material.roughness));
             double energy = pow(r.dot(reflectionRay.direction), intersection.material.shinyness);
             reflectedColour += rayTraceRecursive(reflectionRay, depth, intersection.obj) * energy;
             totalEnergy += energy;

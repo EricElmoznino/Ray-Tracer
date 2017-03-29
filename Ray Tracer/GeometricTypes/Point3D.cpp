@@ -76,14 +76,21 @@ Point3D Point3D::randomlyPerturb(const Point3D &normal, double degree) const {
     Point3D v = (*this).crossUnit(u);
     
     // Choose uniformly sampled random direction to send the ray in
-    double theta = 2 * M_PI * (drand48()) * degree;
-    double phi = 2 * M_PI * (drand48()) * degree;
+    double theta = (M_PI * drand48() - M_PI/2.0) * degree;  // -pi*degree/2 to pi*degree/2
+    double phi = 2 * M_PI * (drand48());                    // 0 to 2pi
     double x = sin(theta)*cos(phi);
     double y = sin(theta)*sin(phi);
     double z = cos(theta);
     
     // Convert sample to world coord using the orthonormal basis
-    return ((x * u) + (y * v) + (z * (*this))).normalized();
+    Point3D perturbed = ((x * u) + (y * v) + (z * (*this))).normalized();
+    
+    // Check if below the surface, and if so, invert the u and v components
+    if (perturbed.dot(normal) < 0) {
+        perturbed = ((-x * u) + (-y * v) + (z * (*this))).normalized();
+    }
+    
+    return perturbed;
 }
 
 void Point3D::printPoint3D() const {

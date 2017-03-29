@@ -74,6 +74,7 @@ public:
     bool glossyreflEnabled = false;
     int maxDepth = 3;
     int superSamplingResolution = 5;
+    int glossyResolution = 8;
     Skybox *skybox = NULL;
     
     void renderImage(View camera, list<Object3D*> objects, list<Light*> lights,

@@ -35,7 +35,7 @@ Intersection Plane::intersect(const Ray3D &ray) {
     Point3D h(0.0, 0.0, 0.0, false);
     
     Transform3D A(ab, ac, rayDirection, h);
-    A = A.inverse();
+    A = A.inverse();                        // TO DO: A is singular sometimes and this is causing errors in those small cases
     
     //a.x = beta1, a.y = gamma1, a.z = t1 (a solution!)
     Point3D a = A*(ae);

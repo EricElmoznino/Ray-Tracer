@@ -29,7 +29,7 @@ public:
     
     Point3D linearInterpolate(const Point3D &end, double progress) const; // progress: [0,1]
     
-    // Randomly perturb the direction of a vector within the bouds of 'degree'.
+    // Randomly perturb the direction of a vector within the bouds of 'degree' degrees on a cone.
     // 'normal' is used to make a basis with the current vector
     // 'degree' in bounds 0 to 1
     // Return value will have unit length

@@ -14,9 +14,10 @@ public:
     // and refraction rays should be implemented
     double refractionIndex;
     double shinyness;   // Exponent for phong specular component
+    double roughness;   // Influences the maximum possible angle of deviation for glossy surfaces
     
     Material(double ambient, double diffuse, double specular, double global,
-             double alpha, double refractionIndex, double shinyness);
+             double alpha, double refractionIndex, double shinyness, double roughness);
     Material(){}
 };
 
