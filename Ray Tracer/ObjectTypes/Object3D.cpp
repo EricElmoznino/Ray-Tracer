@@ -10,7 +10,6 @@ material(material), colour(colour) {
     this->colour = colour;
     this->transform = Transform3D::identity();
     this->invTransform = Transform3D::identity();
-    this->bothSidesLit = false;         // default
     this->isLight = false;              // default
 }
 
@@ -20,7 +19,6 @@ material(obj.material), colour(obj.colour) {
     colour = obj.colour;
     transform = obj.transform;
     invTransform = obj.invTransform;
-    bothSidesLit = obj.bothSidesLit;
     isLight = obj.isLight;
     textureImage = obj.textureImage;
 }
@@ -30,7 +28,6 @@ Object3D& Object3D::operator=(const Object3D &obj) {
     colour = obj.colour;
     transform = obj.transform;
     invTransform = obj.invTransform;
-    bothSidesLit = obj.bothSidesLit;
     isLight = obj.isLight;
     textureImage = textureImage;
     

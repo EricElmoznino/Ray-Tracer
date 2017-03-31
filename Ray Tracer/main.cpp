@@ -106,13 +106,15 @@ void buildScene(void)
     obj->loadTexture("Textures/webtreats_stone_4.ppm");
     objects.push_front(obj);
     
-    // Test glossy
-//    Object3D *obj = new Sphere(Material(0.0, 0.6, 0.0, 1.0, 1, 1, 6),
+    // Test sphere
+//    Object3D *obj = new Sphere(Material(0.0, 0.0, 0.0, 0.0, 0.0, 1.4, 6, 0.1),
 //                               ColourRGB(0.9, 0.9, 0.9));
-//    obj->scale(4.0, 4.0, 4.0);
-//    obj->translate(0.0, 0.0, 5.0);
+//    obj->scale(1.0, 1.0, 1.0);
+//    obj->translate(0.0, -3.0, 7.0);
 //    obj->updateInverse();
 //    objects.push_front(obj);
+//    obj = new Plane(Material(0.05, 0.95, 0.35, 0.0, 1, 1, 6, 0.3),
+//                    ColourRGB(1.0, 0.25, 0.25));
     
     // Insert a single point light source.
     PointLightSource *light = new PointLightSource(ColourRGB(0.95, 0.95, 0.95),       // original
@@ -207,9 +209,9 @@ int main(int argc, char *argv[])
     
     // Setup the skybox
     Skybox *skybox = NULL;
-//    skybox = new Skybox("Skyboxes/lagoon_lf.ppm", "Skyboxes/lagoon_rt.ppm",
-//                        "Skyboxes/lagoon_dn.ppm", "Skyboxes/lagoon_up.ppm",
-//                        "Skyboxes/lagoon_bk.ppm", "Skyboxes/lagoon_ft.ppm");
+    skybox = new Skybox("Skyboxes/lagoon_lf.ppm", "Skyboxes/lagoon_rt.ppm",
+                        "Skyboxes/lagoon_dn.ppm", "Skyboxes/lagoon_up.ppm",
+                        "Skyboxes/lagoon_bk.ppm", "Skyboxes/lagoon_ft.ppm");
     
     fprintf(stderr,"View parameters:\n");
     fprintf(stderr,"Width=%f, f=%f\n", cam.wsize,cam.f);
@@ -225,6 +227,7 @@ int main(int argc, char *argv[])
     rayTracer.antialiasingEnabled = antialiasing;
     rayTracer.superSamplingResolution = 5;
     rayTracer.glossyreflEnabled = true;
+    rayTracer.refractionEnabled = true;
     rayTracer.renderImage(cam, objects, lights, im, output_name);
     
     // Exit section. Clean up and return.

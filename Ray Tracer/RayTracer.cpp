@@ -65,11 +65,11 @@ ColourRGB RayTracer::rayTrace(Ray3D ray, double pixelSize) {
                                0, true);
                 
                 // Move the ray by the random offset
-                Ray3D subRay = Ray3D(ray.origin, ray.direction + offset).normalized();
+                Ray3D subRay = ray.offset(offset);
                 
                 // Cast the ray. We divide by the number of super-samples we have
                 // in order to compute the average colour over all rays for this pixel
-                pixelColour += rayTraceRecursive(subRay, maxDepth, NULL) *
+                pixelColour += rayTraceRecursive(subRay, maxDepth) *
                         (1.0 / (superSamplingResolution*superSamplingResolution));
             }
         }
@@ -77,19 +77,19 @@ ColourRGB RayTracer::rayTrace(Ray3D ray, double pixelSize) {
     
     else {
         ray = ray.normalized();
-        pixelColour = rayTraceRecursive(ray, maxDepth, NULL);
+        pixelColour = rayTraceRecursive(ray, maxDepth);
     }
     
     return pixelColour;
 }
 
-ColourRGB RayTracer::rayTraceRecursive(const Ray3D &ray, int depth, const Object3D *source) {
+ColourRGB RayTracer::rayTraceRecursive(const Ray3D &ray, int depth) {
     ///////////////////////////////////////////////////////
     // TO DO: Complete this function. Refer to the notes
     // if you are unsure what to do here.
     ///////////////////////////////////////////////////////
     
-    Intersection firstHit = findFirstHit(ray, source);
+    Intersection firstHit = findFirstHit(ray);
     if (firstHit.none) {
         if (skybox != NULL) {
             return skybox->colourInDirection(ray.direction);
@@ -115,12 +115,15 @@ ColourRGB RayTracer::shade(const Intersection &intersection, const Ray3D &ray, i
     
     if (depth > 0) {
         res += reflection(intersection, ray, depth - 1);
+        if (refractionEnabled) {
+            res += refraction(intersection, ray, depth - 1);
+        }
     }
     
     return res;
 }
 
-Intersection RayTracer::findFirstHit(const Ray3D &ray, const Object3D *source) {    
+Intersection RayTracer::findFirstHit(const Ray3D &ray) {
 	// Find the closest intersection between the ray and any objects in the scene.
 	// It returns:
 	//   - The lambda at the intersection (or < 0 if no intersection)
@@ -146,7 +149,7 @@ Intersection RayTracer::findFirstHit(const Ray3D &ray, const Object3D *source) {
         Object3D *object = *it;
 		Intersection intersection = object->intersect(ray);
 		if (!intersection.none) {
-			if (intersection.lambda < closestLambda && intersection.obj != source) {
+			if (intersection.lambda < closestLambda) {
 				closestLambda = intersection.lambda;
 				closestIntersection = intersection;
 			}
@@ -217,7 +220,7 @@ bool RayTracer::isInShadow(const Intersection &intersection, const Point3D &ligh
     // partly in shadow (e.g. the backside of an object)
     shadowRay = shadowRay.bias(intersection.normal);
     
-    Intersection firstHit = findFirstHit(shadowRay, NULL);
+    Intersection firstHit = findFirstHit(shadowRay);
     return !firstHit.none && !firstHit.isLight;
 }
 
@@ -236,8 +239,9 @@ ColourRGB RayTracer::reflection(const Intersection &intersection, const Ray3D &r
         for (int i = 0; i < glossyResolution; i++) {
             Ray3D reflectionRay(intersection.point,
                                 r.randomlyPerturb(intersection.normal, intersection.material.roughness));
+            reflectionRay = reflectionRay.bias(intersection.normal);
             double energy = pow(r.dot(reflectionRay.direction), intersection.material.shinyness);
-            reflectedColour += rayTraceRecursive(reflectionRay, depth, intersection.obj) * energy;
+            reflectedColour += rayTraceRecursive(reflectionRay, depth) * energy;
             totalEnergy += energy;
         }
         if (totalEnergy > 0) {
@@ -246,8 +250,33 @@ ColourRGB RayTracer::reflection(const Intersection &intersection, const Ray3D &r
 	}
     else {
         Ray3D reflectionRay(intersection.point, r);
-        reflectedColour = rayTraceRecursive(reflectionRay, depth, intersection.obj);
+        reflectionRay = reflectionRay.bias(intersection.normal);
+        reflectedColour = rayTraceRecursive(reflectionRay, depth);
     }
     
     return reflectedColour * intersection.material.global;
+}
+
+ColourRGB RayTracer::refraction(const Intersection &intersection, const Ray3D &ray, int depth) {
+    // If no transparency, don't even bother computing anything
+    if (intersection.material.opacity >= 1.0) {
+        return ColourRGB(0.0, 0.0, 0.0);
+    }
+    
+    // Assume that the transfer of medium is always from vaccuum to material or vise-versa.
+    // (i.e. we do not permit refraction between two different materials)
+    double n1 = intersection.insideObject ? intersection.material.refractionIndex : 1.0;
+    double n2 = intersection.insideObject ? 1.0 : intersection.material.refractionIndex;
+    Point3D d = ray.direction;
+    Point3D n = intersection.normal;
+    
+    double inside = 1 - (n1/n2)*(n1/n2)*(1 - (d.dot(n))*(d.dot(n)));
+    if (inside < 0) {   // total internal reflection
+        return ColourRGB(0, 0, 0);
+    }
+    Point3D t = n1/n2 * (d - n*(d.dot(n))) - n * sqrt(inside);
+    
+    Ray3D refractedRay(intersection.point, t);
+    refractedRay = refractedRay.bias(-1*n);
+    return rayTraceRecursive(refractedRay, depth) * (1-intersection.material.opacity);
 }

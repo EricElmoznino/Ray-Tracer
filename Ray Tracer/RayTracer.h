@@ -39,7 +39,7 @@ class RayTracer {
     // errors. For the top level call, source should be NULL. And thereafter
     // it will correspond to the object from which the recursive
     // ray originates.
-    ColourRGB rayTraceRecursive(const Ray3D &ray, int depth, const Object3D *source);
+    ColourRGB rayTraceRecursive(const Ray3D &ray, int depth);
     
     // This function implements the shading model as described in lecture. It takes
     // - An intersection data model that contains all necessary information for shading
@@ -61,7 +61,7 @@ class RayTracer {
     // and is used to ensure we don't
     // return a self-intersection due to numerical errors for recursive raytrace calls.
     //
-    Intersection findFirstHit(const Ray3D &ray, const Object3D *source);
+    Intersection findFirstHit(const Ray3D &ray);
     
     ColourRGB phongModel(const Intersection &intersection, const Ray3D &ray);
     
@@ -69,9 +69,12 @@ class RayTracer {
     
     ColourRGB reflection(const Intersection &intersection, const Ray3D &ray, int depth);
     
+    ColourRGB refraction(const Intersection &intersection, const Ray3D &ray, int depth);
+    
 public:
     bool antialiasingEnabled = false;
     bool glossyreflEnabled = false;
+    bool refractionEnabled = false;
     int maxDepth = 3;
     int superSamplingResolution = 5;
     int glossyResolution = 8;

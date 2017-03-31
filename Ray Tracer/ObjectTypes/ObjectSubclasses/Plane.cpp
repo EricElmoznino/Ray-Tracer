@@ -2,7 +2,6 @@
 
 Plane::Plane(const Material &material, const ColourRGB &colour) :
 Object3D::Object3D(material, colour) {
-    Object3D::bothSidesLit = true;
     Object3D::isLight = false;
 }
 
@@ -88,6 +87,7 @@ Intersection Plane::intersect(const Ray3D &ray) {
     
     intersection.none = false;
     intersection.isLight = Object3D::isLight;
+    intersection.insideObject = false;
     intersection.lambda = lambda;
     intersection.point = ray.rayPosition(lambda);
     intersection.normal = (invTransform.transpose() * hitNormalLocal).normalized();

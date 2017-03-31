@@ -24,6 +24,8 @@ public:
     
     Ray3D bias(const Point3D &normal) const;
     
+    Ray3D offset(Point3D amount) const;
+    
     Ray3D normalized() const;
 };
 

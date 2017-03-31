@@ -10,7 +10,6 @@
 class Object3D {
 protected:
     bool isLight;       // Flag to indicate if this object is a light
-    bool bothSidesLit;  // Flag to indicate that both sides of the object should be lit
     
     // Helper function for intersect. Given a point in the object's local coordinate
     // system, computes the color at that point (which potentially comes from a texture).

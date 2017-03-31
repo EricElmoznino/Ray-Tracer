@@ -43,6 +43,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0705CA481E8DE3760028B251 /* check.ppm */ = {isa = PBXFileReference; lastKnownFileType = file; path = check.ppm; sourceTree = "<group>"; };
 		075B4D391E86ED6E00FA30D3 /* compileMac.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = compileMac.sh; sourceTree = "<group>"; };
 		075B4D3A1E86ED6E00FA30D3 /* runMac.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = runMac.sh; sourceTree = "<group>"; };
 		075B4D3D1E8714DA00FA30D3 /* YellowCloud_bk.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = YellowCloud_bk.ppm; sourceTree = "<group>"; };
@@ -199,6 +200,7 @@
 		0762AE591E85EE9600772C5D /* Textures */ = {
 			isa = PBXGroup;
 			children = (
+				0705CA481E8DE3760028B251 /* check.ppm */,
 				0762AE5A1E85EF9E00772C5D /* greyscale_natural_grunge1.ppm */,
 				0762AE5B1E85EF9E00772C5D /* greyscale_natural_grunge2.ppm */,
 				0762AE5C1E85EF9E00772C5D /* greyscale_natural_grunge3.ppm */,

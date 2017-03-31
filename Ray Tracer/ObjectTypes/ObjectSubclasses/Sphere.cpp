@@ -3,7 +3,6 @@
 
 Sphere::Sphere(const Material &material, const ColourRGB &colour) :
 Object3D::Object3D(material, colour) {
-    Object3D::bothSidesLit = false;
     Object3D::isLight = false;
 }
 
@@ -52,22 +51,31 @@ Intersection Sphere::intersect(const Ray3D &ray) {
     double lambda1 = (-b + sqrt(det)) / (2 * a);
     double lambda2 = (-b - sqrt(det)) / (2 * a);
     
-    // If either lambda is negative, the sphere is behind us (or we are in it)
-    // and we don't want to render it. The case where we are in it might be
-    // debatable as to whether or not we want to render, but if we change our
-    // mind latter it's an easy fix.
-    if (lambda1 < 0 || lambda2 < 0) {
+    // Compute the intersection point and normal
+    bool insideObject;
+    double lambda;
+    Point3D hitPointLocal;
+    Point3D hitNormalLocal;
+    if (lambda1 < 0 && lambda2 < 0) {   // sphere behind us
         intersection.none = true;
         return intersection;
     }
-    
-    // Take the closer intersection point and compute the local normal
-    double lambda = lambda1 < lambda2 ? lambda1 : lambda2;
-    Point3D hitPointLocal = rayOrigin + lambda*rayDirection;
-    Point3D hitNormalLocal = hitPointLocal - centre;    // we normalize latter
+    else if (lambda1 <= 0 || lambda2 <= 0) {  // inside sphere
+        lambda = lambda1 < lambda2 ? lambda2 : lambda1;
+        hitPointLocal = rayOrigin + lambda*rayDirection;
+        hitNormalLocal = centre - hitPointLocal;
+        insideObject = true;
+    }
+    else {                              // sphere in front of us
+        lambda = lambda1 < lambda2 ? lambda1 : lambda2;
+        hitPointLocal = rayOrigin + lambda*rayDirection;
+        hitNormalLocal = hitPointLocal - centre;
+        insideObject = false;
+    }
     
     intersection.none = false;
     intersection.isLight = Object3D::isLight;
+    intersection.insideObject = insideObject;
     intersection.lambda = lambda;
     intersection.point = ray.rayPosition(lambda);   // lambda is the same for local and world
     intersection.normal = (invTransform.transpose() * hitNormalLocal).normalized();
