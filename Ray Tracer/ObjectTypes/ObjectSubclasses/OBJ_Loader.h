@@ -19,7 +19,7 @@
 //
 // Description: The namespace that holds eveyrthing that
 //	is needed and used for the OBJ Model Loader
-namespace objl
+extern namespace objl
 {
 	// Structure: Vector2
 	//
