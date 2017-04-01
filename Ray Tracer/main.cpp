@@ -23,6 +23,7 @@
 #include "RayTracer.h"
 #include "ObjectTypes/ObjectSubclasses/Plane.h"
 #include "ObjectTypes/ObjectSubclasses/Sphere.h"
+#include "ObjectTypes/ObjectSubclasses/TriangleMesh.h"
 #include "Lights/PointLightSource.h"
 #include "Lights/AreaLightElement.h"
 
@@ -116,6 +117,8 @@ void buildScene(void)
 //    obj = new Plane(Material(0.05, 0.95, 0.35, 0.0, 1, 1, 6, 0.3),
 //                    ColourRGB(1.0, 0.25, 0.25));
     
+
+
     // Insert a single point light source.
     PointLightSource *light = new PointLightSource(ColourRGB(0.95, 0.95, 0.95),       // original
                                                    Point3D(0.0, 15.5, -5.5, false));
@@ -131,6 +134,11 @@ void buildScene(void)
     // Remember: A lot of the quality of your scene will depend on how much care you have put into defining
     //           the relflectance properties of your objects, and the number and type of light sources
     //           in the scene.
+
+    // Test OBJ
+    Object3D *objFile = new TriangleMesh("OBJ/box_stack.obj",Material(0.05, 0.95, 0.95, 0.75, 1, 1, 6, 0.3),
+                     ColourRGB(0.75, 0.95, 0.55));
+    objects.push_front(objFile);
 }
 
 int main(int argc, char *argv[])

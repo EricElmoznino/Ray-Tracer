@@ -1,142 +1,113 @@
 #include "TriangleMesh.h"
+#include "OBJ_Loader.h"
 
 TriangleMesh::TriangleMesh(const Material &material, const ColourRGB &colour) :
-Object3D::Object3D(material, colour){}
+Object3D::Object3D(material, colour){
+	Object3D::bothSidesLit = false;
+	Object3D::isLight = false;
+}
 
 TriangleMesh::TriangleMesh(const string filename, const Material &material, const ColourRGB &colour) :
-		Object3D::Object3D(material, colour){
+	Object3D::Object3D(material, colour){
 	bool isLoaded = loadOBJ(filename);
 	if (isLoaded)
 	{
 		printf("OBJ successfully loaded!\n");
 	}
 	else{
-		printf("Error: OBJ NOT LOADED!\n")
+		printf("Error: OBJ NOT LOADED!\n");
 	}
+	Object3D::bothSidesLit = false;
+	Object3D::isLight = false;
 }
 
-bool TriangleMesh::loadOBJ(const string filename){
-	FILE * from_file = fopen(filename.c_str(), "r");
-	if (NULL == from_file)
+ColourRGB TriangleMesh::colourAtLocalPoint(const Point3D &p) const {
+	return colour;
+}
+
+bool TriangleMesh::loadOBJ(const string path)
+{
+	//Initialize loader
+	objl::Loader Loader;
+
+	//Load obj
+	bool loadout = Loader.LoadFile(path);
+
+	if (loadout)
 	{
-		printf("Error: %s could not be opened\n", filename.c_str());
-		return false;
-	}
+	// Create/Open e1Out.txt
+		std::ofstream file("e1Out.txt");
 
-	//First Line Info:
-	char header[1000];
-	const string OFF("OFF");
-	const string NOFF("NOFF");
-	const string COFF("COFF");
-
-	if(fscanf(from_file, "%s\n", header)!=1 || !(string(header).compare(0, OFF.length(), OFF)==0 ||
-		       string(header).compare(0, COFF.length(), COFF)==0 ||
-		string(header).compare(0,NOFF.length(),NOFF)==0)){
-		printf("Error: first line should be OFF, NORR or COFF, not %s", header);
-		fclose(from_file);
-		return false;
-	}
-	bool hasNormals = string(header).compare(0, NOFF.length(), NOFF)==0;
-	bool hasColors = string(header).compare(0, COFF.length(), COFF)==0;
-
-	//Second Line Info: #V, #F, #E
-	int num_V;
-	int num_F;
-	int num_E;
-
-	char tic_tac_toe;
-	char line[1000];
-
-	bool isComments = true;
-
-	while (isComments)	//Exit comments - get to info!
-	{
-		fgets(line, 1000, from_file);
-		isComments = (line[0] == '#' || line[0] == '\n');
-	}
-
-	sscanf(line, "%d %d %d", &num_V, &num_F, &num_E);	//Get # V, F, E
-
-	//Allocate space in vectors:
-	V.resize(num_V);
-	if (hasNormals)
-	{
-		N.resize(num_V);
-	}
-	if (hasColors)
-	{
-		C.resize(num_V);
-	}
-	F.resize(num_F);
-
-	//Read V
-	for (int i = 0; i < num_V;)
-	{
-		fgets(line, 1000, from_file);
-		double x, y, z, nx, ny, nz;
-		if(sscanf(line, "%lg %lg %lg %lg %lg %lg", &x, &y, &z, &nx, &ny, &nz)>=3)
+		// Go through each loaded mesh and out its contents
+		for (int i = 0; i < Loader.LoadedMeshes.size(); i++)
 		{
-			Point3D v = Point3D(x, y, z, false);
-			V[i] = v;
+			// Copy one of the loaded meshes to be our current mesh
+			objl::Mesh curMesh = Loader.LoadedMeshes[i];
 
-			if (hasNormals)
+			// Print Mesh Name
+			file << "Mesh " << i << ": " << curMesh.MeshName << "\n";
+
+			// Print Vertices
+			file << "Vertices:\n";
+
+			// Go through each vertex and print its number,
+			//  position, normal, and texture coordinate
+			for (int j = 0; j < curMesh.Vertices.size(); j++)
 			{
-				Point3D n = Point3D(nx, ny, nz, true);
-				N[i] = n;
+				file << "V" << j << ": " <<
+					"P(" << curMesh.Vertices[j].Position.X << ", " << curMesh.Vertices[j].Position.Y << ", " << curMesh.Vertices[j].Position.Z << ") " <<
+					"N(" << curMesh.Vertices[j].Normal.X << ", " << curMesh.Vertices[j].Normal.Y << ", " << curMesh.Vertices[j].Normal.Z << ") " <<
+					"TC(" << curMesh.Vertices[j].TextureCoordinate.X << ", " << curMesh.Vertices[j].TextureCoordinate.Y << ")\n";
 			}
-			if (hasColors)
+
+			// Print Indices
+			file << "Indices:\n";
+
+			// Go through every 3rd index and print the
+			//	triangle that these indices represent
+			for (int j = 0; j < curMesh.Indices.size(); j += 3)
 			{
-				Point3D c = Point3D(nx/255.0, ny/255.0, nz/255.0, false);
-				C[i] = c;
+				file << "T" << j / 3 << ": " << curMesh.Indices[j] << ", " << curMesh.Indices[j + 1] << ", " << curMesh.Indices[j + 2] << "\n";
 			}
-			i++;
-		}else if(fscanf(from_file, "%[#]", &tic_tac_toe)==1)
-		{
-			char comment[1000];
-			fscanf(from_file, "%[^\n]", comment);
-		}else
-		{
-			printf("Error: bad line (%d)\n", i);
-			if (feof(from_file))
-			{
-				fclose(from_file);
-				return false;
-			}
+
+			// Print Material
+			file << "Material: " << curMesh.MeshMaterial.name << "\n";
+			file << "Ambient Color: " << curMesh.MeshMaterial.Ka.X << ", " << curMesh.MeshMaterial.Ka.Y << ", " << curMesh.MeshMaterial.Ka.Z << "\n";
+			file << "Diffuse Color: " << curMesh.MeshMaterial.Kd.X << ", " << curMesh.MeshMaterial.Kd.Y << ", " << curMesh.MeshMaterial.Kd.Z << "\n";
+			file << "Specular Color: " << curMesh.MeshMaterial.Ks.X << ", " << curMesh.MeshMaterial.Ks.Y << ", " << curMesh.MeshMaterial.Ks.Z << "\n";
+			file << "Specular Exponent: " << curMesh.MeshMaterial.Ns << "\n";
+			file << "Optical Density: " << curMesh.MeshMaterial.Ni << "\n";
+			file << "Dissolve: " << curMesh.MeshMaterial.d << "\n";
+			file << "Illumination: " << curMesh.MeshMaterial.illum << "\n";
+			file << "Ambient Texture Map: " << curMesh.MeshMaterial.map_Ka << "\n";
+			file << "Diffuse Texture Map: " << curMesh.MeshMaterial.map_Kd << "\n";
+			file << "Specular Texture Map: " << curMesh.MeshMaterial.map_Ks << "\n";
+			file << "Alpha Texture Map: " << curMesh.MeshMaterial.map_d << "\n";
+			file << "Bump Map: " << curMesh.MeshMaterial.map_bump << "\n";
+
+			// Leave a space to separate from the next mesh
+			file << "\n";
 		}
-	}
 
-	//Read F
-	for (int i = 0; i < num_F;)
+		// Close File
+		file.close();
+	}
+	// If not output an error
+	else
 	{
-		int valence;
-		vector<int> face;
+		// Create/Open e1Out.txt
+		std::ofstream file("e1Out.txt");
 
-		if(fscanf(from_file, "%d", &valence)==1)
-		{
-			face.resize(3);
-			for (int j = 0; j < valence; j++)
-			{
-				int index;
-				if (j < valence - 1)
-				{
-					fscanf(from_file, "%d", &index);
-				}else{
-					fscanf(from_file, "%d%[^/n]", &index);
-				}
-				face[j] = index;
-			}
-			F[i] = face;
-			i++;
-		}else if(fscanf(from_file, "%[#]", &tic_tac_toe)==1)
-		{
-			char comment[1000];
-			fscanf(from_file, "%[^/n]", comment);
-		}else{
-			printf("Error: bad line\n");
-			fclose(from_file);
-			return false;
-		}
+		// Output Error
+		file << "Failed to Load File. May have failed to find it or it was not an .obj file.\n";
+
+		// Close File
+		file.close();
 	}
-	fclose(from_file);
-	return true;
+	return loadout;
+}
+
+Intersection TriangleMesh::intersect(const Ray3D &ray) {
+	Intersection intersection;
+	return intersection;
 }
