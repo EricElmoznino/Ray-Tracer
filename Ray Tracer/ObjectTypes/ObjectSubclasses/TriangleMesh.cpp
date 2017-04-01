@@ -3,7 +3,6 @@
 
 TriangleMesh::TriangleMesh(const Material &material, const ColourRGB &colour) :
 Object3D::Object3D(material, colour){
-	Object3D::bothSidesLit = false;
 	Object3D::isLight = false;
 }
 
@@ -17,7 +16,6 @@ TriangleMesh::TriangleMesh(const string filename, const Material &material, cons
 	else{
 		printf("Error: OBJ NOT LOADED!\n");
 	}
-	Object3D::bothSidesLit = false;
 	Object3D::isLight = false;
 }
 

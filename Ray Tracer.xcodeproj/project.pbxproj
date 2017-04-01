@@ -85,6 +85,12 @@
 		0762AE5F1E85EF9E00772C5D /* greyscale_natural_grunge6.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = greyscale_natural_grunge6.ppm; sourceTree = "<group>"; };
 		0762AE601E85EF9E00772C5D /* webtreats_stone_4.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = webtreats_stone_4.ppm; sourceTree = "<group>"; };
 		0762AE611E85EF9E00772C5D /* webtreats_stone_5.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = webtreats_stone_5.ppm; sourceTree = "<group>"; };
+		077BA6A71E9041F600CAB279 /* box_stack.mtl */ = {isa = PBXFileReference; lastKnownFileType = text; path = box_stack.mtl; sourceTree = "<group>"; };
+		077BA6A81E9041F600CAB279 /* box_stack.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = box_stack.obj; sourceTree = "<group>"; };
+		077BA6A91E9041F600CAB279 /* cube.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = cube.obj; sourceTree = "<group>"; };
+		077BA6AA1E9041F600CAB279 /* cube.off */ = {isa = PBXFileReference; lastKnownFileType = text; path = cube.off; sourceTree = "<group>"; };
+		077BA6AB1E9041F600CAB279 /* hazelnut.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = hazelnut.obj; sourceTree = "<group>"; };
+		077BA6AC1E90422400CAB279 /* OBJ_Loader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OBJ_Loader.h; sourceTree = "<group>"; };
 		07A416571E774097000ABADA /* Handout.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Handout.pdf; sourceTree = "<group>"; };
 		07DB7B4A1E78CD62004BED96 /* Intersection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Intersection.cpp; sourceTree = "<group>"; };
 		07DB7B4B1E78CD62004BED96 /* Intersection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Intersection.h; sourceTree = "<group>"; };
@@ -216,6 +222,18 @@
 			path = Textures;
 			sourceTree = "<group>";
 		};
+		077BA6A61E9041F600CAB279 /* OBJ */ = {
+			isa = PBXGroup;
+			children = (
+				077BA6A71E9041F600CAB279 /* box_stack.mtl */,
+				077BA6A81E9041F600CAB279 /* box_stack.obj */,
+				077BA6A91E9041F600CAB279 /* cube.obj */,
+				077BA6AA1E9041F600CAB279 /* cube.off */,
+				077BA6AB1E9041F600CAB279 /* hazelnut.obj */,
+			);
+			path = OBJ;
+			sourceTree = "<group>";
+		};
 		07EA01441E74B282000C4026 = {
 			isa = PBXGroup;
 			children = (
@@ -236,6 +254,7 @@
 		07EA014F1E74B282000C4026 /* Ray Tracer */ = {
 			isa = PBXGroup;
 			children = (
+				077BA6A61E9041F600CAB279 /* OBJ */,
 				075B4D561E881D4900FA30D3 /* Lights */,
 				075B4D521E87893400FA30D3 /* Utilities */,
 				075B4D3C1E8714CC00FA30D3 /* Skyboxes */,
@@ -293,6 +312,7 @@
 		07EA01C21E759D2F000C4026 /* ObjectSubclasses */ = {
 			isa = PBXGroup;
 			children = (
+				077BA6AC1E90422400CAB279 /* OBJ_Loader.h */,
 				0705CA491E8E22C70028B251 /* TriangleMesh.cpp */,
 				0705CA4A1E8E22C70028B251 /* TriangleMesh.h */,
 				07EA01C31E759D2F000C4026 /* Plane.cpp */,
