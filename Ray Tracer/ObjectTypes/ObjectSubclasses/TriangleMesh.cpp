@@ -1,5 +1,5 @@
 #include "TriangleMesh.h"
-#include "OBJ_Loader.h"
+//#include "OBJ_Loader.h"
 
 TriangleMesh::TriangleMesh(const Material &material, const ColourRGB &colour) :
 Object3D::Object3D(material, colour){

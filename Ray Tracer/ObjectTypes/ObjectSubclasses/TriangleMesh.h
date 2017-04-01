@@ -1,7 +1,7 @@
 #ifndef TriangleMesh_h
 #define TriangleMesh_h
 
-//#include "OBJ_Loader.h"
+#include "OBJ_Loader.h"
 
 #include "../Object3D.h"
 #include <stdio.h>
