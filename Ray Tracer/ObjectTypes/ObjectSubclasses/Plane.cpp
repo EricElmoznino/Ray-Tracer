@@ -19,81 +19,39 @@ ColourRGB Plane::colourAtLocalPoint(const Point3D &p) const {
 Intersection Plane::intersect(const Ray3D &ray) {
     Intersection intersection;
     
-    /////////////////////////////////
-    // TO DO: Complete this function.
-    /////////////////////////////////
-    
     // Acquire ray in local coordinates
     Point3D rayOrigin = invTransform*ray.origin; //e
     Point3D rayDirection = invTransform*ray.direction; //d
-    
-    //For triangle p2, p3, p4 in plane
-    Point3D ab = p3 - p2;
-    Point3D ac = p3 - p4;
-    Point3D ae = p3 - rayOrigin;
-    Point3D h(0.0, 0.0, 0.0, false);
-    
-    Transform3D A(ab, ac, rayDirection, h);
-    A = A.inverse();                        // TO DO: A is singular sometimes and this is causing errors in those small cases
-    
-    //a.x = beta1, a.y = gamma1, a.z = t1 (a solution!)
-    Point3D a = A*(ae);
-    
-    //For triangle p4, p1, p2 in the plane
-    Point3D db = p1 - p2;
-    Point3D dc = p1 - p4;
-    Point3D de = p1 - rayOrigin;
-    
-    Transform3D B(db, dc, rayDirection, h);
-    B = B.inverse();
-    
-    //b.x = beta2, b.y = gamma2, b.z = t2 (a solution!)
-    Point3D b = B*(de);
-    
-    // If either lambda is negative, the plane is behind us (or we are in it)
-    // and we don't want to render it. The case where we are in it might be
-    // debatable as to whether or not we want to render, but if we change our
-    // mind latter it's an easy fix.
-    if (a.z < 0.0 || b.z < 0.0)
+
+    double t = -rayOrigin.z/rayDirection.z;
+
+    //Invalid intersection - behind camera
+    if (t < 0 || rayDirection.z == 0)
     {
-        intersection.none = true;
-        return intersection;
+    	intersection.none = true;
+    	return intersection;
     }
-    
-    //Verify if the solution is inside the respective triangle
-    bool inA = (a.x > 0.0 && a.y > 0.0 && a.x + a.y < 1.0);
-    bool inB = (b.x > 0.0 && b.y > 0.0 && b.x + b.y < 1.0);
-    
-    double lambda;
-    //If there is an intersection point in both triangles, take closest
-    if (inA && inB){
-        lambda = a.z < b.z ? a.z : b.z;
-    }
-    else if (inA)
-    {
-        lambda = a.z;
-    }
-    else if (inB)
-    {
-        lambda = b.z;
-    }
-    else{
-        intersection.none = true;
-        return intersection;
-    }
-    
-    Point3D hitPointLocal = rayOrigin + lambda*rayDirection;
-    Point3D hitNormalLocal = rayDirection.dot(normal) < 0 ? normal : -1*normal;
-    
-    intersection.none = false;
-    intersection.isLight = Object3D::isLight;
-    intersection.insideObject = false;
-    intersection.lambda = lambda;
-    intersection.point = ray.rayPosition(lambda);
-    intersection.normal = (invTransform.transpose() * hitNormalLocal).normalized();
-    intersection.material = material;
-    intersection.colour = colourAtLocalPoint(hitPointLocal);
-    intersection.obj = this;
-    
-    return intersection;
+
+    //Intersection point
+    Point3D p = rayOrigin + t*rayDirection;
+
+    //Check if intersects within plane's bounds
+	if (p.x >= -.5 && p.x <= .5 && p.y >= -.5 && p.y <= .5)
+	{
+		Point3D hitNormalLocal = rayDirection.dot(normal) < 0 ? normal : -1*normal;
+
+		intersection.none = false;
+		intersection.isLight = Object3D::isLight;
+		intersection.insideObject = false;
+		intersection.lambda = t;
+		intersection.point = ray.rayPosition(t);
+		intersection.normal = (invTransform.transpose() * hitNormalLocal).normalized();
+		intersection.material = material;
+		intersection.colour = colourAtLocalPoint(p);
+		intersection.obj = this;
+
+		return intersection;
+	}
+	intersection.none = true;
+	return intersection;
 }

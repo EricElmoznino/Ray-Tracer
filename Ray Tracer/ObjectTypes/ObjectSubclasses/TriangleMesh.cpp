@@ -107,5 +107,6 @@ bool TriangleMesh::loadOBJ(const string path)
 
 Intersection TriangleMesh::intersect(const Ray3D &ray) {
 	Intersection intersection;
+	intersection.none = true;
 	return intersection;
 }
