@@ -37,13 +37,13 @@ bool TriangleMesh::loadOBJ(const string path)
 		std::ofstream file("e1Out.txt");
 
 		// Go through each loaded mesh and out its contents
-		for (int i = 0; i < Loader.LoadedMeshes.size(); i++)
-		{
+		//for (int i = 0; i < Loader.LoadedMeshes.size(); i++)
+		//{
 			// Copy one of the loaded meshes to be our current mesh
-			objl::Mesh curMesh = Loader.LoadedMeshes[i];
+			objl::Mesh curMesh = Loader.LoadedMeshes[0];
 
 			// Print Mesh Name
-			file << "Mesh " << i << ": " << curMesh.MeshName << "\n";
+			file << "Mesh " << 0 << ": " << curMesh.MeshName << "\n";
 
 			// Print Vertices
 			file << "Vertices:\n";
@@ -85,7 +85,7 @@ bool TriangleMesh::loadOBJ(const string path)
 
 			// Leave a space to separate from the next mesh
 			file << "\n";
-		}
+		//}
 
 		// Close File
 		file.close();
