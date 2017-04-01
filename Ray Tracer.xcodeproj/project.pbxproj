@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0705CA4B1E8E22C70028B251 /* TriangleMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0705CA491E8E22C70028B251 /* TriangleMesh.cpp */; };
 		075B4D451E87156900FA30D3 /* Skybox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 075B4D431E87156900FA30D3 /* Skybox.cpp */; };
 		075B4D551E87894800FA30D3 /* ProgressManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 075B4D531E87894800FA30D3 /* ProgressManager.cpp */; };
 		075B4D591E881DB700FA30D3 /* PointLightSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 075B4D571E881DB700FA30D3 /* PointLightSource.cpp */; };
@@ -44,6 +45,8 @@
 
 /* Begin PBXFileReference section */
 		0705CA481E8DE3760028B251 /* check.ppm */ = {isa = PBXFileReference; lastKnownFileType = file; path = check.ppm; sourceTree = "<group>"; };
+		0705CA491E8E22C70028B251 /* TriangleMesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TriangleMesh.cpp; sourceTree = "<group>"; };
+		0705CA4A1E8E22C70028B251 /* TriangleMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TriangleMesh.h; sourceTree = "<group>"; };
 		075B4D391E86ED6E00FA30D3 /* compileMac.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = compileMac.sh; sourceTree = "<group>"; };
 		075B4D3A1E86ED6E00FA30D3 /* runMac.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = runMac.sh; sourceTree = "<group>"; };
 		075B4D3D1E8714DA00FA30D3 /* YellowCloud_bk.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = YellowCloud_bk.ppm; sourceTree = "<group>"; };
@@ -290,6 +293,8 @@
 		07EA01C21E759D2F000C4026 /* ObjectSubclasses */ = {
 			isa = PBXGroup;
 			children = (
+				0705CA491E8E22C70028B251 /* TriangleMesh.cpp */,
+				0705CA4A1E8E22C70028B251 /* TriangleMesh.h */,
 				07EA01C31E759D2F000C4026 /* Plane.cpp */,
 				07EA01C41E759D2F000C4026 /* Plane.h */,
 				07EA01C51E759D2F000C4026 /* Sphere.cpp */,
@@ -378,6 +383,7 @@
 				075B4D451E87156900FA30D3 /* Skybox.cpp in Sources */,
 				07EA01D01E75F033000C4026 /* main.cpp in Sources */,
 				075B4D551E87894800FA30D3 /* ProgressManager.cpp in Sources */,
+				0705CA4B1E8E22C70028B251 /* TriangleMesh.cpp in Sources */,
 				07EA018C1E75979F000C4026 /* svdDynamic.cpp in Sources */,
 				075B4D5C1E881DD800FA30D3 /* Light.cpp in Sources */,
 				07EA01BC1E75983E000C4026 /* Image.cpp in Sources */,
