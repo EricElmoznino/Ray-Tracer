@@ -13,6 +13,8 @@
 
 #include <math.h>
 #include <stdio.h>
+#include <float.h>
+
 
 
 // Namespace: OBJL
@@ -194,12 +196,24 @@ namespace objl
 			Vertices = _Vertices;
 			Indices = _Indices;
 		}
+		// Variable Set Constructor
+		Mesh(std::vector<Vertex>& _Vertices, std::vector<unsigned int>& _Indices, double _max_x, double _min_x, double _max_y, double _min_y)
+		{
+			Vertices = _Vertices;
+			Indices = _Indices;
+			max_x = _max_x;
+			min_x = _min_x;
+			max_y = _max_y;
+			min_y = _min_y;
+		}
 		// Mesh Name
 		std::string MeshName;
 		// Vertex List
 		std::vector<Vertex> Vertices;
 		// Index List
 		std::vector<unsigned int> Indices;
+
+		double max_x, min_x, max_y, min_y;
 
 		// Material
 		Material MeshMaterial;
@@ -323,6 +337,11 @@ namespace objl
 
 			std::vector<std::string> MeshMatNames;
 
+			double max_x = -DBL_MAX;
+			double min_x = DBL_MAX;
+			double min_y = DBL_MAX;
+			double max_y = -DBL_MAX;
+
 			bool listening = false;
 			std::string meshname;
 
@@ -354,7 +373,7 @@ namespace objl
 						if (!Indices.empty() && !Vertices.empty())
 						{
 							// Create Mesh
-							tempMesh = Mesh(Vertices, Indices);
+							tempMesh = Mesh(Vertices, Indices, max_x, min_x, max_y, min_y);
 							tempMesh.MeshName = meshname;
 
 							// Insert Mesh
@@ -392,6 +411,23 @@ namespace objl
 					vpos.Z = std::stof(spos[2]);
 
 					Positions.push_back(vpos);
+
+					if (vpos.X > max_x)
+					{
+						max_x = vpos.X;
+					}
+					else if (vpos.X < min_x)
+					{
+						min_x = vpos.X;
+					}
+					if (vpos.Y > max_y)
+					{
+						max_y = vpos.Y;
+					}
+					else if (vpos.Y < min_y)
+					{
+						min_y = vpos.Y;
+					}
 				}
 				// Generate a Vertex Texture Coordinate
 				if (curline.substr(0, 3) == "vt ")

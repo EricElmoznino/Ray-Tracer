@@ -1,6 +1,9 @@
 #ifndef Point3D_h
 #define Point3D_h
 
+#include "../ObjectTypes/ObjectSubclasses/OBJ_Loader.h"
+
+
 // forward declare the object type to avoid circular dependencies
 class Object3D;
 
@@ -43,6 +46,8 @@ public:
     // during matrix multiplication with a non-affine matrix
     Point3D(double x, double y, double z, double w);
     Point3D homogeonized() const;
+
+    Point3D vector3ToPoint3D(objl::Vector3 &v, bool isVec);
 };
 
 Point3D operator*(double scale, const Point3D &p); // scalar * vec

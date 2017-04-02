@@ -116,3 +116,7 @@ Point3D Point3D::homogeonized() const {
         return Point3D(this->x/this->w, this->y/this->w, this->z/this->w, 1.0);
     }
 }
+
+Point3D Point3D::vector3ToPoint3D(objl::Vector3 &v, bool isVec) {
+	return Point3D(v.X, v.Y, v.Z, isVec ? 0.0 : 1.0);
+}

@@ -136,9 +136,15 @@ void buildScene(void)
     //           in the scene.
 
     // Test OBJ
-    Object3D *objFile = new TriangleMesh("OBJ/box_stack.obj",Material(0.05, 0.95, 0.95, 0.75, 1, 1, 6, 0.3),
-                     ColourRGB(0.75, 0.95, 0.55));
-    objects.push_front(objFile);
+    obj = new TriangleMesh("OBJ/box_stack.obj",Material(0.05, 0.95, 0.95, 0.75, 1, 1, 6, 0.3),
+                     ColourRGB(1.0, 0.25, 0.25));
+    obj->scale(1, 1, 1);
+    obj->rotateY(PI/2.0);
+	obj->translate(-2.45, 2.1, 1.5);
+	obj->updateInverse();
+	obj->updateInverse();
+    objects.push_front(obj);
+
 }
 
 int main(int argc, char *argv[])
