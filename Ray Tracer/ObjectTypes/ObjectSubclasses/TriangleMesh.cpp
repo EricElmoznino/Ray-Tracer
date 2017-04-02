@@ -127,12 +127,14 @@ Intersection TriangleMesh::intersect(const Ray3D &ray) {
 	//Check if intersects within plane's bounds
 	if (p.x >= curMesh.min_x && p.x <= curMesh.max_x && p.y >= curMesh.min_y && p.y <= curMesh.max_y)
 	{
-		/*vector<double> intersection_points
+		/*vector<double> intersection_points;
+
 		for (int j = 0; j < curMesh.Indices.size(); j += 3)
 		{
-			objl::Vector3 p1 = curMesh.Vertices[curMesh.Indices[j]];
-			objl::Vector3 p2 = curMesh.Vertices[curMesh.Indices[j+1]];
-			objl::Vector3 p3 = curMesh.Vertices[curMesh.Indices[j+2]];
+			Point3D p1 = vector3ToPoint3D(curMesh.Vertices[curMesh.Indices[j]]);
+			Point3D p2 = vector3ToPoint3D(curMesh.Vertices[curMesh.Indices[j+1]]);
+			Point3D p3 = vector3ToPoint3D(curMesh.Vertices[curMesh.Indices[j+2]]);
+
 
 
 
@@ -161,4 +163,79 @@ Intersection TriangleMesh::intersect(const Ray3D &ray) {
 	return intersection;
 }
 
-//double TriangleMesh::findIntersectionPoint(Point3D origin, Point3D direction, Point3D )
+double TriangleMesh::findIntersectionPoint(Point3D &origin, Point3D &direction, Point3D &p1, Point3D &p2, Point3D &p3) {
+	/*
+	 *     // Acquire ray in local coordinates
+    Point3D rayOrigin = invTransform*ray.origin; //e
+    Point3D rayDirection = invTransform*ray.direction; //d
+
+    //For triangle p2, p3, p4 in plane
+    Point3D ab = p3 - p2;
+    Point3D ac = p3 - p4;
+    Point3D ae = p3 - rayOrigin;
+    Point3D h(0.0, 0.0, 0.0, false);
+
+    Transform3D A(ab, ac, rayDirection, h);
+    A = A.inverse();                        // TO DO: A is singular sometimes and this is causing errors in those small cases
+
+    //a.x = beta1, a.y = gamma1, a.z = t1 (a solution!)
+    Point3D a = A*(ae);
+
+    //For triangle p4, p1, p2 in the plane
+    Point3D db = p1 - p2;
+    Point3D dc = p1 - p4;
+    Point3D de = p1 - rayOrigin;
+
+    Transform3D B(db, dc, rayDirection, h);
+    B = B.inverse();
+
+    //b.x = beta2, b.y = gamma2, b.z = t2 (a solution!)
+    Point3D b = B*(de);
+
+    // If either lambda is negative, the plane is behind us (or we are in it)
+    // and we don't want to render it. The case where we are in it might be
+    // debatable as to whether or not we want to render, but if we change our
+    // mind latter it's an easy fix.
+    if (a.z < 0.0 || b.z < 0.0)
+    {
+        intersection.none = true;
+        return intersection;
+    }
+
+    //Verify if the solution is inside the respective triangle
+    bool inA = (a.x > 0.0 && a.y > 0.0 && a.x + a.y < 1.0);
+    bool inB = (b.x > 0.0 && b.y > 0.0 && b.x + b.y < 1.0);
+
+    double lambda;
+    //If there is an intersection point in both triangles, take closest
+    if (inA && inB){
+        lambda = a.z < b.z ? a.z : b.z;
+    }
+    else if (inA)
+    {
+        lambda = a.z;
+    }
+    else if (inB)
+    {
+        lambda = b.z;
+    }
+    else{
+        intersection.none = true;
+        return intersection;
+    }
+
+    Point3D hitPointLocal = rayOrigin + lambda*rayDirection;
+    Point3D hitNormalLocal = rayDirection.dot(normal) < 0 ? normal : -1*normal;
+
+    intersection.none = false;
+    intersection.isLight = Object3D::isLight;
+    intersection.lambda = lambda;
+    intersection.point = ray.rayPosition(lambda);
+    intersection.normal = (invTransform.transpose() * hitNormalLocal).normalized();
+    intersection.material = material;
+    intersection.colour = colourAtLocalPoint(hitPointLocal);
+    intersection.obj = this;
+
+    return intersection;
+	 */
+}
