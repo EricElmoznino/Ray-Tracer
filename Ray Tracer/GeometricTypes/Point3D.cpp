@@ -18,6 +18,13 @@ Point3D::Point3D(double x, double y, double z, bool isVec) {
     this->w = isVec ? 0.0 : 1.0;
 }
 
+Point3D::Point3D(objl::Vector3 &v, bool isVec) {
+	this->x = v.X;
+	this->y = v.Y;
+	this->z = v.Z;
+	this->w = isVec ? 0.0 : 1.0;
+}
+
 // Should only be called with vectors (w=0), since points don't have magnitudes
 double Point3D::magnitude() const {
     return sqrt(this->x*this->x + this->y*this->y + this->z*this->z);
@@ -115,8 +122,4 @@ Point3D Point3D::homogeonized() const {
     else {
         return Point3D(this->x/this->w, this->y/this->w, this->z/this->w, 1.0);
     }
-}
-
-Point3D Point3D::vector3ToPoint3D(objl::Vector3 &v, bool isVec) {
-	return Point3D(v.X, v.Y, v.Z, isVec ? 0.0 : 1.0);
 }

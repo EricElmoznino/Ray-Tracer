@@ -15,6 +15,8 @@ public:
     
     Point3D();
     Point3D(double x, double y, double z, bool isVec);
+    Point3D(objl::Vector3 &v, bool isVec);
+
     // default copy constructor suffices
     
     double magnitude() const;
@@ -47,7 +49,6 @@ public:
     Point3D(double x, double y, double z, double w);
     Point3D homogeonized() const;
 
-    Point3D vector3ToPoint3D(objl::Vector3 &v, bool isVec);
 };
 
 Point3D operator*(double scale, const Point3D &p); // scalar * vec

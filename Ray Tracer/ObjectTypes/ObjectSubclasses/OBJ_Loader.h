@@ -15,7 +15,7 @@
 #include <stdio.h>
 #include <float.h>
 
-
+#include <stdio.h>
 
 // Namespace: OBJL
 //
@@ -373,6 +373,10 @@ namespace objl
 						if (!Indices.empty() && !Vertices.empty())
 						{
 							// Create Mesh
+							printf("MAX_X: %f\n", max_x);
+							printf("MIN_X: %f\n", min_x);
+							printf("MAX_Y: %f\n", max_y);
+							printf("MIN_Y: %f\n", min_y);
 							tempMesh = Mesh(Vertices, Indices, max_x, min_x, max_y, min_y);
 							tempMesh.MeshName = meshname;
 
@@ -385,6 +389,11 @@ namespace objl
 							meshname.clear();
 
 							meshname = curline.substr(2, curline.size());
+
+							max_x = -DBL_MAX;
+							min_x = DBL_MAX;
+							min_y = DBL_MAX;
+							max_y = -DBL_MAX;
 						}
 						else
 						{
@@ -414,18 +423,22 @@ namespace objl
 
 					if (vpos.X > max_x)
 					{
+						printf("Replace max_x with %f\n", vpos.X);
 						max_x = vpos.X;
 					}
 					else if (vpos.X < min_x)
 					{
+						printf("Replace min_x with %f\n", vpos.X);
 						min_x = vpos.X;
 					}
 					if (vpos.Y > max_y)
 					{
+						printf("Replace max_y with %f\n", vpos.Y);
 						max_y = vpos.Y;
 					}
 					else if (vpos.Y < min_y)
 					{
+						printf("Replace min_y with %f\n", vpos.Y);
 						min_y = vpos.Y;
 					}
 				}
@@ -514,6 +527,12 @@ namespace objl
 					// Load Materials
 					LoadMaterials(pathtomat);
 				}
+
+				/*printf("MAX_X: %f\n", max_x);
+				printf("MIN_X: %f\n", min_x);
+				printf("MAX_Y: %f\n", max_y);
+				printf("MIN_Y: %f\n", min_y);*/
+
 			}
 
 			// Deal with last mesh
@@ -521,7 +540,11 @@ namespace objl
 			if (!Indices.empty() && !Vertices.empty())
 			{
 				// Create Mesh
-				tempMesh = Mesh(Vertices, Indices);
+				printf("MAX_X: %f\n", max_x);
+				printf("MIN_X: %f\n", min_x);
+				printf("MAX_Y: %f\n", max_y);
+				printf("MIN_Y: %f\n", min_y);
+				tempMesh = Mesh(Vertices, Indices, max_x, min_x, max_y, min_y);
 				tempMesh.MeshName = meshname;
 
 				// Insert Mesh
