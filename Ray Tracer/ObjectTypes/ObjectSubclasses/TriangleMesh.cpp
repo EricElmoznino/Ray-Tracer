@@ -64,20 +64,18 @@ ColourRGB TriangleMesh::colourAtTrianglePoint(int faceIndex, double u, double v)
         return colour;
     //}
     
-    // Find colour of the texture at each vertex
-    double a, b;
-    a = curMesh.Vertices[faceIndex].TextureCoordinate.X;
-    b = curMesh.Vertices[faceIndex].TextureCoordinate.Y;
-    ColourRGB c1 = textureImage.textureMap(a, b);
-    a = curMesh.Vertices[faceIndex+1].TextureCoordinate.X;
-    b = curMesh.Vertices[faceIndex+1].TextureCoordinate.Y;
-    ColourRGB c2 = textureImage.textureMap(a, b);
-    a = curMesh.Vertices[faceIndex+2].TextureCoordinate.X;
-    b = curMesh.Vertices[faceIndex+2].TextureCoordinate.Y;
-    ColourRGB c3 = textureImage.textureMap(a, b);
+    // Find texture coordinates at every vertex on the triangle face
+    double a1 = curMesh.Vertices[faceIndex].TextureCoordinate.X;
+    double b1 = curMesh.Vertices[faceIndex].TextureCoordinate.Y;
+    double a2 = curMesh.Vertices[faceIndex+1].TextureCoordinate.X;
+    double b2 = curMesh.Vertices[faceIndex+1].TextureCoordinate.Y;
+    double a3 = curMesh.Vertices[faceIndex+2].TextureCoordinate.X;
+    double b3 = curMesh.Vertices[faceIndex+2].TextureCoordinate.Y;
     
-    // Interpolate to get actual normal based on u and v
-    return c1*(1-u-v) + c2*u + c3*v;
+    // Interpolate texture coordinates and get the corresponding colour
+    double a = a1*(1-u-v) + a2*u + a3*v;
+    double b = b1*(1-u-v) + b2*u + b3*v;
+    return textureImage.textureMap(a, b);
 }
 
 bool TriangleMesh::loadOBJ(const string path)
