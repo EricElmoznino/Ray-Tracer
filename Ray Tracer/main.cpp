@@ -136,7 +136,7 @@ void buildScene(void)
     //           in the scene.
 
     // Test OBJ
-    obj = new TriangleMesh("OBJ/cube.obj",Material(0.05, 0.95, 0.35, 0.35, 1, 1, 6, 0.3),
+    obj = new TriangleMesh("OBJ/poly.obj",Material(0.05, 0.95, 0.35, 0.35, 1, 1, 6, 0.3),
             ColourRGB(1.0, 0.25, 0.25));
     //obj->scale(0.75, 0.5, 1.5);
 	//obj->rotateY(PI/2.0);

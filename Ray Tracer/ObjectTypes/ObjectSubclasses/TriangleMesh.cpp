@@ -170,13 +170,14 @@ Intersection TriangleMesh::intersect(const Ray3D &ray) {
     Point3D rayDirection = invTransform*ray.direction; //d
     
 	//Check if intersects within sphere's bounds
-	if (intersectBoundingBox(ray))
+	if (intersectBoundingBox(rayOrigin, rayDirection))
 	{
         double closestLambda = DBL_MAX;
         int closestTriangleFace = 0;
+        double u = 0, v = 0;    // u,v parameters for parametric equation of triangle
 		for (int j = 0; j < curMesh.Indices.size(); j += 3)
 		{
-			double lambda = findIntersectionPoint(rayOrigin, rayDirection, j);
+			double lambda = findIntersectionParams(rayOrigin, rayDirection, j, &u, &v);
             if (lambda < closestLambda) {
                 closestLambda = lambda;
                 closestTriangleFace = j/3;
@@ -189,7 +190,7 @@ Intersection TriangleMesh::intersect(const Ray3D &ray) {
 			return intersection;
 		}
 
-		Point3D normal = findNormal(closestTriangleFace);
+		Point3D normal = findNormal(closestTriangleFace, u, v);
 
 		//Point3D normal = Point3D(curMesh.Vertices[index].Normal, true);
 		Point3D hitPointLocal = rayOrigin + (closestLambda)*rayDirection;
@@ -212,13 +213,14 @@ Intersection TriangleMesh::intersect(const Ray3D &ray) {
 	return intersection;
 }
 
-Point3D TriangleMesh::findNormal(int faceIndex) {
-	//Find normal by averaging vertices of the corresponding face
-	Point3D vertexIndices = Point3D(curMesh.Indices[faceIndex], curMesh.Indices[faceIndex+1], curMesh.Indices[faceIndex+2], false);
+Point3D TriangleMesh::findNormal(int faceIndex, double u, double v) {
+    // Find normals of each vertex on the face
 	Point3D n1 = Point3D(curMesh.Vertices[faceIndex].Normal, true);
 	Point3D n2 = Point3D(curMesh.Vertices[faceIndex+1].Normal, true);
 	Point3D n3 = Point3D(curMesh.Vertices[faceIndex+2].Normal, true);
-	return Point3D(n1, n2, n3, true);
+    
+    // Interpolate to get actual normal based on u and v
+    return (1-u-v)*n1 + u*n2 + v*n3;
 }
 
 void TriangleMesh::normalizeVertices(void) {
@@ -237,62 +239,38 @@ void TriangleMesh::normalizeVertices(void) {
 }
 
 // TODO: this function can break when rayDirection has a component that is 0
-bool TriangleMesh::intersectBoundingBox(const Ray3D &ray){
-	/*
-	 * Check if ray intersects with Bounding box with bounds
-	 * -.5 to .5
-	 */
-    // Acquire ray in local coordinates
-    Point3D rayOrigin = invTransform*ray.origin; //e
-    Point3D rayDirection = invTransform*ray.direction; //d
-
-    Point3D invRayDirection = Point3D(1/rayDirection.x, 1/rayDirection.y, 1/rayDirection.z, true);
-
-    int sign [3];
-    sign[0] = (invRayDirection.x < 0);
-    sign[1] = (invRayDirection.y < 0);
-    sign[2] = (invRayDirection.z < 0);
-
-    Point3D bounds [2];
-    bounds[0] = Point3D(-.5, -.5, -.5, false);
-    bounds[1] = Point3D(.5, .5, .5, false);
-
-    double xmin, xmax, ymin, ymax, zmin, zmax;
-
-    xmin = (bounds[sign[0]].x - rayOrigin.x)*invRayDirection.x;
-    xmax = (bounds[1-sign[0]].x - rayOrigin.x)*invRayDirection.x;
-    ymin = (bounds[sign[1]].y - rayOrigin.y)*invRayDirection.y;
-    ymax = (bounds[1-sign[1]].y - rayOrigin.y)*invRayDirection.y;
-
-    if ((xmin > ymax) || (ymin > xmax))
-    {
-    	return false;
+bool TriangleMesh::intersectBoundingBox(const Point3D &origin, const Point3D &direction){
+    double tmin = -DBL_MAX, tmax = DBL_MAX;
+    Point3D bmin(-0.5, -0.5, -0.5, true);
+    Point3D bmax(0.5, 0.5, 0.5, true);
+    
+    if (direction.x != 0) {
+        double tx1 = (bmin.x - origin.x) / direction.x;
+        double tx2 = (bmax.x - origin.x) / direction.x;
+        tmin = max(tmin, min(tx1, tx2));
+        tmax = min(tmax, max(tx1, tx2));
     }
-
-    if (ymin > xmin) xmin = ymin;
-    if (ymax < xmax) xmax = ymax;
-
-    zmin = (bounds[sign[2]].z - rayOrigin.z)*invRayDirection.z;
-    zmax = (bounds[1-sign[2]].z - rayOrigin.z)*invRayDirection.z;
-
-    if ((xmin > zmax) || (zmin > xmax))
-    {
-    	return false;
+    if (direction.y != 0) {
+        double ty1 = (bmin.y - origin.y) / direction.y;
+        double ty2 = (bmax.y - origin.y) / direction.y;
+        tmin = max(tmin, min(ty1, ty2));
+        tmax = min(tmax, max(ty1, ty2));
     }
-
-    if (zmin > xmin) xmin = zmin;
-    if (zmax < xmax) xmax = zmax;
-
-    double t = xmin;
-
-    if (t < 0) {
-    	t = xmax;
-    	if (t < 0) return false;
+    if (direction.z != 0) {
+        double tz1 = (bmin.z - origin.z) / direction.z;
+        double tz2 = (bmax.z - origin.z) / direction.z;
+        tmin = max(tmin, min(tz1, tz2));
+        tmax = min(tmax, max(tz1, tz2));
     }
-    return true;
+    
+    // Check if box is behind
+    if (tmax < 0) return false;
+    
+    return tmax >= tmin;
 }
 
-double TriangleMesh::findIntersectionPoint(Point3D &origin, Point3D &direction, int triangleFace) {
+double TriangleMesh::findIntersectionParams(Point3D &origin, Point3D &direction,
+                                            int triangleFace, double *u, double *v) {
     // Get the transform to convert a point to triangle space
     // (triangle space has basis: {AB, AC, AB.crossUnit(AC)} where
     // A, B, and C are the vertices and XY symbolizes Y-X
@@ -304,10 +282,10 @@ double TriangleMesh::findIntersectionPoint(Point3D &origin, Point3D &direction, 
     if (fabs(d.z) < 1e-6) return DBL_MAX;
     
     double t = -o.z / d.z;
-    double u = o.x + t * d.x;
-    double v = o.y + t * d.y;
+    *u = o.x + t * d.x;
+    *v = o.y + t * d.y;
     
-    if (u < 0 || v < 0 || u+v > 1) return DBL_MAX;
+    if (*u < 0 || *v < 0 || *u+*v > 1) return DBL_MAX;
     
     return t;
 }

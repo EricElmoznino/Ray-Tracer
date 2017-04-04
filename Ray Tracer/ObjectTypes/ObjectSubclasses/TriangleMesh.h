@@ -19,6 +19,12 @@ class TriangleMesh : public Object3D{
 	 */
 	objl::Mesh curMesh;
     vector<Transform3D> triangleTransforms;
+    
+    void normalizeVertices(void);
+    bool intersectBoundingBox(const Point3D &origin, const Point3D &direction);
+    double findIntersectionParams(Point3D &origin, Point3D &direction,
+                                  int triangleFace, double *u, double *v);
+    Point3D findNormal(int faceIndex, double u, double v);
 
 protected:
 	ColourRGB colourAtLocalPoint(const Point3D &up) const;
@@ -28,15 +34,8 @@ public:
 	TriangleMesh(const string filename, const Material &material, const ColourRGB &colour);
 
 	bool loadOBJ(const string path);
-	Point3D findNormal(int faceIndex);
-
-	void normalizeVertices(void);
-
 
 	Intersection intersect(const Ray3D &ray);
-	bool intersectBoundingBox(const Ray3D &ray);
-
-	double findIntersectionPoint(Point3D &origin, Point3D &direction, int triangleFace);
 };
 
 #endif
