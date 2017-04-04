@@ -197,7 +197,7 @@ namespace objl
 			Indices = _Indices;
 		}
 		// Variable Set Constructor
-		Mesh(std::vector<Vertex>& _Vertices, std::vector<unsigned int>& _Indices, double _max_x, double _min_x, double _max_y, double _min_y)
+		Mesh(std::vector<Vertex>& _Vertices, std::vector<unsigned int>& _Indices, double _max_x, double _min_x, double _max_y, double _min_y, double _max_z, double _min_z)
 		{
 			Vertices = _Vertices;
 			Indices = _Indices;
@@ -205,6 +205,8 @@ namespace objl
 			min_x = _min_x;
 			max_y = _max_y;
 			min_y = _min_y;
+			max_z = _max_z;
+			min_z = _min_z;
 		}
 		// Mesh Name
 		std::string MeshName;
@@ -213,7 +215,7 @@ namespace objl
 		// Index List
 		std::vector<unsigned int> Indices;
 
-		double max_x, min_x, max_y, min_y;
+		double max_x, min_x, max_y, min_y, max_z, min_z;
 
 		// Material
 		Material MeshMaterial;
@@ -341,6 +343,8 @@ namespace objl
 			double min_x = DBL_MAX;
 			double min_y = DBL_MAX;
 			double max_y = -DBL_MAX;
+			double min_z = DBL_MAX;
+			double max_z = -DBL_MAX;
 
 			bool listening = false;
 			std::string meshname;
@@ -377,7 +381,9 @@ namespace objl
 							printf("MIN_X: %f\n", min_x);
 							printf("MAX_Y: %f\n", max_y);
 							printf("MIN_Y: %f\n", min_y);
-							tempMesh = Mesh(Vertices, Indices, max_x, min_x, max_y, min_y);
+							printf("MAX_Z: %f\n", max_z);
+							printf("MIN_Z: %f\n", min_z);
+							tempMesh = Mesh(Vertices, Indices, max_x, min_x, max_y, min_y, max_z, min_z);
 							tempMesh.MeshName = meshname;
 
 							// Insert Mesh
@@ -394,6 +400,8 @@ namespace objl
 							min_x = DBL_MAX;
 							min_y = DBL_MAX;
 							max_y = -DBL_MAX;
+							min_z = DBL_MAX;
+							max_z = -DBL_MAX;
 						}
 						else
 						{
@@ -440,6 +448,16 @@ namespace objl
 					{
 						printf("Replace min_y with %f\n", vpos.Y);
 						min_y = vpos.Y;
+					}
+					if (vpos.Z > max_z)
+					{
+						printf("Replace max_z with %f\n", vpos.Z);
+						max_z = vpos.Z;
+					}
+					else if (vpos.Z < min_z)
+					{
+						printf("Replace min_z with %f\n", vpos.Z);
+						min_z = vpos.Z;
 					}
 				}
 				// Generate a Vertex Texture Coordinate
@@ -544,7 +562,9 @@ namespace objl
 				printf("MIN_X: %f\n", min_x);
 				printf("MAX_Y: %f\n", max_y);
 				printf("MIN_Y: %f\n", min_y);
-				tempMesh = Mesh(Vertices, Indices, max_x, min_x, max_y, min_y);
+				printf("MAX_Z: %f\n", max_z);
+				printf("MIN_Z: %f\n", min_z);
+				tempMesh = Mesh(Vertices, Indices, max_x, min_x, max_y, min_y, max_z, min_z);
 				tempMesh.MeshName = meshname;
 
 				// Insert Mesh

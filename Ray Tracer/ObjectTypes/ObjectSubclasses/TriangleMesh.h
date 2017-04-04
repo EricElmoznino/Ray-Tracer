@@ -28,8 +28,14 @@ public:
 
 	bool loadOBJ(const string path);
 
+	void normalizeVertices(void);
+
+
 	Intersection intersect(const Ray3D &ray);
+	bool intersectBoundingBox(const Ray3D &ray);
+
 	double findIntersectionPoint(Point3D &origin, Point3D &direction, Point3D &p1, Point3D &p2, Point3D &p3);
+
 
 };
 

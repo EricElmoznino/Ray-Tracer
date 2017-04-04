@@ -48,6 +48,7 @@ public:
     // during matrix multiplication with a non-affine matrix
     Point3D(double x, double y, double z, double w);
     Point3D homogeonized() const;
+    double average();
 
 };
 

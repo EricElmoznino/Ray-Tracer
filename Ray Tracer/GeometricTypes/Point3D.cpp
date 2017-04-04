@@ -123,3 +123,7 @@ Point3D Point3D::homogeonized() const {
         return Point3D(this->x/this->w, this->y/this->w, this->z/this->w, 1.0);
     }
 }
+double Point3D::average() {
+	return ((this->x + this->y + this->z)/3);
+}
+

@@ -9,15 +9,40 @@ Object3D::Object3D(material, colour){
 }
 
 TriangleMesh::TriangleMesh(const string filename, const Material &material, const ColourRGB &colour) :
-	Object3D::Object3D(material, colour){
+Object3D::Object3D(material, colour){
 	bool isLoaded = loadOBJ(filename);
 	if (isLoaded)
 	{
 		printf("OBJ successfully loaded!\n");
+		//Material prop from loaded mesh:
+		//Ambient Color
+		double Ka = Point3D(curMesh.MeshMaterial.Ka, true).average();
+		printf("Ka: %f\n", Ka);
+		//Diffuse Color
+		double Kd = Point3D(curMesh.MeshMaterial.Kd, true).average();
+		printf("Kd: %f\n", Kd);
+
+		//Specular Color
+		double Ks = Point3D(curMesh.MeshMaterial.Ks, true).average();
+		printf("Ks: %f\n", Ks);
+
+		//Exponent for phong specular component
+		double shinyness = curMesh.MeshMaterial.Ns;
+		printf("shinyness: %f\n", shinyness);
+
+		//Dissolve? -> Opacity
+		//double opacity = curMesh.MeshMaterial.d;
+		//printf("opacity: %f\n", opacity);
+
+		Material fromMesh(Ka, Kd, Ks, material.global, material.opacity, material.refractionIndex,
+				shinyness, material.roughness);
+		Object3D::material = fromMesh;
 	}
 	else{
 		printf("Error: OBJ NOT LOADED!\n");
+		Object3D::material = material;
 	}
+	Object3D::colour = colour;
 	Object3D::isLight = false;
 }
 
@@ -42,6 +67,7 @@ bool TriangleMesh::loadOBJ(const string path)
 		// Copy one of the loaded meshes to be our current mesh
 		curMesh = Loader.LoadedMeshes[0];
 
+		normalizeVertices();
 		// Print Mesh Name
 		file << "Mesh " << 0 << ": " << curMesh.MeshName << "\n";
 
@@ -59,7 +85,7 @@ bool TriangleMesh::loadOBJ(const string path)
 		}
 
 		// Print bounds of box
-		file << "Bounds of bounding box: X: [" << curMesh.min_x << " " << curMesh.max_x << "] Y: [" << curMesh.min_y << " " << curMesh.max_y << "]\n";
+		file << "Bounds of bounding box: X: [" << curMesh.min_x << " " << curMesh.max_x << "] Y: [" << curMesh.min_y << " " << curMesh.max_y << "] Z: [" << curMesh.min_z << " " << curMesh.max_z << "]\n";
 
 		// Print Indices
 		file << "Indices:\n";
@@ -125,11 +151,10 @@ Intersection TriangleMesh::intersect(const Ray3D &ray) {
 
 	//Intersection point
 	Point3D p = rayOrigin + t*rayDirection;
-	//Point3D normal = Point3D(0, -1, 0, true);
 
-	//Check if intersects within plane's bounds
-	//if (p.x >= curMesh.min_x && p.x <= curMesh.max_x && p.y >= curMesh.min_y && p.y <= curMesh.max_y)
-	//{
+	//Check if intersects within sphere's bounds
+	if (intersectBoundingBox(ray))
+	{
 		vector<double> intersection_points;
 
 		for (int j = 0; j < curMesh.Indices.size(); j += 3)
@@ -157,7 +182,7 @@ Intersection TriangleMesh::intersect(const Ray3D &ray) {
 			return intersection;
 		}
 
-		printf("INTERSECTION - MIN: %f\n", *it);
+		//printf("INTERSECTION - MIN: %f\n", *it);
 		int index = distance(intersection_points.begin(), it);
 
 		Point3D normal = Point3D(curMesh.Vertices[index].Normal, true);
@@ -175,10 +200,80 @@ Intersection TriangleMesh::intersect(const Ray3D &ray) {
 		intersection.obj = this;
 
 		return intersection;
-	//}
+	}
 
-	//intersection.none = true;
-	//return intersection;
+	intersection.none = true;
+	return intersection;
+}
+
+void TriangleMesh::normalizeVertices(void) {
+	//Normalize vertex coords to between -0.5 to 0.5
+	for (int j = 0; j < curMesh.Vertices.size(); j++)
+	{
+		double x = ((curMesh.Vertices[j].Position.X - curMesh.min_x)/(curMesh.max_x - curMesh.min_x)) - 0.5;
+		curMesh.Vertices[j].Position.X = x;
+
+		double y = ((curMesh.Vertices[j].Position.Y - curMesh.min_y)/(curMesh.max_y - curMesh.min_y)) - 0.5;
+		curMesh.Vertices[j].Position.Y = y;
+
+		double z = ((curMesh.Vertices[j].Position.Z - curMesh.min_z)/(curMesh.max_z - curMesh.min_z)) - 0.5;
+		curMesh.Vertices[j].Position.Z = z;
+	}
+}
+
+bool TriangleMesh::intersectBoundingBox(const Ray3D &ray){
+	/*
+	 * Check if ray intersects with Bounding box with bounds
+	 * -.5 to .5
+	 */
+    // Acquire ray in local coordinates
+    Point3D rayOrigin = invTransform*ray.origin; //e
+    Point3D rayDirection = invTransform*ray.direction; //d
+
+    Point3D invRayDirection = Point3D(1/rayDirection.x, 1/rayDirection.y, 1/rayDirection.z, true);
+
+    int sign [3];
+    sign[0] = (invRayDirection.x < 0);
+    sign[1] = (invRayDirection.y < 0);
+    sign[2] = (invRayDirection.z < 0);
+
+    Point3D bounds [2];
+    bounds[0] = Point3D(-.5, -.5, -.5, false);
+    bounds[1] = Point3D(.5, .5, .5, false);
+
+    double xmin, xmax, ymin, ymax, zmin, zmax;
+
+    xmin = (bounds[sign[0]].x - rayOrigin.x)*invRayDirection.x;
+    xmax = (bounds[1-sign[0]].x - rayOrigin.x)*invRayDirection.x;
+    ymin = (bounds[sign[1]].y - rayOrigin.y)*invRayDirection.y;
+    ymax = (bounds[1-sign[1]].y - rayOrigin.y)*invRayDirection.y;
+
+    if ((xmin > ymax) || (ymin > xmax))
+    {
+    	return false;
+    }
+
+    if (ymin > xmin) xmin = ymin;
+    if (ymax < xmax) xmax = ymax;
+
+    zmin = (bounds[sign[2]].z - rayOrigin.z)*invRayDirection.z;
+    zmax = (bounds[1-sign[2]].z - rayOrigin.z)*invRayDirection.z;
+
+    if ((xmin > zmax) || (zmin > xmax))
+    {
+    	return false;
+    }
+
+    if (zmin > xmin) xmin = zmin;
+    if (zmax < xmax) xmax = zmax;
+
+    double t = xmin;
+
+    if (t < 0) {
+    	t = xmax;
+    	if (t < 0) return false;
+    }
+    return true;
 }
 
 double TriangleMesh::findIntersectionPoint(Point3D &origin, Point3D &direction, Point3D &p1, Point3D &p2, Point3D &p3) {
