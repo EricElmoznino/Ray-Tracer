@@ -18,6 +18,7 @@ class TriangleMesh : public Object3D{
 	 * Input: str path to .obj file
 	 */
 	objl::Mesh curMesh;
+    vector<Transform3D> triangleTransforms;
 
 protected:
 	ColourRGB colourAtLocalPoint(const Point3D &up) const;
@@ -35,7 +36,7 @@ public:
 	Intersection intersect(const Ray3D &ray);
 	bool intersectBoundingBox(const Ray3D &ray);
 
-	double findIntersectionPoint(Point3D &origin, Point3D &direction, Point3D &p1, Point3D &p2, Point3D &p3);
+	double findIntersectionPoint(Point3D &origin, Point3D &direction, int triangleFace);
 };
 
 #endif

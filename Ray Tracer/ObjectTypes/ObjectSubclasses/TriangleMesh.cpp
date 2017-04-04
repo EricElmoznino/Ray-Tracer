@@ -145,6 +145,20 @@ bool TriangleMesh::loadOBJ(const string path)
 		// Close File
 		file.close();
 	}
+    
+    // Compute the inverse transforms
+    for (int i = 0; i < curMesh.Indices.size(); i += 3) {
+        Point3D p1(curMesh.Vertices[curMesh.Indices[i]].Position, false);
+        Point3D p2(curMesh.Vertices[curMesh.Indices[i+1]].Position, false);
+        Point3D p3(curMesh.Vertices[curMesh.Indices[i+2]].Position, false);
+        
+        Point3D ab = p2 - p1;
+        Point3D ac = p3 - p1;
+        Point3D n = ab.crossUnit(ac);
+        
+        triangleTransforms.push_back(Transform3D(ab, ac, n, p1).inverse());
+    }
+    
 	return loadout;
 }
 
@@ -154,63 +168,38 @@ Intersection TriangleMesh::intersect(const Ray3D &ray) {
     // Acquire ray in local coordinates
     Point3D rayOrigin = invTransform*ray.origin; //e
     Point3D rayDirection = invTransform*ray.direction; //d
-
-    double t = -rayOrigin.z/rayDirection.z;
-
-	//Invalid intersection - behind camera
-	if (t < 0 || rayDirection.z == 0)
-	{
-		intersection.none = true;
-		return intersection;
-	}
-
-	//Intersection point
-	Point3D p = rayOrigin + t*rayDirection;
-
+    
 	//Check if intersects within sphere's bounds
 	if (intersectBoundingBox(ray))
 	{
-		vector<double> intersection_points;
-
+        double closestLambda = DBL_MAX;
+        int closestTriangleFace = 0;
 		for (int j = 0; j < curMesh.Indices.size(); j += 3)
 		{
-			//printf("Vert at Index: %i\n", j);
-			Point3D p1 = Point3D(curMesh.Vertices[curMesh.Indices[j]].Position, false);
-			//p1.printPoint3D();
-			//printf("Vert at Index: %i\n", j+1);
-			Point3D p2 = Point3D(curMesh.Vertices[curMesh.Indices[j+1]].Position, false);
-			//p2.printPoint3D();
-			//printf("Vert at Index: %i\n", j+2);
-			Point3D p3 = Point3D(curMesh.Vertices[curMesh.Indices[j+2]].Position, false);
-			//p3.printPoint3D();
-
-			double point = findIntersectionPoint(rayOrigin, rayDirection, p1, p2, p3);
-			//printf("Intersection point %f\n", point);
-			intersection_points.push_back(point);
+			double lambda = findIntersectionPoint(rayOrigin, rayDirection, j);
+            if (lambda < closestLambda) {
+                closestLambda = lambda;
+                closestTriangleFace = j/3;
+            }
 		}
 
-		vector<double>::iterator it = min_element(intersection_points.begin(), intersection_points.end());
-
-		if (*it == DBL_MAX)
+		if (closestLambda == DBL_MAX)
 		{
 			intersection.none = true;
 			return intersection;
 		}
 
-		//printf("INTERSECTION - MIN: %f\n", *it);
-		int index = distance(intersection_points.begin(), it);
-
-		Point3D normal = findNormal(index);
+		Point3D normal = findNormal(closestTriangleFace);
 
 		//Point3D normal = Point3D(curMesh.Vertices[index].Normal, true);
-		Point3D hitPointLocal = rayOrigin + (*it)*rayDirection;
+		Point3D hitPointLocal = rayOrigin + (closestLambda)*rayDirection;
 		Point3D hitNormalLocal = rayDirection.dot(normal) < 0 ? normal : -1*normal;
 
 		intersection.none = false;
 		intersection.isLight = Object3D::isLight;
 		intersection.insideObject = false;
-		intersection.lambda = *it;
-		intersection.point = ray.rayPosition(*it);
+		intersection.lambda = closestLambda;
+		intersection.point = ray.rayPosition(closestLambda);
 		intersection.normal = (invTransform.transpose() * hitNormalLocal).normalized();
 		intersection.material = material;
 		intersection.colour = colourAtLocalPoint(hitPointLocal);
@@ -247,6 +236,7 @@ void TriangleMesh::normalizeVertices(void) {
 	}
 }
 
+// TODO: this function can break when rayDirection has a component that is 0
 bool TriangleMesh::intersectBoundingBox(const Ray3D &ray){
 	/*
 	 * Check if ray intersects with Bounding box with bounds
@@ -302,35 +292,22 @@ bool TriangleMesh::intersectBoundingBox(const Ray3D &ray){
     return true;
 }
 
-double TriangleMesh::findIntersectionPoint(Point3D &origin, Point3D &direction, Point3D &p1, Point3D &p2, Point3D &p3) {
-
-    //For triangle p1, p2, p3 in plane
-    Point3D ab = p1 - p3;
-    Point3D ac = p1 - p2;
-    Point3D ae = p1 - origin;
-    Point3D h(0.0, 0.0, 0.0, false);
-
-    Transform3D A(ab, ac, direction, h);
-    A = A.inverse();                        // TO DO: A is singular sometimes and this is causing errors in those small cases
-
-    //a.x = beta1, a.y = gamma1, a.z = t1 (a solution!)
-    Point3D a = A*(ae);
-
-    // If either lambda is negative, the plane is behind us (or we are in it)
-    // and we don't want to render it. The case where we are in it might be
-    // debatable as to whether or not we want to render, but if we change our
-    // mind latter it's an easy fix.
-    if (a.z < 0.0)
-    {
-        return DBL_MAX;
-    }
-
-    //Verify if the solution is inside the respective triangle
-    bool inA = (a.x > 0.0 && a.y > 0.0 && a.x + a.y < 1.0);
-
-    if (inA)
-    {
-        return a.z;
-    }
-    return DBL_MAX;
+double TriangleMesh::findIntersectionPoint(Point3D &origin, Point3D &direction, int triangleFace) {
+    // Get the transform to convert a point to triangle space
+    // (triangle space has basis: {AB, AC, AB.crossUnit(AC)} where
+    // A, B, and C are the vertices and XY symbolizes Y-X
+    Transform3D P = triangleTransforms[triangleFace/3];
+    
+    Point3D o = P * origin;
+    Point3D d = P * direction;
+    
+    if (fabs(d.z) < 1e-6) return DBL_MAX;
+    
+    double t = -o.z / d.z;
+    double u = o.x + t * d.x;
+    double v = o.y + t * d.y;
+    
+    if (u < 0 || v < 0 || u+v > 1) return DBL_MAX;
+    
+    return t;
 }

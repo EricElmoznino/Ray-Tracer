@@ -22,11 +22,17 @@ Intersection Plane::intersect(const Ray3D &ray) {
     // Acquire ray in local coordinates
     Point3D rayOrigin = invTransform*ray.origin; //e
     Point3D rayDirection = invTransform*ray.direction; //d
+    
+    double denom = normal.dot(rayDirection);
+    // Invalid intersection - plane is parallel to ray
+    if (fabs(denom) < 1e-6) {
+        intersection.none = true;
+        return intersection;
+    }
 
-    double t = -rayOrigin.z/rayDirection.z;
-
-    //Invalid intersection - behind camera
-    if (t < 0 || rayDirection.z == 0)
+    double t = normal.dot(c - rayOrigin) / denom;
+    // Invalid intersection - behind camera
+    if (t < 0)
     {
     	intersection.none = true;
     	return intersection;
