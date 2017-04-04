@@ -136,11 +136,10 @@ void buildScene(void)
     //           in the scene.
 
     // Test OBJ
-    Object3D *obj = new TriangleMesh("OBJ/cube.obj",Material(0.05, 0.95, 0.35, 0.35, 1, 1, 6, 0.3),
+    Object3D *obj = new TriangleMesh("OBJ/teapot.obj",Material(0.05, 0.95, 0.35, 0.35, 1, 1, 6, 0.3),
                                      ColourRGB(1.0, 0.25, 0.25));
 //    obj->scale(0.75, 0.5, 1.5);
-//	obj->rotateY(PI/2.0);
-	obj->translate(-1.45, 1.1, 3.5);
+	//obj->translate(-1.45, 1.1, 3.5);
 	obj->updateInverse();
 	objects.push_front(obj);
 }

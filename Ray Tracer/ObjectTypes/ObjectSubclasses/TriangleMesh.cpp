@@ -10,6 +10,7 @@ Object3D::Object3D(material, colour){
 
 TriangleMesh::TriangleMesh(const string filename, const Material &material, const ColourRGB &colour) :
 Object3D::Object3D(material, colour){
+    Object3D::isLight = false;
 	bool isLoaded = loadOBJ(filename);
 	if (isLoaded)
 	{
@@ -247,17 +248,20 @@ Point3D TriangleMesh::findNormal(int faceIndex, double u, double v) {
 
 void TriangleMesh::normalizeVertices(void) {
 	//Normalize vertex coords to between -0.5 to 0.5
+    double scale = min(min(1.0/(curMesh.max_x-curMesh.min_x),
+                           1.0/(curMesh.max_y-curMesh.min_y)),
+                       1.0/(curMesh.max_z-curMesh.min_z));
+    
 	for (int j = 0; j < curMesh.Vertices.size(); j++)
 	{
-		double x = ((curMesh.Vertices[j].Position.X - curMesh.min_x)/(curMesh.max_x - curMesh.min_x)) - 0.5;
-		curMesh.Vertices[j].Position.X = x;
-
-		double y = ((curMesh.Vertices[j].Position.Y - curMesh.min_y)/(curMesh.max_y - curMesh.min_y)) - 0.5;
-		curMesh.Vertices[j].Position.Y = y;
-
-		double z = ((curMesh.Vertices[j].Position.Z - curMesh.min_z)/(curMesh.max_z - curMesh.min_z)) - 0.5;
-		curMesh.Vertices[j].Position.Z = z;
-	}
+        double x = curMesh.Vertices[j].Position.X;
+        double y = curMesh.Vertices[j].Position.Y;
+        double z = curMesh.Vertices[j].Position.Z;
+        
+        curMesh.Vertices[j].Position.X = (x - 0.5*(curMesh.min_x+curMesh.max_x))*scale;
+        curMesh.Vertices[j].Position.Y = (y - 0.5*(curMesh.min_y+curMesh.max_y))*scale;
+        curMesh.Vertices[j].Position.Z = (z - 0.5*(curMesh.min_z+curMesh.max_z))*scale;
+    }
 }
 
 // TODO: this function can break when rayDirection has a component that is 0
