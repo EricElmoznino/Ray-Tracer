@@ -8,7 +8,7 @@
 class Object3D;
 
 class Ray3D {
-    const double biasAmount = 1e-4;
+    const double biasAmount = 1e-6;
     
 public:
     Point3D origin;

@@ -177,6 +177,9 @@ bool TriangleMesh::loadOBJ(const string path)
 }
 
 Intersection TriangleMesh::intersect(const Ray3D &ray) {
+    if (fabs(ray.direction.x) < 1e-2 && fabs(ray.direction.y) < 1e-2) {
+        ;
+    }
 	Intersection intersection;
 
     // Acquire ray in local coordinates
@@ -311,7 +314,7 @@ double TriangleMesh::findIntersectionParams(Point3D &origin, Point3D &direction,
     *u = o.x + t * d.x;
     *v = o.y + t * d.y;
     
-    if (*u < 0 || *v < 0 || *u+*v > 1) return DBL_MAX;
+    if (t < 0 || *u < 0 || *v < 0 || *u+*v > 1) return DBL_MAX;
     
     return t;
 }
