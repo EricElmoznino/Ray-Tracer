@@ -27,6 +27,7 @@ public:
 	TriangleMesh(const string filename, const Material &material, const ColourRGB &colour);
 
 	bool loadOBJ(const string path);
+	Point3D findNormal(int faceIndex);
 
 	void normalizeVertices(void);
 
@@ -35,8 +36,6 @@ public:
 	bool intersectBoundingBox(const Ray3D &ray);
 
 	double findIntersectionPoint(Point3D &origin, Point3D &direction, Point3D &p1, Point3D &p2, Point3D &p3);
-
-
 };
 
 #endif

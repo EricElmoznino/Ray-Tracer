@@ -16,6 +16,7 @@ public:
     Point3D();
     Point3D(double x, double y, double z, bool isVec);
     Point3D(objl::Vector3 &v, bool isVec);
+    Point3D(Point3D &p1, Point3D &p2, Point3D &p3, bool isVec);
 
     // default copy constructor suffices
     

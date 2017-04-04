@@ -88,7 +88,7 @@ Transform3D& Transform3D::operator=(const Transform3D &t) {
     return (*this);
 }
 
-Transform3D Transform3D::inverse() const {
+Transform3D Transform3D::inverse() {
     Transform3D inv;
     
     // Because of the fact we're using homogeneous coordinates, we must be careful how
@@ -132,6 +132,7 @@ Transform3D Transform3D::inverse() const {
     if (singFlag)
     {
         fprintf(stderr,"Error: Transformation matrix is singular, returning identity\n");
+        this->printTransform3D();
         return Transform3D::identity();
     }
 

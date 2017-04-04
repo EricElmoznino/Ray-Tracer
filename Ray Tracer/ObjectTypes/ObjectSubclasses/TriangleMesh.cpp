@@ -1,7 +1,7 @@
 #include "TriangleMesh.h"
 #include <vector>
 #include <algorithm>
-
+#include <string>
 
 TriangleMesh::TriangleMesh(const Material &material, const ColourRGB &colour) :
 Object3D::Object3D(material, colour){
@@ -16,7 +16,7 @@ Object3D::Object3D(material, colour){
 		printf("OBJ successfully loaded!\n");
 		//Material prop from loaded mesh:
 		//Ambient Color
-		double Ka = Point3D(curMesh.MeshMaterial.Ka, true).average();
+		/*double Ka = Point3D(curMesh.MeshMaterial.Ka, true).average();
 		printf("Ka: %f\n", Ka);
 		//Diffuse Color
 		double Kd = Point3D(curMesh.MeshMaterial.Kd, true).average();
@@ -33,21 +33,36 @@ Object3D::Object3D(material, colour){
 		//Dissolve? -> Opacity
 		//double opacity = curMesh.MeshMaterial.d;
 		//printf("opacity: %f\n", opacity);
-
 		Material fromMesh(Ka, Kd, Ks, material.global, material.opacity, material.refractionIndex,
 				shinyness, material.roughness);
 		Object3D::material = fromMesh;
+		*/
+		//Update texture - if given
+		if (!curMesh.MeshMaterial.map_Kd.empty())
+		{
+			string name = curMesh.MeshMaterial.map_Kd.substr(0, curMesh.MeshMaterial.map_Kd.find("."));
+			string start("OBJ/");
+			string end(".ppm");
+			start.append(name);
+			start.append(end);
+			printf("NAME: %s\n", start.c_str());
+			Object3D::loadTexture(start.c_str());
+		}
 	}
 	else{
 		printf("Error: OBJ NOT LOADED!\n");
 		Object3D::material = material;
 	}
+	Object3D::material = material;
+
 	Object3D::colour = colour;
 	Object3D::isLight = false;
 }
 
 ColourRGB TriangleMesh::colourAtLocalPoint(const Point3D &p) const {
-	return colour;
+    //if (textureImage.rgbImageData == NULL) {
+        return colour;
+    //}
 }
 
 bool TriangleMesh::loadOBJ(const string path)
@@ -185,7 +200,9 @@ Intersection TriangleMesh::intersect(const Ray3D &ray) {
 		//printf("INTERSECTION - MIN: %f\n", *it);
 		int index = distance(intersection_points.begin(), it);
 
-		Point3D normal = Point3D(curMesh.Vertices[index].Normal, true);
+		Point3D normal = findNormal(index);
+
+		//Point3D normal = Point3D(curMesh.Vertices[index].Normal, true);
 		Point3D hitPointLocal = rayOrigin + (*it)*rayDirection;
 		Point3D hitNormalLocal = rayDirection.dot(normal) < 0 ? normal : -1*normal;
 
@@ -204,6 +221,15 @@ Intersection TriangleMesh::intersect(const Ray3D &ray) {
 
 	intersection.none = true;
 	return intersection;
+}
+
+Point3D TriangleMesh::findNormal(int faceIndex) {
+	//Find normal by averaging vertices of the corresponding face
+	Point3D vertexIndices = Point3D(curMesh.Indices[faceIndex], curMesh.Indices[faceIndex+1], curMesh.Indices[faceIndex+2], false);
+	Point3D n1 = Point3D(curMesh.Vertices[faceIndex].Normal, true);
+	Point3D n2 = Point3D(curMesh.Vertices[faceIndex+1].Normal, true);
+	Point3D n3 = Point3D(curMesh.Vertices[faceIndex+2].Normal, true);
+	return Point3D(n1, n2, n3, true);
 }
 
 void TriangleMesh::normalizeVertices(void) {

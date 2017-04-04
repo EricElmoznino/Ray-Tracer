@@ -25,7 +25,7 @@ public:
     Transform3D& operator=(const Transform3D &t);
     
     // NOTE: only to be used on affine matrices
-    Transform3D inverse() const;
+    Transform3D inverse();
     Transform3D transpose() const;
     
     Transform3D operator*(double scale) const;  // matrix * scale

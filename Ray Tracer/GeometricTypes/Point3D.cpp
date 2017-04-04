@@ -25,6 +25,14 @@ Point3D::Point3D(objl::Vector3 &v, bool isVec) {
 	this->w = isVec ? 0.0 : 1.0;
 }
 
+Point3D::Point3D(Point3D &p1, Point3D &p2, Point3D &p3, bool isVec) {
+	//Average constructor
+	this->x = (p1.x + p2.x + p3.x)/3;
+	this->y = (p1.y + p2.y + p3.y)/3;
+	this->z = (p1.z + p2.z + p3.z)/3;
+    this->w = isVec ? 0.0 : 1.0;
+}
+
 // Should only be called with vectors (w=0), since points don't have magnitudes
 double Point3D::magnitude() const {
     return sqrt(this->x*this->x + this->y*this->y + this->z*this->z);
@@ -126,4 +134,5 @@ Point3D Point3D::homogeonized() const {
 double Point3D::average() {
 	return ((this->x + this->y + this->z)/3);
 }
+
 
