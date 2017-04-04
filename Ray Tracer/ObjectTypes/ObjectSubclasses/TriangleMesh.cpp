@@ -59,10 +59,25 @@ Object3D::Object3D(material, colour){
 	Object3D::isLight = false;
 }
 
-ColourRGB TriangleMesh::colourAtLocalPoint(const Point3D &p) const {
+ColourRGB TriangleMesh::colourAtTrianglePoint(int faceIndex, double u, double v) const {
     //if (textureImage.rgbImageData == NULL) {
         return colour;
     //}
+    
+    // Find colour of the texture at each vertex
+    double a, b;
+    a = curMesh.Vertices[faceIndex].TextureCoordinate.X;
+    b = curMesh.Vertices[faceIndex].TextureCoordinate.Y;
+    ColourRGB c1 = textureImage.textureMap(a, b);
+    a = curMesh.Vertices[faceIndex+1].TextureCoordinate.X;
+    b = curMesh.Vertices[faceIndex+1].TextureCoordinate.Y;
+    ColourRGB c2 = textureImage.textureMap(a, b);
+    a = curMesh.Vertices[faceIndex+2].TextureCoordinate.X;
+    b = curMesh.Vertices[faceIndex+2].TextureCoordinate.Y;
+    ColourRGB c3 = textureImage.textureMap(a, b);
+    
+    // Interpolate to get actual normal based on u and v
+    return c1*(1-u-v) + c2*u + c3*v;
 }
 
 bool TriangleMesh::loadOBJ(const string path)
@@ -177,10 +192,13 @@ Intersection TriangleMesh::intersect(const Ray3D &ray) {
         double u = 0, v = 0;    // u,v parameters for parametric equation of triangle
 		for (int j = 0; j < curMesh.Indices.size(); j += 3)
 		{
-			double lambda = findIntersectionParams(rayOrigin, rayDirection, j, &u, &v);
+            double uCurr, vCurr;
+			double lambda = findIntersectionParams(rayOrigin, rayDirection, j, &uCurr, &vCurr);
             if (lambda < closestLambda) {
                 closestLambda = lambda;
-                closestTriangleFace = j/3;
+                u = uCurr;
+                v = vCurr;
+                closestTriangleFace = j;
             }
 		}
 
@@ -191,19 +209,25 @@ Intersection TriangleMesh::intersect(const Ray3D &ray) {
 		}
 
 		Point3D normal = findNormal(closestTriangleFace, u, v);
-
-		//Point3D normal = Point3D(curMesh.Vertices[index].Normal, true);
-		Point3D hitPointLocal = rayOrigin + (closestLambda)*rayDirection;
-		Point3D hitNormalLocal = rayDirection.dot(normal) < 0 ? normal : -1*normal;
+        Point3D hitNormalLocal;
+        bool insideObject;
+        if (rayDirection.dot(normal) < 0) {
+            hitNormalLocal = normal;
+            insideObject = false;
+        }
+        else {
+            hitNormalLocal = -1*normal;
+            insideObject = true;
+        }
 
 		intersection.none = false;
 		intersection.isLight = Object3D::isLight;
-		intersection.insideObject = false;
+		intersection.insideObject = insideObject;
 		intersection.lambda = closestLambda;
 		intersection.point = ray.rayPosition(closestLambda);
 		intersection.normal = (invTransform.transpose() * hitNormalLocal).normalized();
 		intersection.material = material;
-		intersection.colour = colourAtLocalPoint(hitPointLocal);
+		intersection.colour = colourAtTrianglePoint(closestTriangleFace, u, v);
 		intersection.obj = this;
 
 		return intersection;

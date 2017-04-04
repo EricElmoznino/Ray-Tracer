@@ -25,9 +25,7 @@ class TriangleMesh : public Object3D{
     double findIntersectionParams(Point3D &origin, Point3D &direction,
                                   int triangleFace, double *u, double *v);
     Point3D findNormal(int faceIndex, double u, double v);
-
-protected:
-	ColourRGB colourAtLocalPoint(const Point3D &up) const;
+	ColourRGB colourAtTrianglePoint(int faceIndex, double u, double v) const;
 
 public:
 	TriangleMesh(const Material &material, const ColourRGB &colour);

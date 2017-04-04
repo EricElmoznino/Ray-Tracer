@@ -13,7 +13,6 @@ class Plane : public Object3D {
     const Point3D c = Point3D(0.0, 0.0, 0.0, false);
     const Point3D normal = Point3D(0, 0, 1, true);
     
-protected:
     ColourRGB colourAtLocalPoint(const Point3D &p) const;
     
 public:

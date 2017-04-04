@@ -11,13 +11,6 @@ class Object3D {
 protected:
     bool isLight;       // Flag to indicate if this object is a light
     
-    // Helper function for intersect. Given a point in the object's local coordinate
-    // system, computes the color at that point (which potentially comes from a texture).
-    // Obviously, the color will depend on the shape of the object, which is why this
-    // function must be inherited and implemented.
-    // NOTE: This function takes a point in LOCAL (object's) coordinate system
-    virtual ColourRGB colourAtLocalPoint(const Point3D &p) const = 0;
-    
 public:
     Material material;
     ColourRGB colour;
