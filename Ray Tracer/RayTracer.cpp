@@ -16,7 +16,7 @@ void RayTracer::renderImage(View camera, list<Object3D*> objects, list<Light*> l
     progressManager.startTimer();
     
     // Itterate through all the pixels and do the ray tracing
-#pragma omp parallel for    // Multithread rendering
+#pragma omp parallel for schedule(dynamic)   // Multithread rendering
     for (int i = 0; i < output->sx; i++)		// For each pixel in the image
     {
         for (int j = 0; j < output->sy; j++)

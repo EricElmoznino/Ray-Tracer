@@ -76,56 +76,52 @@ void buildScene(void)
     // Colour is close to cyan, and currently the plane is
     // completely opaque (alpha=1). The refraction index is
     // meaningless since alpha=1
-//    Object3D *obj = new Plane(Material(0.05, 0.75, 0.05, 0.05, 1, 1, 2, 0.3),  // original
-//                              ColourRGB(0.55, 0.8, 0.75));
-//    obj->scale(12, 12, 2);
-//    obj->rotateZ(PI/1.20);
-//    obj->rotateX(PI/2.25);
-//    obj->translate(0, -3, 10);
-//    obj->updateInverse();       // Very important! compute
-//    // and store the inverse
-//    // transform for this object!
-//    obj->loadTexture("Textures/greyscale_natural_grunge2.ppm");
-//    objects.push_front(obj);    // Insert into object list
+    Object3D *obj = new Plane(Material(0.05, 0.75, 0.05, 0.05, 1, 1, 2, 0.3),  // original
+                              ColourRGB(0.55, 0.8, 0.75));
+    obj->scale(12, 12, 2);
+    obj->rotateZ(PI/1.20);
+    obj->rotateX(PI/2.25);
+    obj->translate(0, -3, 10);
+    obj->updateInverse();       // Very important! compute
+    // and store the inverse
+    // transform for this object!
+    obj->loadTexture("Textures/greyscale_natural_grunge2.ppm");
+    objects.push_front(obj);    // Insert into object list
     
     // Let's add a couple spheres
-    /*obj = new Sphere(Material(0.05, 0.95, 0.35, 0.35, 1, 1, 6, 0.3),
+    obj = new Sphere(Material(0.05, 0.95, 0.35, 0.35, 1, 1, 6, 0.3),
                      ColourRGB(1.0, 0.25, 0.25));
     obj->scale(0.75, 0.5, 1.5);
     obj->rotateY(PI/2.0);
     obj->translate(-1.45, 1.1, 3.5);
     obj->updateInverse();
     obj->loadTexture("Textures/webtreats_stone_5.ppm");
-    objects.push_front(obj);*/
+    objects.push_front(obj);
     
-//    obj = new Sphere(Material(0.05, 0.95, 0.95, 0.75, 1, 1, 6, 0.3),
-//                     ColourRGB(0.75, 0.95, 0.55));
-//    obj->scale(0.5, 2.0, 1.0);
-//    obj->rotateZ(PI/1.5);
-//    obj->translate(1.75, 1.25, 5.0);
-//    obj->updateInverse();
-//    obj->loadTexture("Textures/webtreats_stone_4.ppm");
-//    objects.push_front(obj);
+    obj = new Sphere(Material(0.05, 0.95, 0.95, 0.75, 1, 1, 6, 0.3),
+                     ColourRGB(0.75, 0.95, 0.55));
+    obj->scale(0.5, 2.0, 1.0);
+    obj->rotateZ(PI/1.5);
+    obj->translate(1.75, 1.25, 5.0);
+    obj->updateInverse();
+    obj->loadTexture("Textures/webtreats_stone_4.ppm");
+    objects.push_front(obj);
     
-    // Test sphere
-//    Object3D *obj = new Sphere(Material(0.0, 0.0, 0.0, 0.0, 0.0, 1.4, 6, 0.1),
-//                               ColourRGB(0.9, 0.9, 0.9));
-//    obj->scale(1.0, 1.0, 1.0);
-//    obj->translate(0.0, -3.0, 7.0);
-//    obj->updateInverse();
-//    objects.push_front(obj);
-//    obj = new Plane(Material(0.05, 0.95, 0.35, 0.0, 1, 1, 6, 0.3),
-//                    ColourRGB(1.0, 0.25, 0.25));
-    
-
+    // Test OBJ
+    obj = new TriangleMesh("OBJ/teapot.obj",Material(0.05, 0.95, 0.35, 0.35, 1, 1, 6, 0.3),
+                                     ColourRGB(1.0, 0.25, 0.25));
+    obj->scale(1.5, 1.5, 1.5);
+    obj->translate(1, 0, 3.5);
+    obj->updateInverse();
+    objects.push_front(obj);
 
     // Insert a single point light source.
-//    PointLightSource *light = new PointLightSource(ColourRGB(0.95, 0.95, 0.95),       // original
-//                                                   Point3D(0.0, 15.5, -5.5, false));
-//    lights.push_front(light);
-    AreaLightElement::addAreaLight(5, 5, Point3D(0, -1, 0, true), Point3D(1, 0, 0, true),
-                                   Point3D(0.0, 15.5, -5.5, false), 8, 8,
-                                   ColourRGB(0.95, 0.95, 0.95), lights);
+    PointLightSource *light = new PointLightSource(ColourRGB(0.95, 0.95, 0.95),       // original
+                                                   Point3D(0.0, 15.5, -5.5, false));
+    lights.push_front(light);
+//    AreaLightElement::addAreaLight(5, 5, Point3D(0, -1, 0, true), Point3D(1, 0, 0, true),
+//                                   Point3D(0.0, 15.5, -5.5, false), 8, 8,
+//                                   ColourRGB(0.95, 0.95, 0.95), lights);
     
     // End of simple scene for Assignment 3
     // Keep in mind that you can define new types of objects such as cylinders and parametric surfaces,
@@ -134,14 +130,6 @@ void buildScene(void)
     // Remember: A lot of the quality of your scene will depend on how much care you have put into defining
     //           the relflectance properties of your objects, and the number and type of light sources
     //           in the scene.
-
-    // Test OBJ
-    Object3D *obj = new TriangleMesh("OBJ/teapot.obj",Material(0.05, 0.95, 0.35, 0.35, 1, 1, 6, 0.3),
-                                     ColourRGB(1.0, 0.25, 0.25));
-//    obj->scale(0.75, 0.5, 1.5);
-	//obj->translate(-1.45, 1.1, 3.5);
-	obj->updateInverse();
-	objects.push_front(obj);
 }
 
 int main(int argc, char *argv[])
