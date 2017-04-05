@@ -52,7 +52,7 @@ Intersection Sphere::intersect(const Ray3D &ray) {
     double lambda2 = (-b - sqrt(det)) / (2 * a);
     
     // Compute the intersection point and normal
-    bool insideObject;
+    bool insideObject, canSelfReflect;
     double lambda;
     Point3D hitPointLocal;
     Point3D hitNormalLocal;
@@ -65,12 +65,14 @@ Intersection Sphere::intersect(const Ray3D &ray) {
         hitPointLocal = rayOrigin + lambda*rayDirection;
         hitNormalLocal = centre - hitPointLocal;
         insideObject = true;
+        canSelfReflect = true;
     }
     else {                              // sphere in front of us
         lambda = lambda1 < lambda2 ? lambda1 : lambda2;
         hitPointLocal = rayOrigin + lambda*rayDirection;
         hitNormalLocal = hitPointLocal - centre;
         insideObject = false;
+        canSelfReflect = false;
     }
     
     intersection.none = false;
@@ -81,7 +83,12 @@ Intersection Sphere::intersect(const Ray3D &ray) {
     intersection.normal = (invTransform.transpose() * hitNormalLocal).normalized();
     intersection.material = material;
     intersection.colour = colourAtLocalPoint(hitPointLocal);
+    intersection.canSelfReflect = canSelfReflect;
     intersection.obj = this;
     
     return intersection;
+}
+
+bool Sphere::doesIntersect(const Ray3D &ray) {
+    return !intersect(ray).none;
 }

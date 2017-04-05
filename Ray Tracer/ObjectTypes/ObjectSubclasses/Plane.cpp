@@ -54,10 +54,15 @@ Intersection Plane::intersect(const Ray3D &ray) {
 		intersection.normal = (invTransform.transpose() * hitNormalLocal).normalized();
 		intersection.material = material;
 		intersection.colour = colourAtLocalPoint(p);
+        intersection.canSelfReflect = false;
 		intersection.obj = this;
 
 		return intersection;
 	}
 	intersection.none = true;
 	return intersection;
+}
+
+bool Plane::doesIntersect(const Ray3D &ray) {
+    return !intersect(ray).none;
 }

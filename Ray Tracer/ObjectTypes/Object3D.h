@@ -35,6 +35,9 @@ public:
     // This has an empty implementation because it is supposed to be overriden by a subclass
     virtual Intersection intersect(const Ray3D &ray) = 0;
     
+    // Determines if a ray does intersect an object anywhere
+    virtual bool doesIntersect(const Ray3D &ray) = 0;
+    
     // WARNING: These methods are mutable, meaning that they change the
     // data in the class. I don't like this style, but it is necessary
     // for efficiency

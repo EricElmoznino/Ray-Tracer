@@ -18,6 +18,10 @@ public:
     bool insideObject;
     bool isLight;
     
+    // Optimization if we know object can't reflect onto itself
+    // at the specified intersection
+    bool canSelfReflect;
+    
     Object3D *obj;
     
     // No member constructor because this object is meant to be instantiated and

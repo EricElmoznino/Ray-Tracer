@@ -34,6 +34,8 @@ public:
 	bool loadOBJ(const string path);
 
 	Intersection intersect(const Ray3D &ray);
+    
+    bool doesIntersect(const Ray3D &ray);
 };
 
 #endif

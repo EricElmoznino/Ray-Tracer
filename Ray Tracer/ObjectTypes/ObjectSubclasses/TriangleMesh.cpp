@@ -177,66 +177,87 @@ bool TriangleMesh::loadOBJ(const string path)
 }
 
 Intersection TriangleMesh::intersect(const Ray3D &ray) {
-    if (fabs(ray.direction.x) < 1e-2 && fabs(ray.direction.y) < 1e-2) {
-        ;
-    }
 	Intersection intersection;
 
     // Acquire ray in local coordinates
     Point3D rayOrigin = invTransform*ray.origin; //e
     Point3D rayDirection = invTransform*ray.direction; //d
     
-	//Check if intersects within sphere's bounds
-	if (intersectBoundingBox(rayOrigin, rayDirection))
-	{
-        double closestLambda = DBL_MAX;
-        int closestTriangleFace = 0;
-        double u = 0, v = 0;    // u,v parameters for parametric equation of triangle
-		for (int j = 0; j < curMesh.Indices.size(); j += 3)
-		{
-            double uCurr, vCurr;
-			double lambda = findIntersectionParams(rayOrigin, rayDirection, j, &uCurr, &vCurr);
-            if (lambda < closestLambda) {
-                closestLambda = lambda;
-                u = uCurr;
-                v = vCurr;
-                closestTriangleFace = j;
-            }
-		}
-
-		if (closestLambda == DBL_MAX)
-		{
-			intersection.none = true;
-			return intersection;
-		}
-
-		Point3D normal = findNormal(closestTriangleFace, u, v);
-        Point3D hitNormalLocal;
-        bool insideObject;
-        if (rayDirection.dot(normal) < 0) {
-            hitNormalLocal = normal;
-            insideObject = false;
+    //Check if intersects within sphere's bounds
+    if (!intersectBoundingBox(rayOrigin, rayDirection)) {
+        intersection.none = true;
+        return intersection;
+    }
+    
+    // Go through triangle faces and keep track
+    // of the one with the closest intersection
+    double closestLambda = DBL_MAX;
+    int closestTriangleFace = 0;
+    double u = 0, v = 0;    // u,v parameters for parametric equation of triangle
+    for (int j = 0; j < curMesh.Indices.size(); j += 3)
+    {
+        double uCurr, vCurr;
+        double lambda = findIntersectionParams(rayOrigin, rayDirection, j, &uCurr, &vCurr);
+        if (lambda < closestLambda) {
+            closestLambda = lambda;
+            u = uCurr;
+            v = vCurr;
+            closestTriangleFace = j;
         }
-        else {
-            hitNormalLocal = -1*normal;
-            insideObject = true;
-        }
+    }
 
-		intersection.none = false;
-		intersection.isLight = Object3D::isLight;
-		intersection.insideObject = insideObject;
-		intersection.lambda = closestLambda;
-		intersection.point = ray.rayPosition(closestLambda);
-		intersection.normal = (invTransform.transpose() * hitNormalLocal).normalized();
-		intersection.material = material;
-		intersection.colour = colourAtTrianglePoint(closestTriangleFace, u, v);
-		intersection.obj = this;
+    if (closestLambda == DBL_MAX)
+    {
+        intersection.none = true;
+        return intersection;
+    }
 
-		return intersection;
-	}
+    Point3D normal = findNormal(closestTriangleFace, u, v);
+    Point3D hitNormalLocal;
+    bool insideObject, canSelfReflect;
+    if (rayDirection.dot(normal) < 0) { // outside object
+        hitNormalLocal = normal;
+        insideObject = false;
+        canSelfReflect = false;
+    }
+    else {                              // inside object
+        hitNormalLocal = -1*normal;
+        insideObject = true;
+        canSelfReflect = true;
+    }
 
-	intersection.none = true;
-	return intersection;
+    intersection.none = false;
+    intersection.isLight = Object3D::isLight;
+    intersection.insideObject = insideObject;
+    intersection.lambda = closestLambda;
+    intersection.point = ray.rayPosition(closestLambda);
+    intersection.normal = (invTransform.transpose() * hitNormalLocal).normalized();
+    intersection.material = material;
+    intersection.colour = colourAtTrianglePoint(closestTriangleFace, u, v);
+    intersection.canSelfReflect = canSelfReflect;
+    intersection.obj = this;
+
+    return intersection;
+}
+
+bool TriangleMesh::doesIntersect(const Ray3D &ray) {
+    // Acquire ray in local coordinates
+    Point3D rayOrigin = invTransform*ray.origin; //e
+    Point3D rayDirection = invTransform*ray.direction; //d
+    
+    //Check if intersects within sphere's bounds
+    if (!intersectBoundingBox(rayOrigin, rayDirection)) return false;
+    
+    // Go through triangle faces and return true as soon as the
+    // ray intersects one of them
+    for (int j = 0; j < curMesh.Indices.size(); j += 3)
+    {
+        double uCurr, vCurr;    // dummy variables required for findIntersectionParams
+        double lambda = findIntersectionParams(rayOrigin, rayDirection, j, &uCurr, &vCurr);
+        if (lambda < DBL_MAX) return true;
+    }
+    
+    return false;
 }
 
 Point3D TriangleMesh::findNormal(int faceIndex, double u, double v) {

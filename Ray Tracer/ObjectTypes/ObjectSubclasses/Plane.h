@@ -19,6 +19,8 @@ public:
     Plane(const Material &material, const ColourRGB &colour);
     
     Intersection intersect(const Ray3D &ray);
+    
+    bool doesIntersect(const Ray3D &ray);
 };
 
 #endif

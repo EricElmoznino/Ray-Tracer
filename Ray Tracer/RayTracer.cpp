@@ -83,13 +83,13 @@ ColourRGB RayTracer::rayTrace(Ray3D ray, double pixelSize) {
     return pixelColour;
 }
 
-ColourRGB RayTracer::rayTraceRecursive(const Ray3D &ray, int depth) {
+ColourRGB RayTracer::rayTraceRecursive(const Ray3D &ray, int depth, Object3D *excludedSource) {
     ///////////////////////////////////////////////////////
     // TO DO: Complete this function. Refer to the notes
     // if you are unsure what to do here.
     ///////////////////////////////////////////////////////
     
-    Intersection firstHit = findFirstHit(ray);
+    Intersection firstHit = findFirstHit(ray, excludedSource);
     if (firstHit.none) {
         if (skybox != NULL) {
             return skybox->colourInDirection(ray.direction);
@@ -123,7 +123,7 @@ ColourRGB RayTracer::shade(const Intersection &intersection, const Ray3D &ray, i
     return res;
 }
 
-Intersection RayTracer::findFirstHit(const Ray3D &ray) {
+Intersection RayTracer::findFirstHit(const Ray3D &ray, Object3D *excludedSource) {
 	// Find the closest intersection between the ray and any objects in the scene.
 	// It returns:
 	//   - The lambda at the intersection (or < 0 if no intersection)
@@ -147,6 +147,7 @@ Intersection RayTracer::findFirstHit(const Ray3D &ray) {
 	for (auto it = objects.begin(); it != objects.end(); it++)
 	{
         Object3D *object = *it;
+        if (excludedSource == object) continue;
 		Intersection intersection = object->intersect(ray);
 		if (!intersection.none) {
 			if (intersection.lambda < closestLambda) {
@@ -220,12 +221,22 @@ bool RayTracer::isInShadow(const Intersection &intersection, const Point3D &ligh
     // partly in shadow (e.g. the backside of an object)
     shadowRay = shadowRay.bias(intersection.normal);
     
-    Intersection firstHit = findFirstHit(shadowRay);
-    return !firstHit.none && !firstHit.isLight;
+    // Walk through the objects and return that there is a shadow
+    // as soon as a non light source object intsersects the shadow ray
+    for (auto it = objects.begin(); it != objects.end(); it++)
+    {
+        Object3D *object = *it;
+        if (!object->isLightSource() && object->doesIntersect(shadowRay))
+            return true;
+    }
+    
+    return false;
 }
 
 ColourRGB RayTracer::reflection(const Intersection &intersection, const Ray3D &ray, int depth) {
     ColourRGB reflectedColour(0, 0, 0);
+    
+    Object3D *excludedSource = intersection.canSelfReflect ? intersection.obj : NULL;
     
     // Reflection direction
     Point3D r = ray.direction - 2 * intersection.normal*(ray.direction.dot(intersection.normal));
@@ -241,7 +252,7 @@ ColourRGB RayTracer::reflection(const Intersection &intersection, const Ray3D &r
                                 r.randomlyPerturb(intersection.normal, intersection.material.roughness));
             reflectionRay = reflectionRay.bias(intersection.normal);
             double energy = pow(r.dot(reflectionRay.direction), intersection.material.shinyness);
-            reflectedColour += rayTraceRecursive(reflectionRay, depth) * energy;
+            reflectedColour += rayTraceRecursive(reflectionRay, depth, excludedSource) * energy;
             totalEnergy += energy;
         }
         if (totalEnergy > 0) {
