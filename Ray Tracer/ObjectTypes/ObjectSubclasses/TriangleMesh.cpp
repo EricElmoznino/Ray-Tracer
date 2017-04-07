@@ -37,7 +37,7 @@ Object3D::Object3D(material, colour){
 		Material fromMesh(Ka, Kd, Ks, material.global, material.opacity, material.refractionIndex,
 				shinyness, material.roughness);
 		Object3D::material = fromMesh;
-		*/
+		 */
 		//Update texture - if given
 		if (!curMesh.MeshMaterial.map_Kd.empty())
 		{
@@ -61,10 +61,9 @@ Object3D::Object3D(material, colour){
 }
 
 ColourRGB TriangleMesh::colourAtTrianglePoint(int faceIndex, double u, double v) const {
-    //if (textureImage.rgbImageData == NULL) {
-        return colour;
-    //}
-    
+    if (textureImage.rgbImageData == NULL) {
+    	return colour;
+    }
     // Find texture coordinates at every vertex on the triangle face
     double a1 = curMesh.Vertices[faceIndex].TextureCoordinate.X;
     double b1 = curMesh.Vertices[faceIndex].TextureCoordinate.Y;
