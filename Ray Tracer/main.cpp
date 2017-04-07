@@ -37,6 +37,26 @@ list<Object3D*> objects;        // has to be a list of pointers for polymorphic 
 list<Light*> lights;            // has to be a list of pointers for polymorphic Light subclasses
 int MAX_DEPTH;
 
+void buildStillLife(void)
+{
+	Object3D *obj = new TriangleMesh("OBJ/top.obj",Material(0.05, 0.95, 0.35, 0.35, 1, 1, 6, 0.3),
+	                                     ColourRGB(1.0, 0.25, 0.25));
+	obj->scale(5, 5, 5);
+    //obj->rotateY(PI/2);
+	obj->rotateX(-PI/10);
+
+	obj->translate(0, -.052, -1.);
+
+	obj->updateInverse();
+    //obj->loadTexture("OBJ/tabletop.ppm");
+	objects.push_front(obj);
+
+	// Insert a single point light source.
+	PointLightSource *light = new PointLightSource(ColourRGB(0.95, 0.95, 0.95),       // original
+												   Point3D(0.0, 15.5, -5.5, false));
+	lights.push_front(light);
+}
+
 void buildScene(void)
 {
     // Sets up all objects in the scene. This involves creating each object,
@@ -108,10 +128,10 @@ void buildScene(void)
     objects.push_front(obj);
     
     // Test OBJ
-    obj = new TriangleMesh("OBJ/teapot.obj",Material(0.05, 0.95, 0.35, 0.35, 1, 1, 6, 0.3),
+    obj = new TriangleMesh("OBJ/table.obj",Material(0.05, 0.95, 0.35, 0.35, 1, 1, 6, 0.3),
                                      ColourRGB(1.0, 0.25, 0.25));
-    obj->scale(1.5, 1.5, 1.5);
-    obj->translate(1, 0, 3.5);
+    //obj->scale(1.5, 1.5, 1.5);
+    //obj->translate(1, 0, 3.5);
     obj->updateInverse();
     objects.push_front(obj);
 
@@ -178,9 +198,9 @@ int main(int argc, char *argv[])
     //        for Assignment 4 you need to create your own
     //        *interesting* scene.
     ///////////////////////////////////////////////////
-    buildScene();		// Create a scene. This defines all the
+    //buildScene();		// Create a scene. This defines all the
                             // objects in the world of the raytracer
-    
+    buildStillLife();
     //////////////////////////////////////////
     // TO DO: For Assignment 3 you can use the setup
     //        already provided here. For Assignment 4
@@ -225,8 +245,8 @@ int main(int argc, char *argv[])
     rayTracer.maxDepth = MAX_DEPTH;
     rayTracer.antialiasingEnabled = antialiasing;
     rayTracer.superSamplingResolution = 5;
-    rayTracer.glossyreflEnabled = true;
-    rayTracer.refractionEnabled = true;
+    rayTracer.glossyreflEnabled = false;
+    rayTracer.refractionEnabled = false;
     rayTracer.renderImage(cam, objects, lights, im, output_name);
     
     // Exit section. Clean up and return.
