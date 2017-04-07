@@ -36,10 +36,10 @@ Object3D::Object3D(material, colour){
 		//printf("opacity: %f\n", opacity);
 		Material fromMesh(Ka, Kd, Ks, material.global, material.opacity, material.refractionIndex,
 				shinyness, material.roughness);
-		Object3D::material = fromMesh;
-		 */
+		Object3D::material = fromMesh;*/
+
 		//Update texture - if given
-		if (!curMesh.MeshMaterial.map_Kd.empty())
+		/*if (!curMesh.MeshMaterial.map_Kd.empty())
 		{
 			string name = curMesh.MeshMaterial.map_Kd.substr(0, curMesh.MeshMaterial.map_Kd.find("."));
 			string start("OBJ/");
@@ -48,7 +48,7 @@ Object3D::Object3D(material, colour){
 			start.append(end);
 			printf("NAME: %s\n", start.c_str());
 			Object3D::loadTexture(start.c_str());
-		}
+		}*/
 	}
 	else{
 		printf("Error: OBJ NOT LOADED!\n");
