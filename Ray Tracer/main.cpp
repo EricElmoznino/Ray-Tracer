@@ -39,6 +39,7 @@ int MAX_DEPTH;
 
 void buildStillLife(void)
 {
+	//TABLE
 	Object3D *obj = new TriangleMesh("OBJ/top.obj",Material(0.05, 0.95, 0.35, 0.35, 1, 1, 6, 0.3),
 	                                     ColourRGB(1.0, 0.25, 0.25));
 	obj->scale(5, 5, 5);
@@ -49,6 +50,28 @@ void buildStillLife(void)
 
 	obj->updateInverse();
     //obj->loadTexture("OBJ/tabletop.ppm");
+	objects.push_front(obj);
+
+	//CHEESE
+	/*obj = new TriangleMesh("OBJ/cheese_round.obj",Material(0.05, 0.95, 0.0, 0.2, 1, 15, 0, 0.3),
+	                                     ColourRGB(1.0, 0.25, 0.25));
+	obj->scale(1, 1, 1);
+    //obj->rotateY(PI/2);
+	//obj->rotateX(-PI/10);
+	obj->rotateX(-PI/10);
+	obj->translate(0, 0, -1.5);
+	obj->updateInverse();
+	objects.push_front(obj);*/
+
+	obj = new TriangleMesh("OBJ/wine_glass.obj",Material(0.05, 0.95, 0.0, 0.2, 0.5, 6, 0, 0.3),
+		                                     ColourRGB(1.0, 0.25, 0.25));
+	obj->scale(1, 1, 1);
+	//obj->rotateY(PI/2);
+	//obj->rotateX(-PI/10);
+	obj->rotateX(-PI/10);
+	//obj->translate(0, 0, -1.5);
+	obj->updateInverse();
+	//obj->loadTexture("OBJ/tabletop.ppm");
 	objects.push_front(obj);
 
 	// Insert a single point light source.

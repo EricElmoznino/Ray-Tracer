@@ -17,7 +17,7 @@ Object3D::Object3D(material, colour){
 		printf("OBJ successfully loaded!\n");
 		//Material prop from loaded mesh:
 		//Ambient Color
-		/*double Ka = Point3D(curMesh.MeshMaterial.Ka, true).average();
+		double Ka = Point3D(curMesh.MeshMaterial.Ka, true).average();
 		printf("Ka: %f\n", Ka);
 		//Diffuse Color
 		double Kd = Point3D(curMesh.MeshMaterial.Kd, true).average();
@@ -37,7 +37,7 @@ Object3D::Object3D(material, colour){
 		Material fromMesh(Ka, Kd, Ks, material.global, material.opacity, material.refractionIndex,
 				shinyness, material.roughness);
 		Object3D::material = fromMesh;
-		 */
+
 		//Update texture - if given
 		if (!curMesh.MeshMaterial.map_Kd.empty())
 		{
