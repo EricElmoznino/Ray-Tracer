@@ -49,6 +49,7 @@
 		0705CA491E8E22C70028B251 /* TriangleMesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TriangleMesh.cpp; sourceTree = "<group>"; };
 		0705CA4A1E8E22C70028B251 /* TriangleMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TriangleMesh.h; sourceTree = "<group>"; };
 		07190D791E98455C0035743E /* wall.ppm */ = {isa = PBXFileReference; lastKnownFileType = file; path = wall.ppm; sourceTree = "<group>"; };
+		07190D7A1E98736C0035743E /* Wine_Bottle_White.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = Wine_Bottle_White.obj; sourceTree = "<group>"; };
 		071FE65E1E941C3E00F90704 /* teapot.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = teapot.obj; sourceTree = "<group>"; };
 		0721F5271E93418700B75C4E /* OBJ_Loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OBJ_Loader.cpp; sourceTree = "<group>"; };
 		075B4D391E86ED6E00FA30D3 /* compileMac.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = compileMac.sh; sourceTree = "<group>"; };
@@ -230,6 +231,7 @@
 		077BA6A61E9041F600CAB279 /* OBJ */ = {
 			isa = PBXGroup;
 			children = (
+				07190D7A1E98736C0035743E /* Wine_Bottle_White.obj */,
 				071FE65E1E941C3E00F90704 /* teapot.obj */,
 				077BA6A71E9041F600CAB279 /* box_stack.mtl */,
 				077BA6A81E9041F600CAB279 /* box_stack.obj */,

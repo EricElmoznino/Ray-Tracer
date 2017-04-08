@@ -87,8 +87,12 @@ Point3D Point3D::linearInterpolate(const Point3D &end, double progress) const {
 
 Point3D Point3D::randomlyPerturb(const Point3D &normal, double degree) const {
     // Create orthonormal basis at intersection point
-    Point3D u = (*this).crossUnit(normal);
-    Point3D v = (*this).crossUnit(u);
+    Point3D u, v;
+    if (fabs(Point3D(1, 0, 0, true).dot(*this)) > 1.0 - 1e-6)
+        u = (*this).crossUnit(Point3D(0, 1, 0, true));
+    else
+        u = (*this).crossUnit(Point3D(1, 0, 0, true));
+    v = (*this).crossUnit(u);
     
     // Choose uniformly sampled random direction to send the ray in
     double theta = (M_PI * drand48() - M_PI/2.0) * degree;  // -pi*degree/2 to pi*degree/2

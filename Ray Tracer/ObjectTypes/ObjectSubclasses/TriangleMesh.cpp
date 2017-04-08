@@ -3,79 +3,61 @@
 #include <algorithm>
 #include <string>
 
-TriangleMesh::TriangleMesh(const Material &material, const ColourRGB &colour) :
-Object3D::Object3D(material, colour){
-	Object3D::isLight = false;
+TriangleMesh::TriangleMesh(const vector<Material> &materials, const vector<ColourRGB> &colours) :
+Object3D::Object3D(Material(), ColourRGB()){
+    Object3D::isLight = false;
+    this->materials = materials;
+    this->colours = colours;
+    for (int i = 0; i < materials.size(); i++) {
+        textureImages.push_back(Image());
+    }
 }
 
-TriangleMesh::TriangleMesh(const string filename, const Material &material, const ColourRGB &colour) :
-Object3D::Object3D(material, colour){
+TriangleMesh::TriangleMesh(const string filename, const vector<Material> &materials, const vector<ColourRGB> &colours) :
+Object3D::Object3D(Material(), ColourRGB()){
     Object3D::isLight = false;
+    this->materials = materials;
+    this->colours = colours;
+    for (int i = 0; i < materials.size(); i++) {
+        textureImages.push_back(Image());
+    }
+    
 	bool isLoaded = loadOBJ(filename);
 	if (isLoaded)
 	{
 		printf("OBJ successfully loaded!\n");
-		//Material prop from loaded mesh:
-		//Ambient Color
-		/*double Ka = Point3D(curMesh.MeshMaterial.Ka, true).average();
-		printf("Ka: %f\n", Ka);
-		//Diffuse Color
-		double Kd = Point3D(curMesh.MeshMaterial.Kd, true).average();
-		printf("Kd: %f\n", Kd);
-
-		//Specular Color
-		double Ks = Point3D(curMesh.MeshMaterial.Ks, true).average();
-		printf("Ks: %f\n", Ks);
-
-		//Exponent for phong specular component
-		double shinyness = curMesh.MeshMaterial.Ns;
-		printf("shinyness: %f\n", shinyness);
-
-		//Dissolve? -> Opacity
-		//double opacity = curMesh.MeshMaterial.d;
-		//printf("opacity: %f\n", opacity);
-		Material fromMesh(Ka, Kd, Ks, material.global, material.opacity, material.refractionIndex,
-				shinyness, material.roughness);
-		Object3D::material = fromMesh;*/
-
-		//Update texture - if given
-		/*if (!curMesh.MeshMaterial.map_Kd.empty())
-		{
-			string name = curMesh.MeshMaterial.map_Kd.substr(0, curMesh.MeshMaterial.map_Kd.find("."));
-			string start("OBJ/");
-			string end(".ppm");
-			start.append(name);
-			start.append(end);
-			printf("NAME: %s\n", start.c_str());
-			Object3D::loadTexture(start.c_str());
-		}*/
 	}
 	else{
 		printf("Error: OBJ NOT LOADED!\n");
-		Object3D::material = material;
 	}
-	Object3D::material = material;
-
-	Object3D::colour = colour;
-	Object3D::isLight = false;
 }
 
-ColourRGB TriangleMesh::colourAtTrianglePoint(int faceIndex, double u, double v) const {
-    if (textureImage.rgbImageData == NULL) {
-    	return colour;
+ColourRGB TriangleMesh::colourAtTrianglePoint(int mesh, int faceIndex, double u, double v) const {
+    if (textureImages[mesh].rgbImageData == NULL) {
+    	return colours[mesh];
     }
     // Find texture coordinates at every vertex on the triangle face
-    double a1 = curMesh.Vertices[faceIndex].TextureCoordinate.X;
-    double b1 = curMesh.Vertices[faceIndex].TextureCoordinate.Y;
-    double a2 = curMesh.Vertices[faceIndex+1].TextureCoordinate.X;
-    double b2 = curMesh.Vertices[faceIndex+1].TextureCoordinate.Y;
-    double a3 = curMesh.Vertices[faceIndex+2].TextureCoordinate.X;
-    double b3 = curMesh.Vertices[faceIndex+2].TextureCoordinate.Y;
+    int v1 = meshes[mesh].Indices[faceIndex];
+    int v2 = meshes[mesh].Indices[faceIndex+1];
+    int v3 = meshes[mesh].Indices[faceIndex+2];
+    double a1 = meshes[mesh].Vertices[v1].TextureCoordinate.X;
+    double b1 = meshes[mesh].Vertices[v1].TextureCoordinate.Y;
+    double a2 = meshes[mesh].Vertices[v2].TextureCoordinate.X;
+    double b2 = meshes[mesh].Vertices[v2].TextureCoordinate.Y;
+    double a3 = meshes[mesh].Vertices[v3].TextureCoordinate.X;
+    double b3 = meshes[mesh].Vertices[v3].TextureCoordinate.Y;
     
     // Interpolate texture coordinates and get the corresponding colour
     double a = a1*(1-u-v) + a2*u + a3*v;
     double b = b1*(1-u-v) + b2*u + b3*v;
-    return textureImage.textureMap(a, b);
+    return textureImages[mesh].textureMap(a, b);
+}
+
+void TriangleMesh::loadTextureForMesh(int i, const char *filename) {
+    bool success = Image::readPPMimage(filename, &textureImages[i]);
+    if (!success) {
+        printf("Error: could not load texture %s\n", filename);
+    }
 }
 
 bool TriangleMesh::loadOBJ(const string path)
@@ -88,63 +70,57 @@ bool TriangleMesh::loadOBJ(const string path)
 
 	if (loadout)
 	{
-	// Create/Open e1Out.txt
+        isLoaded = true;
+        
+        // Create/Open e1Out.txt
 		std::ofstream file("e1Out.txt");
 
-
 		// Copy one of the loaded meshes to be our current mesh
-		curMesh = Loader.LoadedMeshes[0];
+        for (int i = 0; i < Loader.LoadedMeshes.size(); i++) {
+            meshes.push_back(Loader.LoadedMeshes[i]);
+            if (meshes[i].MeshMaterial.name != "") {
+                // Diffuse rgb components of mesh material should be
+                // the colour of the mesh material.
+                // All phong components should be the average of
+                // their mesh rgb components. The shinyness as well.
+                // The opacity and index of refraction
+                objl::Material &mat = meshes[i].MeshMaterial;
+                colours[i] = ColourRGB(mat.Kd.X, mat.Kd.Y, mat.Kd.Z);
+                materials[i].ambient = Point3D(mat.Ka, true).average();
+                materials[i].diffuse = Point3D(mat.Kd, true).average();
+                materials[i].specular = Point3D(mat.Ks, true).average();
+                materials[i].shinyness = mat.Ns;
+            }
+        }
 
 		normalizeVertices();
 		// Print Mesh Name
-		file << "Mesh " << 0 << ": " << curMesh.MeshName << "\n";
-
-		// Print Vertices
-		file << "Vertices:\n";
-
-		// Go through each vertex and print its number,
-		//  position, normal, and texture coordinate
-		for (int j = 0; j < curMesh.Vertices.size(); j++)
-		{
-			file << "V" << j << ": " <<
-				"P(" << curMesh.Vertices[j].Position.X << ", " << curMesh.Vertices[j].Position.Y << ", " << curMesh.Vertices[j].Position.Z << ") " <<
-				"N(" << curMesh.Vertices[j].Normal.X << ", " << curMesh.Vertices[j].Normal.Y << ", " << curMesh.Vertices[j].Normal.Z << ") " <<
-				"TC(" << curMesh.Vertices[j].TextureCoordinate.X << ", " << curMesh.Vertices[j].TextureCoordinate.Y << ")\n";
-		}
-
-		// Print bounds of box
-		file << "Bounds of bounding box: X: [" << curMesh.min_x << " " << curMesh.max_x << "] Y: [" << curMesh.min_y << " " << curMesh.max_y << "] Z: [" << curMesh.min_z << " " << curMesh.max_z << "]\n";
-
-		// Print Indices
-		file << "Indices:\n";
-
-		// Go through every 3rd index and print the
-		//	triangle that these indices represent
-		for (int j = 0; j < curMesh.Indices.size(); j += 3)
-		{
-			file << "T" << j / 3 << ": " << curMesh.Indices[j] << ", " << curMesh.Indices[j + 1] << ", " << curMesh.Indices[j + 2] << "\n";
-		}
-
-		// Print Material
-		file << "Material: " << curMesh.MeshMaterial.name << "\n";
-		file << "Ambient Color: " << curMesh.MeshMaterial.Ka.X << ", " << curMesh.MeshMaterial.Ka.Y << ", " << curMesh.MeshMaterial.Ka.Z << "\n";
-		file << "Diffuse Color: " << curMesh.MeshMaterial.Kd.X << ", " << curMesh.MeshMaterial.Kd.Y << ", " << curMesh.MeshMaterial.Kd.Z << "\n";
-		file << "Specular Color: " << curMesh.MeshMaterial.Ks.X << ", " << curMesh.MeshMaterial.Ks.Y << ", " << curMesh.MeshMaterial.Ks.Z << "\n";
-		file << "Specular Exponent: " << curMesh.MeshMaterial.Ns << "\n";
-		file << "Optical Density: " << curMesh.MeshMaterial.Ni << "\n";
-		file << "Dissolve: " << curMesh.MeshMaterial.d << "\n";
-		file << "Illumination: " << curMesh.MeshMaterial.illum << "\n";
-		file << "Ambient Texture Map: " << curMesh.MeshMaterial.map_Ka << "\n";
-		file << "Diffuse Texture Map: " << curMesh.MeshMaterial.map_Kd << "\n";
-		file << "Specular Texture Map: " << curMesh.MeshMaterial.map_Ks << "\n";
-		file << "Alpha Texture Map: " << curMesh.MeshMaterial.map_d << "\n";
-		file << "Bump Map: " << curMesh.MeshMaterial.map_bump << "\n";
+        for (int i = 0; i < Loader.LoadedMeshes.size(); i++) {
+            file << "Mesh " << 0 << ": " << meshes[i].MeshName << "\n";
+        }
 
 		// Leave a space to separate from the next mesh
 		file << "\n";
 
 		// Close File
 		file.close();
+        
+        
+        // Compute the inverse transforms
+        for (int i = 0; i < meshes.size(); i++) {
+            triangleTransforms.push_back(vector<Transform3D>());
+            for (int j = 0; j < meshes[i].Indices.size(); j += 3) {
+                Point3D p1(meshes[i].Vertices[meshes[i].Indices[j]].Position, false);
+                Point3D p2(meshes[i].Vertices[meshes[i].Indices[j+1]].Position, false);
+                Point3D p3(meshes[i].Vertices[meshes[i].Indices[j+2]].Position, false);
+                
+                Point3D ab = p2 - p1;
+                Point3D ac = p3 - p1;
+                Point3D n = ab.crossUnit(ac);
+                
+                triangleTransforms[i].push_back(Transform3D(ab, ac, n, p1).inverse());
+            }
+        }
 	}
 	// If not output an error
 	else
@@ -158,19 +134,6 @@ bool TriangleMesh::loadOBJ(const string path)
 		// Close File
 		file.close();
 	}
-    
-    // Compute the inverse transforms
-    for (int i = 0; i < curMesh.Indices.size(); i += 3) {
-        Point3D p1(curMesh.Vertices[curMesh.Indices[i]].Position, false);
-        Point3D p2(curMesh.Vertices[curMesh.Indices[i+1]].Position, false);
-        Point3D p3(curMesh.Vertices[curMesh.Indices[i+2]].Position, false);
-        
-        Point3D ab = p2 - p1;
-        Point3D ac = p3 - p1;
-        Point3D n = ab.crossUnit(ac);
-        
-        triangleTransforms.push_back(Transform3D(ab, ac, n, p1).inverse());
-    }
     
 	return loadout;
 }
@@ -191,17 +154,21 @@ Intersection TriangleMesh::intersect(const Ray3D &ray) {
     // Go through triangle faces and keep track
     // of the one with the closest intersection
     double closestLambda = DBL_MAX;
+    int closestMesh = 0;
     int closestTriangleFace = 0;
     double u = 0, v = 0;    // u,v parameters for parametric equation of triangle
-    for (int j = 0; j < curMesh.Indices.size(); j += 3)
-    {
-        double uCurr, vCurr;
-        double lambda = findIntersectionParams(rayOrigin, rayDirection, j, &uCurr, &vCurr);
-        if (lambda < closestLambda) {
-            closestLambda = lambda;
-            u = uCurr;
-            v = vCurr;
-            closestTriangleFace = j;
+    for (int i = 0; i < meshes.size(); i++) {
+        for (int j = 0; j < meshes[i].Indices.size(); j += 3)
+        {
+            double uCurr, vCurr;
+            double lambda = findIntersectionParams(rayOrigin, rayDirection, i, j, &uCurr, &vCurr);
+            if (lambda < closestLambda) {
+                closestLambda = lambda;
+                u = uCurr;
+                v = vCurr;
+                closestMesh = i;
+                closestTriangleFace = j;
+            }
         }
     }
 
@@ -211,7 +178,7 @@ Intersection TriangleMesh::intersect(const Ray3D &ray) {
         return intersection;
     }
 
-    Point3D normal = findNormal(closestTriangleFace, u, v);
+    Point3D normal = findNormal(closestMesh, closestTriangleFace, u, v);
     Point3D hitNormalLocal;
     bool insideObject, canSelfReflect;
     if (rayDirection.dot(normal) < 0) { // outside object
@@ -231,11 +198,11 @@ Intersection TriangleMesh::intersect(const Ray3D &ray) {
     intersection.lambda = closestLambda;
     intersection.point = ray.rayPosition(closestLambda);
     intersection.normal = (invTransform.transpose() * hitNormalLocal).normalized();
-    intersection.material = material;
-    intersection.colour = colourAtTrianglePoint(closestTriangleFace, u, v);
+    intersection.material = materials[closestMesh];
+    intersection.colour = colourAtTrianglePoint(closestMesh, closestTriangleFace, u, v);
     intersection.canSelfReflect = canSelfReflect;
     intersection.obj = this;
-
+    
     return intersection;
 }
 
@@ -249,21 +216,26 @@ bool TriangleMesh::doesIntersect(const Ray3D &ray) {
     
     // Go through triangle faces and return true as soon as the
     // ray intersects one of them
-    for (int j = 0; j < curMesh.Indices.size(); j += 3)
-    {
-        double uCurr, vCurr;    // dummy variables required for findIntersectionParams
-        double lambda = findIntersectionParams(rayOrigin, rayDirection, j, &uCurr, &vCurr);
-        if (lambda < DBL_MAX) return true;
+    for (int i = 0; i < meshes.size(); i++) {
+        for (int j = 0; j < meshes[i].Indices.size(); j += 3)
+        {
+            double uCurr, vCurr;    // dummy variables required for findIntersectionParams
+            double lambda = findIntersectionParams(rayOrigin, rayDirection, i, j, &uCurr, &vCurr);
+            if (lambda < DBL_MAX) return true;
+        }
     }
     
     return false;
 }
 
-Point3D TriangleMesh::findNormal(int faceIndex, double u, double v) {
+Point3D TriangleMesh::findNormal(int mesh, int faceIndex, double u, double v) {
     // Find normals of each vertex on the face
-	Point3D n1 = Point3D(curMesh.Vertices[faceIndex].Normal, true);
-	Point3D n2 = Point3D(curMesh.Vertices[faceIndex+1].Normal, true);
-	Point3D n3 = Point3D(curMesh.Vertices[faceIndex+2].Normal, true);
+    int v1 = meshes[mesh].Indices[faceIndex];
+    int v2 = meshes[mesh].Indices[faceIndex+1];
+    int v3 = meshes[mesh].Indices[faceIndex+2];
+	Point3D n1 = Point3D(meshes[mesh].Vertices[v1].Normal, true).normalized();
+	Point3D n2 = Point3D(meshes[mesh].Vertices[v2].Normal, true).normalized();
+	Point3D n3 = Point3D(meshes[mesh].Vertices[v3].Normal, true).normalized();
     
     // Interpolate to get actual normal based on u and v
     return (1-u-v)*n1 + u*n2 + v*n3;
@@ -271,19 +243,30 @@ Point3D TriangleMesh::findNormal(int faceIndex, double u, double v) {
 
 void TriangleMesh::normalizeVertices(void) {
 	//Normalize vertex coords to between -0.5 to 0.5
-    double scale = min(min(1.0/(curMesh.max_x-curMesh.min_x),
-                           1.0/(curMesh.max_y-curMesh.min_y)),
-                       1.0/(curMesh.max_z-curMesh.min_z));
+    double maxX = -DBL_MAX, minX = DBL_MAX;
+    double maxY = -DBL_MAX, minY = DBL_MAX;
+    double maxZ = -DBL_MAX, minZ = DBL_MAX;
+    for (int i = 0; i < meshes.size(); i++) {
+        maxX = max(meshes[i].max_x, maxX);
+        minX = min(meshes[i].min_x, minX);
+        maxY = max(meshes[i].max_y, maxY);
+        minY = min(meshes[i].min_y, minY);
+        maxZ = max(meshes[i].max_z, maxZ);
+        minZ = min(meshes[i].min_z, minZ);
+    }
+    double scale = min(min(1.0/(maxX-minX), 1.0/(maxY-minY)), 1.0/(maxZ-minZ));
     
-	for (int j = 0; j < curMesh.Vertices.size(); j++)
-	{
-        double x = curMesh.Vertices[j].Position.X;
-        double y = curMesh.Vertices[j].Position.Y;
-        double z = curMesh.Vertices[j].Position.Z;
-        
-        curMesh.Vertices[j].Position.X = (x - 0.5*(curMesh.min_x+curMesh.max_x))*scale;
-        curMesh.Vertices[j].Position.Y = (y - 0.5*(curMesh.min_y+curMesh.max_y))*scale;
-        curMesh.Vertices[j].Position.Z = (z - 0.5*(curMesh.min_z+curMesh.max_z))*scale;
+    for (int i = 0; i < meshes.size(); i++) {
+        for (int j = 0; j < meshes[i].Vertices.size(); j++)
+        {
+            double x = meshes[i].Vertices[j].Position.X;
+            double y = meshes[i].Vertices[j].Position.Y;
+            double z = meshes[i].Vertices[j].Position.Z;
+            
+            meshes[i].Vertices[j].Position.X = (x - 0.5*(minX+maxX))*scale;
+            meshes[i].Vertices[j].Position.Y = (y - 0.5*(minY+maxY))*scale;
+            meshes[i].Vertices[j].Position.Z = (z - 0.5*(minZ+maxZ))*scale;
+        }
     }
 }
 
@@ -319,11 +302,11 @@ bool TriangleMesh::intersectBoundingBox(const Point3D &origin, const Point3D &di
 }
 
 double TriangleMesh::findIntersectionParams(Point3D &origin, Point3D &direction,
-                                            int triangleFace, double *u, double *v) {
+                                            int mesh, int triangleFace, double *u, double *v) {
     // Get the transform to convert a point to triangle space
     // (triangle space has basis: {AB, AC, AB.crossUnit(AC)} where
     // A, B, and C are the vertices and XY symbolizes Y-X
-    Transform3D P = triangleTransforms[triangleFace/3];
+    Transform3D P = triangleTransforms[mesh][triangleFace/3];
     
     Point3D o = P * origin;
     Point3D d = P * direction;
