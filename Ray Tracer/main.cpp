@@ -48,51 +48,6 @@ void buildStillLife(void)
     obj->loadTexture("Textures/BACKGROUND_OIL.ppm");
     objects.push_front(obj);
     
-    //TABLE
-    /*Object3D *obj = new TriangleMesh("OBJ/top.obj",Material(0.05, 0.95, 0.35, 0.35, 1, 1, 6, 0.3),
-     ColourRGB(1.0, 0.25, 0.25));
-     obj->scale(5, 5, 5);
-     //obj->rotateY(PI/2);
-     obj->rotateX(-PI/10);
-     
-     obj->translate(0, -.052, -1.);
-     
-     obj->updateInverse();
-     //obj->loadTexture("OBJ/tabletop.ppm");
-     objects.push_front(obj);
-     */
-    //CHEESE
-    /*obj = new TriangleMesh("OBJ/cheese_round.obj",Material(0.05, 0.95, 0.0, 0.2, 1, 15, 0, 0.3),
-     ColourRGB(1.0, 0.25, 0.25));
-     obj->scale(1, 1, 1);
-     //obj->rotateY(PI/2);
-     //obj->rotateX(-PI/10);
-     obj->rotateX(-PI/10);
-     obj->translate(0, 0, -1.5);
-     objects.push_front(obj);*/
-    
-    /*Object3D *obj = new TriangleMesh("OBJ/wine_glass.obj",Material(0.05, 0.95, 0.0, 0.2, 0.5, 1.5, 0, 0.3),
-     ColourRGB(1.0, 0.25, 0.25));
-     obj->scale(1, 1, 1);
-     //obj->rotateY(PI/2);
-     //obj->rotateX(-PI/10);
-     obj->rotateX(-PI/10);
-     //obj->translate(0, 0, -1.5);
-     //obj->loadTexture("OBJ/tabletop.ppm");
-     objects.push_front(obj);*/
-    
-    //	obj = new TriangleMesh("OBJ/singleapple.obj",Material(0.05, 0.95, 0.35, 0.35, 1, 1, 6, 0.3),
-    //            ColourRGB(1.0, 0.25, 0.25));
-    //	//obj->scale(5, 5, 5);
-    //	//obj->rotateY(PI/2);
-    //	//obj->rotateX(-PI/10);
-    //	//obj->rotateX(-PI/10);
-    //	//obj->translate(0, 0, -1.5);
-    //	obj->loadTexture("OBJ/Fruit.ppm");
-    //	objects.push_front(obj);
-    
-    
-    
     //Kinda Shiny King
 //    vector<Material> kingMaterials(1, Material(0.0, 0.95, 0.5, 0.15, 1.0, 1.0, 32, 0.1));
 //    vector<ColourRGB> kingColours(1, ColourRGB(0.8, 0.8, 0.8));
@@ -104,62 +59,58 @@ void buildStillLife(void)
 //    king->translate(-0.3, -0.257, -1.65);
 //
 //    objects.push_front(king);
-//
-//    //Matte Horse Pawn
-//    vector<Material> horseMaterials(1, Material(0.0, 0.01, 0.5, 0.2, 1.0, 1.0, 32, 0.2));
-//    vector<ColourRGB> horseColours(1, ColourRGB(0.9, 0.9, 0.9));
+
+    //Matte Horse Pawn
+//    vector<Material> horseMaterials(1, Material(0.0, 0.1, 0.95, 0.6, 1.0, 1.0, 6, 0.3));
+//    vector<ColourRGB> horseColours(1, ColourRGB(0.8, 0.8, 0.8));
 //    TriangleMesh *horse = new TriangleMesh("OBJ/high_res_horse.obj", horseMaterials, horseColours);
 //    horse->scale(1, 1, .1);
 //    horse->rotateX(-PI / 25);
 //    horse->rotateY(PI);
-//    horse->translate(0, -.252, -1.);
+//    horse->translate(0.3, -.058, -1.0);
 //
 //    objects.push_front(horse);
-//
-//    //Glass Pawn
+
+    //Glass Pawn
 //    vector<Material> pawnMaterials(1, Material(0.00, 0.6, 0.9, 0.7, 0.3, 1.5, 96, 0.5));
 //    vector<ColourRGB> pawnColours(1, ColourRGB(1., 1., 1.));
-//    TriangleMesh *pawn = new TriangleMesh("OBJ/pawn.obj", pawnMaterials, pawnColours);
+//    TriangleMesh *pawn = new TriangleMesh("OBJ/high_res_pawn.obj", pawnMaterials, pawnColours);
 //    //tri->scale(3, 3, 3);
 //    pawn->scale(.85, .85, .85);
 //    pawn->rotateX(-PI / 25);
-//    pawn->translate(0, -.252, -1.);
+//    pawn->translate(-0.5, 0.098, -0.85);
 //
 //    objects.push_front(pawn);
     
     //Chrome Queen
-//    vector<Material> queenMaterials(1, Material(0.25, 0.1, 0.718, 0.8, 1.0, 1.0, 100.8, 0.02));
-//    vector<ColourRGB> queenColours(1, ColourRGB(0.155, 0.12, 0.12));
-//    TriangleMesh *tri = new TriangleMesh("OBJ/high_res_queen.obj", queenMaterials, queenColours);
-//    tri->scale(1.05, 1.05, 1.05);
-//    tri->rotateX(-PI / 25);
-//    tri->translate(0.5, 0.063, -1.63);
-//
-//    objects.push_front(tri);
+    vector<Material> queenMaterials(1, Material(0.25, 0.1, 0.718, 0.8, 1.0, 1.0, 100.8, 0.02));
+    vector<ColourRGB> queenColours(1, ColourRGB(0.155, 0.12, 0.12));
+    TriangleMesh *tri = new TriangleMesh("OBJ/high_res_queen.obj", queenMaterials, queenColours);
+    tri->scale(1.05, 1.05, 1.05);
+    tri->rotateX(-PI / 25);
+    tri->translate(0.5, 0.063, -1.63);
+
+    objects.push_front(tri);
     
     //Table
-    vector<Material> tableMaterials(1, Material(0.05, 0.8, 0.64, .35, 1, 1, 207, 0.3)); //Material(0.05, 0.95, 0.35, 0.35, 1, 1, 6, 0.3)
+    vector<Material> tableMaterials(1, Material(0.05, 0.8, 0.64, 0.5, 1, 1, 6, 0.02)); //Material(0.05, 0.95, 0.35, 0.35, 1, 1, 6, 0.3)
     vector<ColourRGB> tableColours(1, ColourRGB(1.0, 0.25, 0.25));
     TriangleMesh *top = new TriangleMesh("OBJ/top.obj", tableMaterials, tableColours);
     top->scale(4., 4., 4.);
     top->rotateX(-PI/25);
-    top->translate(0, -.452, -1.);
+    top->translate(0.0, -0.452, -1.25);
     top->loadTextureForMesh(0, "OBJ/green.ppm");
     objects.push_front(top);
     
-    //    vector<Material> mat(1, Material(0.05, 0.95, 0.35, 0.35, 1.0, 1, 6, 0.3));
-    //    vector<ColourRGB> col(1, ColourRGB(1.0, 0.25, 0.25));
-    //    obj = new TriangleMesh("OBJ/teapot.obj", mat, col);
-    //    obj->updateInverse();
-    //    objects.push_front(obj);
-    
     // Insert a single point light source.
-    PointLightSource *light = new PointLightSource(ColourRGB(0.95, 0.95, 0.95),       // original
-                                                   Point3D(0.0, 2.5, -5.5, false));
-    lights.push_front(light);
-//    AreaLightElement::addAreaLight(5, 5, Point3D(0, -1, 0, true), Point3D(1, 0, 0, true),
-//                                   Point3D(0.0, 15.5, -5.5, false), 8, 8,
-//                                   ColourRGB(0.95, 0.95, 0.95), lights);
+//    PointLightSource *light = new PointLightSource(ColourRGB(0.95, 0.95, 0.95),       // original
+//                                                   Point3D(0.0, 1.5, -5.5, false));
+//    lights.push_front(light);
+    Point3D lightPosition(-7, 3, -16, false);
+    Point3D lightDirection = (Point3D(0, -0.452, -1.25, false) - lightPosition).normalized();
+    AreaLightElement::addAreaLight(5, 5, lightDirection, Point3D(0, 0, 1, true).crossUnit(lightDirection),
+                                   lightPosition, 8, 8,
+                                   ColourRGB(0.8, 0.8, 0.8), lights);
 }
 
 void buildScene(void)

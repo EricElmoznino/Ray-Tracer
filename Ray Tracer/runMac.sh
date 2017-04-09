@@ -4,7 +4,7 @@
 sh compileMac.sh
 
 # run: size, depth, antialiasing, name
-./RayTracer 1024 2 0 RenderedImage.ppm
+./RayTracer 1024 0 0 RenderedImage.ppm
 
 # open the rendered image
 if [ "$(uname -s)" == "Darwin" ]; then

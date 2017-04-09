@@ -1,1 +1,2 @@
-Failed to Load File. May have failed to find it or it was not an .obj file.
+Mesh 0: Rectangle031 STOL001
+
