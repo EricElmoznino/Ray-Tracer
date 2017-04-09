@@ -60,6 +60,7 @@
 		07190D831E99CFA50035743E /* paint_up.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = paint_up.ppm; sourceTree = "<group>"; };
 		07190D841E99D03F0035743E /* BACKGROUND_OIL.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = BACKGROUND_OIL.ppm; sourceTree = "<group>"; };
 		0721F5271E93418700B75C4E /* OBJ_Loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OBJ_Loader.cpp; sourceTree = "<group>"; };
+		072543931E9A796800FE610E /* Report.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Report.txt; sourceTree = "<group>"; };
 		075B4D391E86ED6E00FA30D3 /* compileMac.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = compileMac.sh; sourceTree = "<group>"; };
 		075B4D3A1E86ED6E00FA30D3 /* runMac.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = runMac.sh; sourceTree = "<group>"; };
 		075B4D3D1E8714DA00FA30D3 /* YellowCloud_bk.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = YellowCloud_bk.ppm; sourceTree = "<group>"; };
@@ -258,6 +259,7 @@
 		07EA014F1E74B282000C4026 /* Ray Tracer */ = {
 			isa = PBXGroup;
 			children = (
+				072543931E9A796800FE610E /* Report.txt */,
 				075B4D561E881D4900FA30D3 /* Lights */,
 				075B4D521E87893400FA30D3 /* Utilities */,
 				075B4D3C1E8714CC00FA30D3 /* Skyboxes */,

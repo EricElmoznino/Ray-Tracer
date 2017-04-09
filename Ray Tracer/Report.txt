@@ -1,0 +1,75 @@
+Assignment 3/4
+
+Process to complete the assignment
+Our process to complete the assignment was the following and the work was split up / worked as indicated in the ‘Roles’ section:
+-	Understand the starting code while referring to lecture notes / supplementary material
+-	Complete the ray casting / first hit code first
+-	Compute the intersections for rays and spheres
+-	Implement the illumination models (phong illumination, shadows, reflections)
+-	Complete the requirements for Assignment 3 as early as possible
+-	Add in the assignment 4 functions.
+-	Draw a more complicated scene.
+o	Obj files were downloaded from free 3d object sites
+o	The objects were edited as desired in Maya
+o	The scenes were constructed in Maya to determine the appropriate transformations of the objects
+
+Description of the code and how it works
+
+Our code is object oriented, and does not resemble the starter code at all.
+
+In the root folder, you will find:
+-	main.cpp
+o	Builds the scene
+o	Initializes the camera coordinates
+o	Initialize the skybox
+o	Instantiates the ray tracer
+-	RayTracer.h/.cpp
+o	Ray-tracing function does the recursive ray tracing
+o	Handles all object traversals and intersection shading
+
+In the ObjectTypes folder, you will find:
+-	Object.cpp
+o	Provides the base class for all other objects to inherit. Has function prototype for finding closest intersection to a given ray.
+o	Holds general information that every object has, such as material, colour, and texture.
+-	Intersection.cpp
+o	The object that is returned when an intersection is found. Contains all relevant information such as point of intersection, normal, colour, etc.
+
+In the ObjectTypes/ObjectSubclasses folder, you will find all implemented object subclasses along with their helper classes. Of particular note are:
+-	TriangleMesh.cpp
+o	Provides support for arbitrary triangle meshes. Can even interpret .obj files with multiple meshes, materials, and textures (i.e. if the .obj file specifies multiple sections for an object each with different materials such as a wine bottle containing wine, the TriangleMesh class will still be able to display the object as intended).
+-	BoundingBox.cpp
+o	The bounding box volume hierarchy applied to a mesh that GREATLY accelerates itÕs rendering time.
+-	OBJ_Loader.cpp
+o	Utility code to parse a .obj file into a suitable mesh structure, obtained from https://github.com/Bly7/OBJ-Loader
+
+In the GeometricTypes folder, you will find geometric types such as homogenous point and affine matrix classes.
+
+In the Lights folder, you will find the two types of lights implemented, point and area.
+
+Easy vs Challenging
+
+The hardest part of the assignment was handling arbitrary mesh geometry. This aspect of the assignment was challenging as obj and mlt files have varying structures. Obj may store several meshes and/or provide texture coordinates for several different textures. Storing and accessing this information efficiently and effectively. Another challenging part of this assignment was runtime. In order to keep the time required to render a scene low, the code was required to be optimized by adding a bounding volume hierarchy to greatly reduce the amount of faces needed to check a mesh for intersections.
+The easiest part of this assignment was implementing the algorithms taught in lecture. Incorporating the Phong model, the intersections with the sphere and plane, were proven to be some of the easiest parts of the code to add as the pseudo code was provided.
+
+Course Understanding
+This assignment helped us further understand geometry and how to compute intersections and normal for various shapes. The assignment also provided a more intuitive understanding of the importance of switching between camera and world/local coordinates.
+
+Role
+Grace
+-	Intersection for ray-plane
+-	Phong illumination
+-	Implement a neat scene
+-	Report
+-	Handing arbitrary surface mesh geometry
+Eric
+-	Reframed the starting code
+-	Intersection for ray-sphere
+-	Shadows/Reflections
+-	Anti-aliasing
+-	Area light sources
+-	Multi-thread
+-	Refraction
+-	Glossy
+-	Texture-mapping
+-	Adding environment mapping
+
