@@ -5,14 +5,16 @@
 #include "Utilities/ProgressManager.h"
 
 void RayTracer::renderImage(View camera, list<Object3D*> objects, list<Light*> lights,
-                            Image *output, char * name) {
+                            Image *output, char * name, vector<int> bounds) {
     // Store local copies of these that way we don't have to keep passing them around
     // between the functions that do the actual ray tracing work
     this->objects = objects;
     this->lights = lights;
     
+    int rows = bounds[1] - bounds[0];
+    int cols = bounds[3] - bounds[2];
     // Object to keep track of the progress and give us some feedback
-    ProgressManager progressManager(output->sx * output->sy);
+    ProgressManager progressManager(rows * cols);
     progressManager.startTimer();
     
     // Itterate through all the pixels and do the ray tracing
@@ -21,6 +23,12 @@ void RayTracer::renderImage(View camera, list<Object3D*> objects, list<Light*> l
     {
         for (int j = 0; j < output->sy; j++)
         {
+            if (i < bounds[0] || i >= bounds[1] || j < bounds[3] || j >= bounds[4]) {
+                output->setColourAtPixel(i, j, ColourRGB(0, 0, 0));
+                progressManager.advance();
+                continue;
+            }
+            
             ///////////////////////////////////////////////////////////////////
             // TO DO - complete the code that should be in this loop to do the
             //         raytracing!

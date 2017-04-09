@@ -219,7 +219,12 @@ int main(int argc, char *argv[])
     ColourRGB background(0.0, 0.0, 0.0);// Background colour
     RayTracer rayTracer;    // The ray tracer
     
-    if (argc<5)
+    // Parallization parameters
+    vector<int> bounds;
+    int firstRow, lastRow;
+    int firstCol, lastCol;
+    
+    if (argc<7)
     {
         fprintf(stderr,"RayTracer: Can not parse input parameters\n");
         fprintf(stderr,"USAGE: RayTracer size rec_depth antialias output_name\n");
@@ -227,12 +232,18 @@ int main(int argc, char *argv[])
         fprintf(stderr,"   rec_depth = Recursion depth\n");
         fprintf(stderr,"   antialias = A single digit, 0 disables antialiasing. Anything else enables antialiasing\n");
         fprintf(stderr,"   output_name = Name of the output file, e.g. MyRender.ppm\n");
+        fprintf(stderr,"   parallization_params = 4 params for the bounds of pixels we are generating\n");
         exit(0);
     }
     sx=atoi(argv[1]);
     MAX_DEPTH=atoi(argv[2]);
     if (atoi(argv[3])==0) antialiasing=0; else antialiasing=1;
     strcpy(&output_name[0],argv[4]);
+    
+    bounds.push_back(atoi(argv[5]));
+    bounds.push_back(atoi(argv[6]));
+    bounds.push_back(atoi(argv[7]));
+    bounds.push_back(atoi(argv[8]));
     
     fprintf(stderr,"Rendering image at %d x %d\n",sx,sx);
     fprintf(stderr,"Recursion depth = %d\n",MAX_DEPTH);
@@ -299,7 +310,7 @@ int main(int argc, char *argv[])
     rayTracer.superSamplingResolution = 5;
     rayTracer.glossyreflEnabled = true;
     rayTracer.refractionEnabled = true;
-    rayTracer.renderImage(cam, objects, lights, im, output_name);
+    rayTracer.renderImage(cam, objects, lights, im, output_name, bounds);
     
     // Exit section. Clean up and return.
     delete im;
