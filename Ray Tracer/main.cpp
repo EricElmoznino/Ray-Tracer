@@ -113,8 +113,8 @@ void buildStillLife(void)
 //    objects.push_front(king);
 //
 //    //Matte Horse Pawn
-//    vector<Material> horseMaterials(1, Material(0.02, 0.01, 0.4, 0.5, 1.0, 1.0, 0.078, 0.8));
-//    vector<ColourRGB> horseColours(1, ColourRGB(0.129, 0., 0.));
+//    vector<Material> horseMaterials(1, Material(0.0, 0.01, 0.5, 0.5, 1.0, 1.0, 32, 0.8));
+//    vector<ColourRGB> horseColours(1, ColourRGB(0.1, 0.1, 0.1));
 //    TriangleMesh *horse = new TriangleMesh("OBJ/horse.obj", horseMaterials, horseColours);
 //    horse->scale(1, 1, .1);
 //    horse->rotateX(-PI / 25);
@@ -122,10 +122,10 @@ void buildStillLife(void)
 //    horse->translate(0, -.252, -1.);
 //    horse->translate(0.3, 0.25, -.2);
 //    horse->translate(0, +0.15, 0);
-//    
+//
 //    horse->updateInverse();
 //    objects.push_front(horse);
-//    
+//
 //    //Glass Pawn
 //    vector<Material> pawnMaterials(1, Material(0.00, 0.6, 0.9, 0.7, 0.3, 1.5, 96, 0.5));
 //    vector<ColourRGB> pawnColours(1, ColourRGB(1., 1., 1.));
@@ -141,7 +141,7 @@ void buildStillLife(void)
 //    objects.push_front(pawn);
     
     //Chrome Queen
-//    vector<Material> queenMaterials(1, Material(0.25, 0.4, .774597, 0.5, 1.0, 1.0, 76.8, 0.1));
+//    vector<Material> queenMaterials(1, Material(0.25, 0.1, 0.718, 0.8, 1.0, 1.0, 100.8, 0.02));
 //    vector<ColourRGB> queenColours(1, ColourRGB(0.155, 0.12, 0.12));
 //    TriangleMesh *tri = new TriangleMesh("OBJ/queen_textured.obj", queenMaterials, queenColours);
 //    tri->scale(1.05, 1.05, 1.05);
