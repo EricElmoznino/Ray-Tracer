@@ -96,27 +96,23 @@ void buildStillLife(void)
     //Kinda Shiny King
 //    vector<Material> kingMaterials(1, Material(0.0, 0.95, 0.5, 0.15, 1.0, 1.0, 32, 0.1));
 //    vector<ColourRGB> kingColours(1, ColourRGB(0.8, 0.8, 0.8));
-//    TriangleMesh *king = new TriangleMesh("OBJ/king.obj", kingMaterials, kingColours);
+//    TriangleMesh *king = new TriangleMesh("OBJ/high_res_king.obj", kingMaterials, kingColours);
 //    king->scale(1.05, 1.05, 1.05);
 //    king->rotateX(-PI / 25);
 //    king->rotateY(PI);
 //    king->rotateZ(-PI/27);
-//    king->translate(0, -.252, -1.);
-//    king->translate(-0.3, 0, -.55);
-//    king->translate(0, 0.15, 0);
-//    
+//    king->translate(-0.3, -0.257, -1.65);
+//
 //    objects.push_front(king);
 //
 //    //Matte Horse Pawn
-//    vector<Material> horseMaterials(1, Material(0.0, 0.01, 0.5, 0.5, 1.0, 1.0, 32, 0.8));
-//    vector<ColourRGB> horseColours(1, ColourRGB(0.1, 0.1, 0.1));
-//    TriangleMesh *horse = new TriangleMesh("OBJ/horse.obj", horseMaterials, horseColours);
+//    vector<Material> horseMaterials(1, Material(0.0, 0.01, 0.5, 0.2, 1.0, 1.0, 32, 0.2));
+//    vector<ColourRGB> horseColours(1, ColourRGB(0.9, 0.9, 0.9));
+//    TriangleMesh *horse = new TriangleMesh("OBJ/high_res_horse.obj", horseMaterials, horseColours);
 //    horse->scale(1, 1, .1);
 //    horse->rotateX(-PI / 25);
 //    horse->rotateY(PI);
 //    horse->translate(0, -.252, -1.);
-//    horse->translate(0.3, 0.25, -.2);
-//    horse->translate(0, +0.15, 0);
 //
 //    objects.push_front(horse);
 //
@@ -128,41 +124,18 @@ void buildStillLife(void)
 //    pawn->scale(.85, .85, .85);
 //    pawn->rotateX(-PI / 25);
 //    pawn->translate(0, -.252, -1.);
-//    pawn->translate(-0.65, 0.25, 0.4);
-//    pawn->translate(0, +0.15, 0);
 //
 //    objects.push_front(pawn);
     
     //Chrome Queen
 //    vector<Material> queenMaterials(1, Material(0.25, 0.1, 0.718, 0.8, 1.0, 1.0, 100.8, 0.02));
 //    vector<ColourRGB> queenColours(1, ColourRGB(0.155, 0.12, 0.12));
-//    TriangleMesh *tri = new TriangleMesh("OBJ/queen_textured.obj", queenMaterials, queenColours);
+//    TriangleMesh *tri = new TriangleMesh("OBJ/high_res_queen.obj", queenMaterials, queenColours);
 //    tri->scale(1.05, 1.05, 1.05);
 //    tri->rotateX(-PI / 25);
-//    tri->translate(0, -.252, -1.);
-//    tri->translate(0.6, .25, -0.55);
-//    tri->translate(0, +0.15, 0);
+//    tri->translate(0.5, 0.063, -1.63);
 //
 //    objects.push_front(tri);
-    
-    Object3D *board = new Plane(Material(0.05, 0.95, 0.0, 0.2, 1, 15, 0, 0.7),
-                                ColourRGB(1.0, 0.25, 0.25));
-    board->scale(1.85, 1.5, 1.);
-    board->rotateX(-PI / 25);
-    board->rotateX(PI / 2);
-    board->translate(0, -.452, -1.);
-    board->translate(0, +0.15, -.15);
-    board->loadTexture("OBJ/smaller-texture.ppm");
-    objects.push_front(board);
-    
-    Object3D *side = new Plane(Material(0.05, 0.95, 0.0, 0.2, 1, 1, 0, 0.7),
-                               ColourRGB(1.2, 0.2, 0.25));
-    side->scale(1.49, .145, 1.0);
-    side->rotateX(-PI / 25);
-    side->translate(0, -.452, -1.);
-    side->translate(0, 0, -.885);
-    side->loadTexture("OBJ/ceramic-texture.ppm");
-    objects.push_front(side);
     
     //Table
     vector<Material> tableMaterials(1, Material(0.05, 0.8, 0.64, .35, 1, 1, 207, 0.3)); //Material(0.05, 0.95, 0.35, 0.35, 1, 1, 6, 0.3)
@@ -171,7 +144,7 @@ void buildStillLife(void)
     top->scale(4., 4., 4.);
     top->rotateX(-PI/25);
     top->translate(0, -.452, -1.);
-    top->loadTextureForMesh(0, "OBJ/2.ppm");
+    top->loadTextureForMesh(0, "OBJ/green.ppm");
     objects.push_front(top);
     
     //    vector<Material> mat(1, Material(0.05, 0.95, 0.35, 0.35, 1.0, 1, 6, 0.3));
@@ -181,12 +154,12 @@ void buildStillLife(void)
     //    objects.push_front(obj);
     
     // Insert a single point light source.
-//    PointLightSource *light = new PointLightSource(ColourRGB(0.95, 0.95, 0.95),       // original
-//                                                   Point3D(0.0, 15.5, -5.5, false));
-//    lights.push_front(light);
-    AreaLightElement::addAreaLight(5, 5, Point3D(0, -1, 0, true), Point3D(1, 0, 0, true),
-                                   Point3D(0.0, 15.5, -5.5, false), 8, 8,
-                                   ColourRGB(0.95, 0.95, 0.95), lights);
+    PointLightSource *light = new PointLightSource(ColourRGB(0.95, 0.95, 0.95),       // original
+                                                   Point3D(0.0, 2.5, -5.5, false));
+    lights.push_front(light);
+//    AreaLightElement::addAreaLight(5, 5, Point3D(0, -1, 0, true), Point3D(1, 0, 0, true),
+//                                   Point3D(0.0, 15.5, -5.5, false), 8, 8,
+//                                   ColourRGB(0.95, 0.95, 0.95), lights);
 }
 
 void buildScene(void)
