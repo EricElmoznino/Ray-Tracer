@@ -23,9 +23,8 @@ void RayTracer::renderImage(View camera, list<Object3D*> objects, list<Light*> l
     {
         for (int j = 0; j < output->sy; j++)
         {
-            if (i < bounds[0] || i >= bounds[1] || j < bounds[3] || j >= bounds[4]) {
+            if (i < bounds[0] || i >= bounds[1] || j < bounds[2] || j >= bounds[3]) {
                 output->setColourAtPixel(i, j, ColourRGB(0, 0, 0));
-                progressManager.advance();
                 continue;
             }
             

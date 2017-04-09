@@ -64,11 +64,11 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "600"
+            argument = "1024"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "2"
+            argument = "0"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
@@ -77,6 +77,22 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "RenderedImage.ppm"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "0"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "256"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "0"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "256"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
