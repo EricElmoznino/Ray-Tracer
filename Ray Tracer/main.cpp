@@ -40,28 +40,15 @@ int MAX_DEPTH;
 void buildStillLife(void)
 {
     // BACKGROUND
-    Object3D *obj = new Plane(Material(0.05, 0.95, 0.0, 0.2, 1, 15, 0, 0.3),
-                              ColourRGB(1.0, 0.25, 0.25));
-    double height = 20, aspectRatio = 2560.0/1600, distance = 10;
-    obj->scale(height*aspectRatio, height, 1);
-    obj->translate(0, 0, distance);
-    obj->updateInverse();
-    obj->loadTexture("Textures/wall.ppm");
-    objects.push_front(obj);
-    
-	//TABLE
-	/*Object3D *obj = new TriangleMesh("OBJ/top.obj",Material(0.05, 0.95, 0.35, 0.35, 1, 1, 6, 0.3),
-	                                     ColourRGB(1.0, 0.25, 0.25));
-	obj->scale(5, 5, 5);
-    //obj->rotateY(PI/2);
-	obj->rotateX(-PI/10);
-
-	obj->translate(0, -.052, -1.);
-
-	obj->updateInverse();
-    //obj->loadTexture("OBJ/tabletop.ppm");
-	objects.push_front(obj);
-	*/
+//    Object3D *obj = new Plane(Material(0.05, 0.95, 0.0, 0.2, 1, 15, 0, 0.3),
+//                              ColourRGB(1.0, 0.25, 0.25));
+//    double height = 20, aspectRatio = 2560.0/1600, distance = 10;
+//    obj->scale(height*aspectRatio, height, 1);
+//    obj->translate(0, 0, distance);
+//    obj->updateInverse();
+//    obj->loadTexture("Textures/wall.ppm");
+//    objects.push_front(obj);
+	
 	//CHEESE
 	/*obj = new TriangleMesh("OBJ/cheese_round.obj",Material(0.05, 0.95, 0.0, 0.2, 1, 15, 0, 0.3),
 	                                     ColourRGB(1.0, 0.25, 0.25));
@@ -95,26 +82,26 @@ void buildStillLife(void)
 //	obj->loadTexture("OBJ/Fruit.ppm");
 //	objects.push_front(obj);
 
-//    vector<Material> bottleMaterials(1, Material(0.05, 0.95, 0.35, 0.35, 0.0, 2.4, 6, 0.3));
+//    vector<Material> bottleMaterials(1, Material(0.05, 0.95, 0.35, 0.35, 0.0, 1.5, 6, 0.3));
 //    vector<ColourRGB> bottleColours(1, ColourRGB(0.0, 0.0, 0.0));
 //    TriangleMesh *tri = new TriangleMesh("OBJ/queen.obj", bottleMaterials, bottleColours);
 //    tri->scale(3, 3, 3);
 //    tri->updateInverse();
 //    objects.push_front(tri);
     
-//    vector<Material> mat(1, Material(0.05, 0.95, 0.35, 0.35, 1.0, 1, 6, 0.3));
-//    vector<ColourRGB> col(1, ColourRGB(1.0, 0.25, 0.25));
-//    obj = new TriangleMesh("OBJ/teapot.obj", mat, col);
-//    obj->updateInverse();
-//    objects.push_front(obj);
+    vector<Material> mat(1, Material(0.05, 0.95, 0.35, 0.35, 1.0, 1, 6, 0.3));
+    vector<ColourRGB> col(1, ColourRGB(1.0, 0.25, 0.25));
+    TriangleMesh *tri = new TriangleMesh("OBJ/teapot.obj", mat, col);
+    tri->updateInverse();
+    objects.push_front(tri);
 
 	// Insert a single point light source.
-	PointLightSource *light = new PointLightSource(ColourRGB(0.95, 0.95, 0.95),       // original
-												   Point3D(0.0, 15.5, -5.5, false));
-	lights.push_front(light);
-//    AreaLightElement::addAreaLight(5, 5, Point3D(0, -1, 0, true), Point3D(1, 0, 0, true),
-//                                   Point3D(0.0, 15.5, -5.5, false), 8, 8,
-//                                   ColourRGB(0.95, 0.95, 0.95), lights);
+//	PointLightSource *light = new PointLightSource(ColourRGB(0.95, 0.95, 0.95),       // original
+//												   Point3D(0.0, 15.5, -5.5, false));
+//	lights.push_front(light);
+    AreaLightElement::addAreaLight(5, 5, Point3D(0, -1, 0, true), Point3D(1, 0, 0, true),
+                                   Point3D(0.0, 15.5, -5.5, false), 8, 8,
+                                   ColourRGB(0.95, 0.95, 0.95), lights);
 }
 
 void buildScene(void)
@@ -304,7 +291,6 @@ int main(int argc, char *argv[])
     rayTracer.skybox = skybox;
     rayTracer.maxDepth = MAX_DEPTH;
     rayTracer.antialiasingEnabled = antialiasing;
-    rayTracer.superSamplingResolution = 5;
     rayTracer.glossyreflEnabled = true;
     rayTracer.refractionEnabled = true;
     rayTracer.renderImage(cam, objects, lights, im, output_name);

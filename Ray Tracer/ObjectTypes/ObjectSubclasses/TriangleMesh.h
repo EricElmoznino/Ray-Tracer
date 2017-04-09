@@ -4,6 +4,7 @@
 #include "OBJ_Loader.h"
 
 #include "../Object3D.h"
+#include "BoundingBox.h"
 #include <stdio.h>
 #include <vector>
 #include <string>
@@ -17,20 +18,17 @@ class TriangleMesh : public Object3D{
 	/*
 	 * Input: str path to .obj file
 	 */
-    vector<vector<Transform3D>> triangleTransforms;
     
     bool isLoaded = false;
+    vector<BoundingBox> boundingBoxes;
     vector<objl::Mesh> meshes;
     vector<ColourRGB> colours;
     vector<Material> materials;
     vector<Image> textureImages;
     
     void normalizeVertices(void);
-    bool intersectBoundingBox(const Point3D &origin, const Point3D &direction);
-    double findIntersectionParams(Point3D &origin, Point3D &direction,
-                                  int mesh, int triangleFace, double *u, double *v);
-    Point3D findNormal(int mesh, int faceIndex, double u, double v);
-	ColourRGB colourAtTrianglePoint(int mesh, int faceIndex, double u, double v) const;
+    Point3D findNormal(int mesh, TriangleFace *face, double u, double v);
+	ColourRGB colourAtTrianglePoint(int mesh, TriangleFace *face, double u, double v) const;
 
 public:
 	TriangleMesh(const vector<Material> &materials, const vector<ColourRGB> &colours);

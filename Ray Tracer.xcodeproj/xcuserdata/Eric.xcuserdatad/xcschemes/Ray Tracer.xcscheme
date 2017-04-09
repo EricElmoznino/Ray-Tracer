@@ -47,7 +47,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "YES"
-      customWorkingDirectory = "/Users/Eric/Dropbox/University of Toronto/Winter 2017 Semester/Graphics/Ray Tracer/Ray Tracer"
+      customWorkingDirectory = "/Users/Eric/Desktop/Ray Tracer/Ray Tracer"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"

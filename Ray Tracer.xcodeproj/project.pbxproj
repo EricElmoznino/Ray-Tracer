@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0705CA4B1E8E22C70028B251 /* TriangleMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0705CA491E8E22C70028B251 /* TriangleMesh.cpp */; };
+		07190D7D1E99586C0035743E /* BoundingBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07190D7B1E99586C0035743E /* BoundingBox.cpp */; };
 		0721F5281E93418700B75C4E /* OBJ_Loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0721F5271E93418700B75C4E /* OBJ_Loader.cpp */; };
 		075B4D451E87156900FA30D3 /* Skybox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 075B4D431E87156900FA30D3 /* Skybox.cpp */; };
 		075B4D551E87894800FA30D3 /* ProgressManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 075B4D531E87894800FA30D3 /* ProgressManager.cpp */; };
@@ -50,6 +51,8 @@
 		0705CA4A1E8E22C70028B251 /* TriangleMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TriangleMesh.h; sourceTree = "<group>"; };
 		07190D791E98455C0035743E /* wall.ppm */ = {isa = PBXFileReference; lastKnownFileType = file; path = wall.ppm; sourceTree = "<group>"; };
 		07190D7A1E98736C0035743E /* Wine_Bottle_White.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = Wine_Bottle_White.obj; sourceTree = "<group>"; };
+		07190D7B1E99586C0035743E /* BoundingBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BoundingBox.cpp; sourceTree = "<group>"; };
+		07190D7C1E99586C0035743E /* BoundingBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoundingBox.h; sourceTree = "<group>"; };
 		071FE65E1E941C3E00F90704 /* teapot.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = teapot.obj; sourceTree = "<group>"; };
 		0721F5271E93418700B75C4E /* OBJ_Loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OBJ_Loader.cpp; sourceTree = "<group>"; };
 		075B4D391E86ED6E00FA30D3 /* compileMac.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = compileMac.sh; sourceTree = "<group>"; };
@@ -330,6 +333,8 @@
 				07EA01C61E759D2F000C4026 /* Sphere.h */,
 				0A850D561E84B3F6008132E1 /* PlaneLightSource.cpp */,
 				0A850D571E84B3F6008132E1 /* PlaneLightSource.h */,
+				07190D7B1E99586C0035743E /* BoundingBox.cpp */,
+				07190D7C1E99586C0035743E /* BoundingBox.h */,
 			);
 			path = ObjectSubclasses;
 			sourceTree = "<group>";
@@ -417,6 +422,7 @@
 				07EA018C1E75979F000C4026 /* svdDynamic.cpp in Sources */,
 				075B4D5C1E881DD800FA30D3 /* Light.cpp in Sources */,
 				07EA01BC1E75983E000C4026 /* Image.cpp in Sources */,
+				07190D7D1E99586C0035743E /* BoundingBox.cpp in Sources */,
 				07EA01BA1E75983E000C4026 /* Material.cpp in Sources */,
 				07EA01C81E759D2F000C4026 /* Sphere.cpp in Sources */,
 				075B4D5F1E8820D800FA30D3 /* AreaLightElement.cpp in Sources */,
