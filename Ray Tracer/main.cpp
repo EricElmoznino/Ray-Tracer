@@ -98,51 +98,51 @@ void buildStillLife(void)
     
     
     //Kinda Shiny King
-    vector<Material> kingMaterials(1, Material(0.00, 0.8, 1.0, 0.5, 1.0, 1.0, 102, 0.5));
-    vector<ColourRGB> kingColours(1, ColourRGB(0.79, .813, .64));
-    TriangleMesh *king = new TriangleMesh("OBJ/king.obj", kingMaterials, kingColours);
-    king->scale(1.05, 1.05, 1.05);
-    king->rotateX(-PI / 25);
-    king->rotateY(PI);
-    king->rotateZ(-PI/27);
-    king->translate(0, -.252, -1.);
-    king->translate(-0.3, 0, -.55);
-    king->translate(0, +0.15, 0);
-    
-    king->updateInverse();
-    objects.push_front(king);
-    
-    //Matte Horse Pawn
-    vector<Material> horseMaterials(1, Material(0.02, 0.01, 0.4, 0.5, 1.0, 1.0, 0.078, 0.8));
-    vector<ColourRGB> horseColours(1, ColourRGB(0.129, 0., 0.));
-    TriangleMesh *horse = new TriangleMesh("OBJ/horse.obj", horseMaterials, horseColours);
-    horse->scale(1, 1, .1);
-    horse->rotateX(-PI / 25);
-    horse->rotateY(PI);
-    horse->translate(0, -.252, -1.);
-    horse->translate(0.3, 0.25, -.2);
-    horse->translate(0, +0.15, 0);
-    
-    horse->updateInverse();
-    objects.push_front(horse);
-    
-    //Glass Pawn
-    vector<Material> pawnMaterials(1, Material(0.00, 0.6, 0.9, 0.7, 0.3, 1.5, 96, 0.5));
-    vector<ColourRGB> pawnColours(1, ColourRGB(1., 1., 1.));
-    TriangleMesh *pawn = new TriangleMesh("OBJ/pawn.obj", pawnMaterials, pawnColours);
-    //tri->scale(3, 3, 3);
-    pawn->scale(.85, .85, .85);
-    pawn->rotateX(-PI / 25);
-    pawn->translate(0, -.252, -1.);
-    pawn->translate(-0.65, 0.25, 0.4);
-    pawn->translate(0, +0.15, 0);
-    
-    pawn->updateInverse();
-    objects.push_front(pawn);
+//    vector<Material> kingMaterials(1, Material(0.00, 0.8, 1.0, 0.5, 1.0, 1.0, 102, 0.5));
+//    vector<ColourRGB> kingColours(1, ColourRGB(0.79, .813, .64));
+//    TriangleMesh *king = new TriangleMesh("OBJ/king.obj", kingMaterials, kingColours);
+//    king->scale(1.05, 1.05, 1.05);
+//    king->rotateX(-PI / 25);
+//    king->rotateY(PI);
+//    king->rotateZ(-PI/27);
+//    king->translate(0, -.252, -1.);
+//    king->translate(-0.3, 0, -.55);
+//    king->translate(0, +0.15, 0);
+//    
+//    king->updateInverse();
+//    objects.push_front(king);
+//    
+//    //Matte Horse Pawn
+//    vector<Material> horseMaterials(1, Material(0.02, 0.01, 0.4, 0.5, 1.0, 1.0, 0.078, 0.8));
+//    vector<ColourRGB> horseColours(1, ColourRGB(0.129, 0., 0.));
+//    TriangleMesh *horse = new TriangleMesh("OBJ/horse.obj", horseMaterials, horseColours);
+//    horse->scale(1, 1, .1);
+//    horse->rotateX(-PI / 25);
+//    horse->rotateY(PI);
+//    horse->translate(0, -.252, -1.);
+//    horse->translate(0.3, 0.25, -.2);
+//    horse->translate(0, +0.15, 0);
+//    
+//    horse->updateInverse();
+//    objects.push_front(horse);
+//    
+//    //Glass Pawn
+//    vector<Material> pawnMaterials(1, Material(0.00, 0.6, 0.9, 0.7, 0.3, 1.5, 96, 0.5));
+//    vector<ColourRGB> pawnColours(1, ColourRGB(1., 1., 1.));
+//    TriangleMesh *pawn = new TriangleMesh("OBJ/pawn.obj", pawnMaterials, pawnColours);
+//    //tri->scale(3, 3, 3);
+//    pawn->scale(.85, .85, .85);
+//    pawn->rotateX(-PI / 25);
+//    pawn->translate(0, -.252, -1.);
+//    pawn->translate(-0.65, 0.25, 0.4);
+//    pawn->translate(0, +0.15, 0);
+//    
+//    pawn->updateInverse();
+//    objects.push_front(pawn);
     
     //Chrome Queen
-    vector<Material> queenMaterials(1, Material(0.25, 0.4, .774597, 0.5, 1.0, 1., 76.8, 0.4));
-    vector<ColourRGB> queenColours(1, ColourRGB(0.155, 0.12, 0.002));
+    vector<Material> queenMaterials(1, Material(0.25, 0.4, .774597, 0.5, 1.0, 1.0, 76.8, 0.1));
+    vector<ColourRGB> queenColours(1, ColourRGB(0.155, 0.12, 0.12));
     TriangleMesh *tri = new TriangleMesh("OBJ/queen_textured.obj", queenMaterials, queenColours);
     tri->scale(1.05, 1.05, 1.05);
     tri->rotateX(-PI / 25);
@@ -192,12 +192,12 @@ void buildStillLife(void)
     //    objects.push_front(obj);
     
     // Insert a single point light source.
-    PointLightSource *light = new PointLightSource(ColourRGB(0.95, 0.95, 0.95),       // original
-                                                   Point3D(0.0, 15.5, -5.5, false));
-    lights.push_front(light);
-    //    AreaLightElement::addAreaLight(5, 5, Point3D(0, -1, 0, true), Point3D(1, 0, 0, true),
-    //                                   Point3D(0.0, 15.5, -5.5, false), 8, 8,
-    //                                   ColourRGB(0.95, 0.95, 0.95), lights);
+//    PointLightSource *light = new PointLightSource(ColourRGB(0.95, 0.95, 0.95),       // original
+//                                                   Point3D(0.0, 15.5, -5.5, false));
+//    lights.push_front(light);
+    AreaLightElement::addAreaLight(5, 5, Point3D(0, -1, 0, true), Point3D(1, 0, 0, true),
+                                   Point3D(0.0, 15.5, -5.5, false), 8, 8,
+                                   ColourRGB(0.95, 0.95, 0.95), lights);
 }
 
 void buildScene(void)
@@ -389,7 +389,7 @@ int main(int argc, char *argv[])
     rayTracer.antialiasingEnabled = antialiasing;
     rayTracer.superSamplingResolution = 5;
     rayTracer.glossyreflEnabled = true;
-    rayTracer.refractionEnabled = false;
+    rayTracer.refractionEnabled = true;
     rayTracer.renderImage(cam, objects, lights, im, output_name);
     
     // Exit section. Clean up and return.
