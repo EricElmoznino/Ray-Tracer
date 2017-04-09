@@ -36,22 +36,27 @@ Object3D& Object3D::operator=(const Object3D &obj) {
 
 void Object3D::rotateX(double theta) {
     transform = Transform3D::rotatedX(theta) * transform;
+    updateInverse();
 }
 
 void Object3D::rotateY(double theta) {
     transform = Transform3D::rotatedY(theta) * transform;
+    updateInverse();
 }
 
 void Object3D::rotateZ(double theta) {
     transform = Transform3D::rotatedZ(theta) * transform;
+    updateInverse();
 }
 
 void Object3D::translate(double x, double y, double z) {
     transform = Transform3D::translated(x, y, z) * transform;
+    updateInverse();
 }
 
 void Object3D::scale(double x, double y, double z) {
     transform = Transform3D::scaled(x, y, z) * transform;
+    updateInverse();
 }
 
 Point3D Object3D::originInWorld() const {

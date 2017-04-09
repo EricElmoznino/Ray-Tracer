@@ -45,7 +45,6 @@ void buildStillLife(void)
     double height = 20, aspectRatio = 2560.0/1600, distance = 10;
     obj->scale(height*aspectRatio, height, 1);
     obj->translate(0, 0, distance);
-    obj->updateInverse();
     obj->loadTexture("Textures/BACKGROUND_OIL.ppm");
     objects.push_front(obj);
     
@@ -70,7 +69,6 @@ void buildStillLife(void)
      //obj->rotateX(-PI/10);
      obj->rotateX(-PI/10);
      obj->translate(0, 0, -1.5);
-     obj->updateInverse();
      objects.push_front(obj);*/
     
     /*Object3D *obj = new TriangleMesh("OBJ/wine_glass.obj",Material(0.05, 0.95, 0.0, 0.2, 0.5, 1.5, 0, 0.3),
@@ -80,7 +78,6 @@ void buildStillLife(void)
      //obj->rotateX(-PI/10);
      obj->rotateX(-PI/10);
      //obj->translate(0, 0, -1.5);
-     obj->updateInverse();
      //obj->loadTexture("OBJ/tabletop.ppm");
      objects.push_front(obj);*/
     
@@ -91,15 +88,14 @@ void buildStillLife(void)
     //	//obj->rotateX(-PI/10);
     //	//obj->rotateX(-PI/10);
     //	//obj->translate(0, 0, -1.5);
-    //	obj->updateInverse();
     //	obj->loadTexture("OBJ/Fruit.ppm");
     //	objects.push_front(obj);
     
     
     
     //Kinda Shiny King
-//    vector<Material> kingMaterials(1, Material(0.0, 0.9, 0.5, 0.5, 1.0, 1.0, 32, 0.4));
-//    vector<ColourRGB> kingColours(1, ColourRGB(0.8, .8, .8));
+//    vector<Material> kingMaterials(1, Material(0.0, 0.95, 0.5, 0.15, 1.0, 1.0, 32, 0.1));
+//    vector<ColourRGB> kingColours(1, ColourRGB(0.8, 0.8, 0.8));
 //    TriangleMesh *king = new TriangleMesh("OBJ/king.obj", kingMaterials, kingColours);
 //    king->scale(1.05, 1.05, 1.05);
 //    king->rotateX(-PI / 25);
@@ -107,9 +103,8 @@ void buildStillLife(void)
 //    king->rotateZ(-PI/27);
 //    king->translate(0, -.252, -1.);
 //    king->translate(-0.3, 0, -.55);
-//    king->translate(0, +0.15, 0);
+//    king->translate(0, 0.15, 0);
 //    
-//    king->updateInverse();
 //    objects.push_front(king);
 //
 //    //Matte Horse Pawn
@@ -123,7 +118,6 @@ void buildStillLife(void)
 //    horse->translate(0.3, 0.25, -.2);
 //    horse->translate(0, +0.15, 0);
 //
-//    horse->updateInverse();
 //    objects.push_front(horse);
 //
 //    //Glass Pawn
@@ -136,8 +130,7 @@ void buildStillLife(void)
 //    pawn->translate(0, -.252, -1.);
 //    pawn->translate(-0.65, 0.25, 0.4);
 //    pawn->translate(0, +0.15, 0);
-//    
-//    pawn->updateInverse();
+//
 //    objects.push_front(pawn);
     
     //Chrome Queen
@@ -149,8 +142,7 @@ void buildStillLife(void)
 //    tri->translate(0, -.252, -1.);
 //    tri->translate(0.6, .25, -0.55);
 //    tri->translate(0, +0.15, 0);
-//    
-//    tri->updateInverse();
+//
 //    objects.push_front(tri);
     
     Object3D *board = new Plane(Material(0.05, 0.95, 0.0, 0.2, 1, 15, 0, 0.7),
@@ -160,7 +152,6 @@ void buildStillLife(void)
     board->rotateX(PI / 2);
     board->translate(0, -.452, -1.);
     board->translate(0, +0.15, -.15);
-    board->updateInverse();
     board->loadTexture("OBJ/smaller-texture.ppm");
     objects.push_front(board);
     
@@ -170,7 +161,6 @@ void buildStillLife(void)
     side->rotateX(-PI / 25);
     side->translate(0, -.452, -1.);
     side->translate(0, 0, -.885);
-    side->updateInverse();
     side->loadTexture("OBJ/ceramic-texture.ppm");
     objects.push_front(side);
     
@@ -181,7 +171,6 @@ void buildStillLife(void)
     top->scale(4., 4., 4.);
     top->rotateX(-PI/25);
     top->translate(0, -.452, -1.);
-    top->updateInverse();
     top->loadTextureForMesh(0, "OBJ/2.ppm");
     objects.push_front(top);
     
@@ -245,7 +234,6 @@ void buildScene(void)
     obj->rotateZ(PI/1.20);
     obj->rotateX(PI/2.25);
     obj->translate(0, -3, 10);
-    obj->updateInverse();       // Very important! compute
     // and store the inverse
     // transform for this object!
     obj->loadTexture("Textures/greyscale_natural_grunge2.ppm");
@@ -257,7 +245,6 @@ void buildScene(void)
     obj->scale(0.75, 0.5, 1.5);
     obj->rotateY(PI/2.0);
     obj->translate(-1.45, 1.1, 3.5);
-    obj->updateInverse();
     obj->loadTexture("Textures/webtreats_stone_5.ppm");
     objects.push_front(obj);
     
@@ -266,7 +253,6 @@ void buildScene(void)
     obj->scale(0.5, 2.0, 1.0);
     obj->rotateZ(PI/1.5);
     obj->translate(1.75, 1.25, 5.0);
-    obj->updateInverse();
     obj->loadTexture("Textures/webtreats_stone_4.ppm");
     objects.push_front(obj);
     

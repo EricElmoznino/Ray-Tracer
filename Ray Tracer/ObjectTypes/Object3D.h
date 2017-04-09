@@ -10,6 +10,7 @@
 class Object3D {
 protected:
     bool isLight;       // Flag to indicate if this object is a light
+    void updateInverse();
     
 public:
     Material material;
@@ -48,13 +49,6 @@ public:
     void scale(double x, double y, double z);
     
     Point3D originInWorld() const;
-    
-    // Having a function like this means that at any given point
-    // before calling it, the invTransform might be invalid.
-    // This is necessary to avoid unecessary computations which
-    // would occur if we updated the inverse every time we updated
-    // the transform.
-    void updateInverse();
     
     // Load a texture image from file and assign it to this object
     void loadTexture(const char *filename);
