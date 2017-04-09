@@ -50,10 +50,15 @@
 		0705CA491E8E22C70028B251 /* TriangleMesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TriangleMesh.cpp; sourceTree = "<group>"; };
 		0705CA4A1E8E22C70028B251 /* TriangleMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TriangleMesh.h; sourceTree = "<group>"; };
 		07190D791E98455C0035743E /* wall.ppm */ = {isa = PBXFileReference; lastKnownFileType = file; path = wall.ppm; sourceTree = "<group>"; };
-		07190D7A1E98736C0035743E /* Wine_Bottle_White.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = Wine_Bottle_White.obj; sourceTree = "<group>"; };
 		07190D7B1E99586C0035743E /* BoundingBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BoundingBox.cpp; sourceTree = "<group>"; };
 		07190D7C1E99586C0035743E /* BoundingBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoundingBox.h; sourceTree = "<group>"; };
-		071FE65E1E941C3E00F90704 /* teapot.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = teapot.obj; sourceTree = "<group>"; };
+		07190D7E1E99CFA50035743E /* paint_bk.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = paint_bk.ppm; sourceTree = "<group>"; };
+		07190D7F1E99CFA50035743E /* paint_dn.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = paint_dn.ppm; sourceTree = "<group>"; };
+		07190D801E99CFA50035743E /* paint_ft.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = paint_ft.ppm; sourceTree = "<group>"; };
+		07190D811E99CFA50035743E /* paint_lf.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = paint_lf.ppm; sourceTree = "<group>"; };
+		07190D821E99CFA50035743E /* paint_rt.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = paint_rt.ppm; sourceTree = "<group>"; };
+		07190D831E99CFA50035743E /* paint_up.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = paint_up.ppm; sourceTree = "<group>"; };
+		07190D841E99D03F0035743E /* BACKGROUND_OIL.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = BACKGROUND_OIL.ppm; sourceTree = "<group>"; };
 		0721F5271E93418700B75C4E /* OBJ_Loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OBJ_Loader.cpp; sourceTree = "<group>"; };
 		075B4D391E86ED6E00FA30D3 /* compileMac.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = compileMac.sh; sourceTree = "<group>"; };
 		075B4D3A1E86ED6E00FA30D3 /* runMac.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = runMac.sh; sourceTree = "<group>"; };
@@ -93,11 +98,6 @@
 		0762AE5F1E85EF9E00772C5D /* greyscale_natural_grunge6.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = greyscale_natural_grunge6.ppm; sourceTree = "<group>"; };
 		0762AE601E85EF9E00772C5D /* webtreats_stone_4.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = webtreats_stone_4.ppm; sourceTree = "<group>"; };
 		0762AE611E85EF9E00772C5D /* webtreats_stone_5.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = webtreats_stone_5.ppm; sourceTree = "<group>"; };
-		077BA6A71E9041F600CAB279 /* box_stack.mtl */ = {isa = PBXFileReference; lastKnownFileType = text; path = box_stack.mtl; sourceTree = "<group>"; };
-		077BA6A81E9041F600CAB279 /* box_stack.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = box_stack.obj; sourceTree = "<group>"; };
-		077BA6A91E9041F600CAB279 /* cube.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = cube.obj; sourceTree = "<group>"; };
-		077BA6AA1E9041F600CAB279 /* cube.off */ = {isa = PBXFileReference; lastKnownFileType = text; path = cube.off; sourceTree = "<group>"; };
-		077BA6AB1E9041F600CAB279 /* hazelnut.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = hazelnut.obj; sourceTree = "<group>"; };
 		077BA6AC1E90422400CAB279 /* OBJ_Loader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OBJ_Loader.h; sourceTree = "<group>"; };
 		07A416571E774097000ABADA /* Handout.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Handout.pdf; sourceTree = "<group>"; };
 		07DB7B4A1E78CD62004BED96 /* Intersection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Intersection.cpp; sourceTree = "<group>"; };
@@ -170,6 +170,12 @@
 		075B4D3C1E8714CC00FA30D3 /* Skyboxes */ = {
 			isa = PBXGroup;
 			children = (
+				07190D7E1E99CFA50035743E /* paint_bk.ppm */,
+				07190D7F1E99CFA50035743E /* paint_dn.ppm */,
+				07190D801E99CFA50035743E /* paint_ft.ppm */,
+				07190D811E99CFA50035743E /* paint_lf.ppm */,
+				07190D821E99CFA50035743E /* paint_rt.ppm */,
+				07190D831E99CFA50035743E /* paint_up.ppm */,
 				075B4D4C1E87681200FA30D3 /* darkskies_bk.ppm */,
 				075B4D4D1E87681200FA30D3 /* darkskies_dn.ppm */,
 				075B4D4E1E87681200FA30D3 /* darkskies_ft.ppm */,
@@ -217,6 +223,7 @@
 		0762AE591E85EE9600772C5D /* Textures */ = {
 			isa = PBXGroup;
 			children = (
+				07190D841E99D03F0035743E /* BACKGROUND_OIL.ppm */,
 				07190D791E98455C0035743E /* wall.ppm */,
 				0705CA481E8DE3760028B251 /* check.ppm */,
 				0762AE5A1E85EF9E00772C5D /* greyscale_natural_grunge1.ppm */,
@@ -229,20 +236,6 @@
 				0762AE611E85EF9E00772C5D /* webtreats_stone_5.ppm */,
 			);
 			path = Textures;
-			sourceTree = "<group>";
-		};
-		077BA6A61E9041F600CAB279 /* OBJ */ = {
-			isa = PBXGroup;
-			children = (
-				07190D7A1E98736C0035743E /* Wine_Bottle_White.obj */,
-				071FE65E1E941C3E00F90704 /* teapot.obj */,
-				077BA6A71E9041F600CAB279 /* box_stack.mtl */,
-				077BA6A81E9041F600CAB279 /* box_stack.obj */,
-				077BA6A91E9041F600CAB279 /* cube.obj */,
-				077BA6AA1E9041F600CAB279 /* cube.off */,
-				077BA6AB1E9041F600CAB279 /* hazelnut.obj */,
-			);
-			path = OBJ;
 			sourceTree = "<group>";
 		};
 		07EA01441E74B282000C4026 = {
@@ -265,7 +258,6 @@
 		07EA014F1E74B282000C4026 /* Ray Tracer */ = {
 			isa = PBXGroup;
 			children = (
-				077BA6A61E9041F600CAB279 /* OBJ */,
 				075B4D561E881D4900FA30D3 /* Lights */,
 				075B4D521E87893400FA30D3 /* Utilities */,
 				075B4D3C1E8714CC00FA30D3 /* Skyboxes */,

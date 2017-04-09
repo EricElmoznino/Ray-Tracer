@@ -8,7 +8,6 @@
 #include <stdio.h>
 #include <vector>
 #include <string>
-#include <cstdio>
 #include <fstream>
 #include <stdio.h>
 
