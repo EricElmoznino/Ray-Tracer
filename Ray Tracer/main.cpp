@@ -159,7 +159,7 @@ void buildScene(void)
     obj->translate(0, -3, 10);
     // and store the inverse
     // transform for this object!
-    obj->loadTexture("Textures/greyscale_natural_grunge2.ppm");
+//    obj->loadTexture("Textures/greyscale_natural_grunge2.ppm");
     objects.push_front(obj);    // Insert into object list
     
     // Let's add a couple spheres
@@ -168,7 +168,7 @@ void buildScene(void)
     obj->scale(0.75, 0.5, 1.5);
     obj->rotateY(PI/2.0);
     obj->translate(-1.45, 1.1, 3.5);
-    obj->loadTexture("Textures/webtreats_stone_5.ppm");
+//    obj->loadTexture("Textures/webtreats_stone_5.ppm");
     objects.push_front(obj);
     
     obj = new Sphere(Material(0.05, 0.95, 0.95, 0.75, 1, 1, 6, 0.3),
@@ -176,7 +176,7 @@ void buildScene(void)
     obj->scale(0.5, 2.0, 1.0);
     obj->rotateZ(PI/1.5);
     obj->translate(1.75, 1.25, 5.0);
-    obj->loadTexture("Textures/webtreats_stone_4.ppm");
+//    obj->loadTexture("Textures/webtreats_stone_4.ppm");
     objects.push_front(obj);
     
     // Test OBJ
@@ -191,9 +191,9 @@ void buildScene(void)
     PointLightSource *light = new PointLightSource(ColourRGB(0.95, 0.95, 0.95),       // original
                                                    Point3D(0.0, 15.5, -5.5, false));
     lights.push_front(light);
-    AreaLightElement::addAreaLight(5, 5, Point3D(0, -1, 0, true), Point3D(1, 0, 0, true),
-                                   Point3D(0.0, 15.5, -5.5, false), 8, 8,
-                                   ColourRGB(0.95, 0.95, 0.95), lights);
+//    AreaLightElement::addAreaLight(5, 5, Point3D(0, -1, 0, true), Point3D(1, 0, 0, true),
+//                                   Point3D(0.0, 15.5, -5.5, false), 8, 8,
+//                                   ColourRGB(0.95, 0.95, 0.95), lights);
     
     // End of simple scene for Assignment 3
     // Keep in mind that you can define new types of objects such as cylinders and parametric surfaces,
@@ -261,9 +261,9 @@ int main(int argc, char *argv[])
     //        for Assignment 4 you need to create your own
     //        *interesting* scene.
     ///////////////////////////////////////////////////
-    // buildScene();		// Create a scene. This defines all the
+     buildScene();		// Create a scene. This defines all the
     // objects in the world of the raytracer
-    buildStillLife();
+//    buildStillLife();
     //////////////////////////////////////////
     // TO DO: For Assignment 3 you can use the setup
     //        already provided here. For Assignment 4

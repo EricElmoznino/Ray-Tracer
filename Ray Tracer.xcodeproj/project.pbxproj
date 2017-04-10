@@ -60,7 +60,6 @@
 		07190D831E99CFA50035743E /* paint_up.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = paint_up.ppm; sourceTree = "<group>"; };
 		07190D841E99D03F0035743E /* BACKGROUND_OIL.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = BACKGROUND_OIL.ppm; sourceTree = "<group>"; };
 		0721F5271E93418700B75C4E /* OBJ_Loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OBJ_Loader.cpp; sourceTree = "<group>"; };
-		072543931E9A796800FE610E /* Report.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Report.txt; sourceTree = "<group>"; };
 		075B4D391E86ED6E00FA30D3 /* compileMac.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = compileMac.sh; sourceTree = "<group>"; };
 		075B4D3A1E86ED6E00FA30D3 /* runMac.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = runMac.sh; sourceTree = "<group>"; };
 		075B4D3D1E8714DA00FA30D3 /* YellowCloud_bk.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = YellowCloud_bk.ppm; sourceTree = "<group>"; };
@@ -100,11 +99,9 @@
 		0762AE601E85EF9E00772C5D /* webtreats_stone_4.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = webtreats_stone_4.ppm; sourceTree = "<group>"; };
 		0762AE611E85EF9E00772C5D /* webtreats_stone_5.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = webtreats_stone_5.ppm; sourceTree = "<group>"; };
 		077BA6AC1E90422400CAB279 /* OBJ_Loader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OBJ_Loader.h; sourceTree = "<group>"; };
-		07A416571E774097000ABADA /* Handout.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Handout.pdf; sourceTree = "<group>"; };
 		07DB7B4A1E78CD62004BED96 /* Intersection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Intersection.cpp; sourceTree = "<group>"; };
 		07DB7B4B1E78CD62004BED96 /* Intersection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Intersection.h; sourceTree = "<group>"; };
 		07EA014D1E74B282000C4026 /* Ray Tracer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Ray Tracer"; sourceTree = BUILT_PRODUCTS_DIR; };
-		07EA01571E74B378000C4026 /* CHECKLIST */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CHECKLIST; sourceTree = "<group>"; };
 		07EA01581E74B378000C4026 /* compile.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = compile.sh; sourceTree = "<group>"; };
 		07EA01591E74B378000C4026 /* RayTracer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RayTracer.cpp; sourceTree = "<group>"; };
 		07EA015A1E74B378000C4026 /* RayTracer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RayTracer.h; sourceTree = "<group>"; };
@@ -259,17 +256,14 @@
 		07EA014F1E74B282000C4026 /* Ray Tracer */ = {
 			isa = PBXGroup;
 			children = (
-				072543931E9A796800FE610E /* Report.txt */,
 				075B4D561E881D4900FA30D3 /* Lights */,
 				075B4D521E87893400FA30D3 /* Utilities */,
 				075B4D3C1E8714CC00FA30D3 /* Skyboxes */,
 				075B4D381E86ED5200FA30D3 /* NormalBuild */,
 				075B4D371E86ED3F00FA30D3 /* MacBuild */,
 				0762AE591E85EE9600772C5D /* Textures */,
-				07A416571E774097000ABADA /* Handout.pdf */,
 				07EA01A81E75983E000C4026 /* ObjectTypes */,
 				07EA01841E75979F000C4026 /* GeometricTypes */,
-				07EA01571E74B378000C4026 /* CHECKLIST */,
 				07EA01591E74B378000C4026 /* RayTracer.cpp */,
 				07EA015A1E74B378000C4026 /* RayTracer.h */,
 				07EA01CC1E75D7EE000C4026 /* View.cpp */,
