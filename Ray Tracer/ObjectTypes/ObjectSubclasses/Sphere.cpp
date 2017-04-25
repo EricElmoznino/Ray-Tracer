@@ -22,10 +22,6 @@ ColourRGB Sphere::colourAtLocalPoint(const Point3D &p) const {
 Intersection Sphere::intersect(const Ray3D &ray) {
     Intersection intersection;
     
-    /////////////////////////////////
-    // TO DO: Complete this function.
-    /////////////////////////////////
-    
     // Acquire the ray in local coordinates
     Point3D rayOrigin = invTransform * ray.origin;
     Point3D rayDirection = invTransform * ray.direction;

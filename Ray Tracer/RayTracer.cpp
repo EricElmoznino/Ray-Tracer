@@ -28,11 +28,6 @@ void RayTracer::renderImage(View camera, list<Object3D*> objects, list<Light*> l
                 continue;
             }
             
-            ///////////////////////////////////////////////////////////////////
-            // TO DO - complete the code that should be in this loop to do the
-            //         raytracing!
-            ///////////////////////////////////////////////////////////////////
-            
             // Find the current ray
             Point3D origin(0, 0, 0, false);
             double xIncrement = ((i+0.5)/output->sx) * camera.wsize;
@@ -91,11 +86,6 @@ ColourRGB RayTracer::rayTrace(Ray3D ray, double pixelSize) {
 }
 
 ColourRGB RayTracer::rayTraceRecursive(const Ray3D &ray, int depth, Object3D *excludedSource) {
-    ///////////////////////////////////////////////////////
-    // TO DO: Complete this function. Refer to the notes
-    // if you are unsure what to do here.
-    ///////////////////////////////////////////////////////
-    
     Intersection firstHit = findFirstHit(ray, excludedSource);
     if (firstHit.none) {
         if (skybox != NULL) {
@@ -112,11 +102,6 @@ ColourRGB RayTracer::rayTraceRecursive(const Ray3D &ray, int depth, Object3D *ex
 
 ColourRGB RayTracer::shade(const Intersection &intersection, const Ray3D &ray, int depth) {
     ColourRGB res(0.0, 0.0, 0.0);
-    
-    //////////////////////////////////////////////////////////////
-    // TO DO: Implement this function. Refer to the notes for
-    // details about the shading model.
-    //////////////////////////////////////////////////////////////
     
     res += phongModel(intersection, ray);
     
@@ -137,15 +122,6 @@ Intersection RayTracer::findFirstHit(const Ray3D &ray, Object3D *excludedSource)
 	//   - The pointer to the object at the intersection (so we can evaluate the colour in the shading function)
 	//   - The location of the intersection point (in p)
 	//   - The normal at the intersection point (in n)
-	//
-	// Os is the 'source' object for the ray we are processing, can be NULL, and is used to ensure we don't 
-	// return a self-intersection due to numerical errors for recursive raytrace calls.
-	//
-
-	/////////////////////////////////////////////////////////////
-	// TO DO: Implement this function. See the notes for
-	// reference of what to do in here
-	/////////////////////////////////////////////////////////////
     
 	double closestLambda = DBL_MAX;
 	Intersection closestIntersection;

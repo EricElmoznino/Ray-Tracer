@@ -1,23 +1,3 @@
-/*
- CSC418 - RayTracer code - Winter 2017 - Assignment 3&4
- 
- Written Dec. 9 2010 - Jan 20, 2011 by F. J. Estrada
- Freely distributable for adacemic purposes only.
- 
- Uses Tom F. El-Maraghi's code for computing inverse
- matrices. You will need to compile together with
- svdDynamic.c
- 
- You need to understand the code provided in
- this file, the corresponding header file, and the
- utils.c and utils.h files. Do not worry about
- svdDynamic.c, we need it only to compute
- inverse matrices.
- 
- You only need to modify or add code in sections
- clearly marked "TO DO"
- */
-
 #include <stdio.h>
 #include <list>
 #include "RayTracer.h"
@@ -119,38 +99,6 @@ void buildScene(void)
     // desired, specifying the reflectance properties (material and colours)
     // and setting up textures where needed.
     // Light sources must be defined, positioned, and their colour defined.
-    // All objects must be inserted in the object_list. All light sources
-    // must be inserted in the light_list.
-    //
-    // To create hierarchical objects:
-    //   Copy the transform matrix from the parent node to the child, and
-    //   apply any required transformations afterwards.
-    //
-    // NOTE: After setting up the transformations for each object, don't
-    //       forget to set up the inverse transform matrix!
-    
-    ///////////////////////////////////////
-    // TO DO: For Assignment 3 you have to use
-    //        the simple scene provided
-    //        here, but for Assignment 4 you
-    //        *MUST* define your own scene.
-    //        Part of your mark will depend
-    //        on how nice a scene you
-    //        create. Use the simple scene
-    //        provided as a sample of how to
-    //        define and position objects.
-    ///////////////////////////////////////
-    
-    // Simple scene for Assignment 3:
-    // Insert a couple of objects. A plane and two spheres
-    // with some transformations.
-    
-    // Let's add a plane
-    // Note the plane is highly-reflective (rs=rg=.75) so we
-    // should see some reflections if all is done properly.
-    // Colour is close to cyan, and currently the plane is
-    // completely opaque (alpha=1). The refraction index is
-    // meaningless since alpha=1
     Object3D *obj = new Plane(Material(0.05, 0.75, 0.05, 0.05, 1, 1, 2, 0.3),  // original
                               ColourRGB(0.55, 0.8, 0.75));
     obj->scale(12, 12, 2);
@@ -162,7 +110,6 @@ void buildScene(void)
 //    obj->loadTexture("Textures/greyscale_natural_grunge2.ppm");
     objects.push_front(obj);    // Insert into object list
     
-    // Let's add a couple spheres
     obj = new Sphere(Material(0.05, 0.95, 0.35, 0.35, 1, 1, 6, 0.3),
                      ColourRGB(1.0, 0.25, 0.25));
     obj->scale(0.75, 0.5, 1.5);
@@ -194,14 +141,6 @@ void buildScene(void)
 //    AreaLightElement::addAreaLight(5, 5, Point3D(0, -1, 0, true), Point3D(1, 0, 0, true),
 //                                   Point3D(0.0, 15.5, -5.5, false), 8, 8,
 //                                   ColourRGB(0.95, 0.95, 0.95), lights);
-    
-    // End of simple scene for Assignment 3
-    // Keep in mind that you can define new types of objects such as cylinders and parametric surfaces,
-    // or, you can create code to handle arbitrary triangles and then define objects as surface meshes.
-    //
-    // Remember: A lot of the quality of your scene will depend on how much care you have put into defining
-    //           the relflectance properties of your objects, and the number and type of light sources
-    //           in the scene.
 }
 
 int main(int argc, char *argv[])
@@ -254,23 +193,8 @@ int main(int argc, char *argv[])
     // Allocate memory for the new image
     im = new Image(sx, sx);
     
-    ///////////////////////////////////////////////////
-    // TO DO: You will need to implement several of the
-    //        functions below. For Assignment 3, you can use
-    //        the simple scene already provided. But
-    //        for Assignment 4 you need to create your own
-    //        *interesting* scene.
-    ///////////////////////////////////////////////////
-     buildScene();		// Create a scene. This defines all the
-    // objects in the world of the raytracer
+    buildScene();       // Create a scene. This defines all the objects in the world of the raytracer
 //    buildStillLife();
-    //////////////////////////////////////////
-    // TO DO: For Assignment 3 you can use the setup
-    //        already provided here. For Assignment 4
-    //        you may want to move the camera
-    //        and change the view parameters
-    //        to suit your scene.
-    //////////////////////////////////////////
     
     // Camera center is at (0,0,-3)
     e = Point3D(0.0, 0.0, -3.0, false);

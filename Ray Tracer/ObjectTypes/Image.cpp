@@ -61,15 +61,6 @@ ColourRGB Image::textureMap(double a, double b) const {
      to determine texture colour.
      */
     
-    //////////////////////////////////////////////////
-    // TO DO (Assignment 4 only):
-    //
-    //  Complete this function to return the colour
-    // of the texture image at the specified texture
-    // coordinates. Your code should use bi-linear
-    // interpolation to obtain the texture colour.
-    //////////////////////////////////////////////////
-    
     // NOTE: Assuming that texture wraps around at the edges
     
     b = 1-b; // in immages space, b increases downwards

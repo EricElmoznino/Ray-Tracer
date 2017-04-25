@@ -23,11 +23,6 @@ void AreaLightElement::addAreaLight(double width, double height, const Point3D &
                                     const Point3D &xUnit, const Point3D &centre,
                                     int numHori, int numVert, const ColourRGB &colour,
                                     list<Light*> &lights, list<Object3D*> *objects) {
-    /////////////////////////////////////////////////////
-    // TO DO: (Assignment 4!)
-    // Implement this function to enable area light sources
-    /////////////////////////////////////////////////////
-    
     // Make sure the normal and xUnit are normalized (just in case)
     // and find the y basis vector
     Point3D zBasis = normal.normalized();

@@ -34,11 +34,8 @@ class RayTracer {
     // Recursive version of rayTrace. rayTrace is basically the public interface
     // that delegates to this function with the correct parameters
     //
-    // source is needed for recursive calls to ensure that findFirstHit will
-    // not simply return a self-intersection due to numerical
-    // errors. For the top level call, source should be NULL. And thereafter
-    // it will correspond to the object from which the recursive
-    // ray originates.
+    // excludedSource is needed for recursive calls when computing reflection,
+    // since to save computation time we assume that object's can't reflect onto themselves
     ColourRGB rayTraceRecursive(const Ray3D &ray, int depth, Object3D *excludedSource = NULL);
     
     // This function implements the shading model as described in lecture. It takes
