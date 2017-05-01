@@ -15,6 +15,8 @@
 
 using namespace std;
 
+// TODO: Depth of field, spotlight, blurred refraction, better scene
+
 class RayTracer {
     
     list<Object3D*> objects;
