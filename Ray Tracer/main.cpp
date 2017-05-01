@@ -40,7 +40,7 @@ void buildStillLife(void)
 
     objects.push_front(king);
 
-    //Matte Horse Pawn
+    //Matte Horse
     vector<Material> horseMaterials(1, Material(0.0, 0.2, 1.0, 0.2, 1.0, 1.0, 3, 0.1));
     vector<ColourRGB> horseColours(1, ColourRGB(0.25, 0.25, 0.25));
     TriangleMesh *horse = new TriangleMesh("OBJ/high_res_horse.obj", horseMaterials, horseColours);
@@ -52,7 +52,7 @@ void buildStillLife(void)
     objects.push_front(horse);
 
     //Glass Pawn
-    vector<Material> pawnMaterials(1, Material(0, 0, 0, 0.1, 0, 1.5, 96, 0));
+    vector<Material> pawnMaterials(1, Material::Glass());
     vector<ColourRGB> pawnColours(1, ColourRGB(1.0, 1.0, 1.0));
     TriangleMesh *pawn = new TriangleMesh("OBJ/high_res_pawn.obj", pawnMaterials, pawnColours);
     pawn->scale(.85, .85, .85);
@@ -62,7 +62,7 @@ void buildStillLife(void)
     objects.push_front(pawn);
     
     //Chrome Queen
-    vector<Material> queenMaterials(1, Material(0.25, 0.1, 0.718, 0.8, 1.0, 1.0, 100.8, 0.02));
+    vector<Material> queenMaterials(1, Material::Chrome());
     vector<ColourRGB> queenColours(1, ColourRGB(0.155, 0.12, 0.12));
     TriangleMesh *tri = new TriangleMesh("OBJ/high_res_queen.obj", queenMaterials, queenColours);
     tri->scale(1.05, 1.05, 1.05);
@@ -90,6 +90,20 @@ void buildStillLife(void)
     AreaLightElement::addAreaLight(2.5, 2.5, lightDirection, Point3D(0, 0, 1, true).crossUnit(lightDirection),
                                    lightPosition, 8, 8,
                                    ColourRGB(0.8, 0.8, 0.8), lights);
+}
+
+void buildBlurScene() {
+//    vector<Material> materials(1, Material(0.05, 0.4, 0.0, 0.0, 0.0, 1.3, 6, 0.05));
+//    vector<ColourRGB> colours(1, ColourRGB(0.51, 0.588, 0.333));
+//    TriangleMesh *obj = new TriangleMesh("OBJ/teapot.obj", materials, colours);
+//    objects.push_front(obj);
+    
+    Sphere *obj = new Sphere(Material::FrostedGlass(), ColourRGB(1.0, 1.0, 1.0));
+    objects.push_front(obj);
+    
+    PointLightSource *light = new PointLightSource(ColourRGB(0.95, 0.95, 0.95),       // original
+                                                   Point3D(0.0, 15.5, -5.5, false));
+    lights.push_front(light);
 }
 
 void buildScene(void)
@@ -193,8 +207,9 @@ int main(int argc, char *argv[])
     // Allocate memory for the new image
     im = new Image(sx, sx);
     
-    buildScene();       // Create a scene. This defines all the objects in the world of the raytracer
+//    buildScene();       // Create a scene. This defines all the objects in the world of the raytracer
 //    buildStillLife();
+    buildBlurScene();
     
     // Camera center is at (0,0,-3)
     e = Point3D(0.0, 0.0, -3.0, false);
@@ -215,9 +230,9 @@ int main(int argc, char *argv[])
     
     // Setup the skybox
     Skybox *skybox = NULL;
-    skybox = new Skybox("Skyboxes/paint_lf.ppm", "Skyboxes/paint_rt.ppm",
-                        "Skyboxes/paint_dn.ppm", "Skyboxes/paint_up.ppm",
-                        "Skyboxes/paint_bk.ppm", "Skyboxes/paint_ft.ppm");
+    skybox = new Skybox("Skyboxes/lagoon_lf.ppm", "Skyboxes/lagoon_rt.ppm",
+                        "Skyboxes/lagoon_dn.ppm", "Skyboxes/lagoon_up.ppm",
+                        "Skyboxes/lagoon_bk.ppm", "Skyboxes/lagoon_ft.ppm");
     
     fprintf(stderr,"View parameters:\n");
     fprintf(stderr,"Width=%f, f=%f\n", cam.wsize,cam.f);
@@ -232,8 +247,9 @@ int main(int argc, char *argv[])
     rayTracer.maxDepth = MAX_DEPTH;
     rayTracer.antialiasingEnabled = antialiasing;
     rayTracer.superSamplingResolution = 5;
-    rayTracer.glossyreflEnabled = true;
+    rayTracer.glossyreflEnabled = false;
     rayTracer.refractionEnabled = true;
+    rayTracer.blurEnabled = true;
     rayTracer.renderImage(cam, objects, lights, im, output_name, bounds);
     
     // Exit section. Clean up and return.

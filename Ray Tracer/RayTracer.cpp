@@ -252,6 +252,8 @@ ColourRGB RayTracer::reflection(const Intersection &intersection, const Ray3D &r
 }
 
 ColourRGB RayTracer::refraction(const Intersection &intersection, const Ray3D &ray, int depth) {
+    ColourRGB refractedColour(0, 0, 0);
+    
     // If no transparency, don't even bother computing anything
     if (intersection.material.opacity >= 1.0) {
         return ColourRGB(0.0, 0.0, 0.0);
@@ -266,11 +268,31 @@ ColourRGB RayTracer::refraction(const Intersection &intersection, const Ray3D &r
     
     double inside = 1 - (n1/n2)*(n1/n2)*(1 - (d.dot(n))*(d.dot(n)));
     if (inside < 0) {   // total internal reflection
-        return ColourRGB(0, 0, 0);
+        return reflection(intersection, ray, depth);
     }
     Point3D t = n1/n2 * (d - n*(d.dot(n))) - n * sqrt(inside);
     
-    Ray3D refractedRay(intersection.point, t);
-    refractedRay = refractedRay.bias(-1*n);
-    return rayTraceRecursive(refractedRay, depth) * (1-intersection.material.opacity);
+    // Randomly perturb the ray in a number of samples and compute a weighted average
+    // of the colour traced by these samples
+    if (blurEnabled && !intersection.insideObject) {
+        double totalEnergy = 0;
+        for (int i = 0; i < blurResolution; i++) {
+            Ray3D refractedRay(intersection.point,
+                               t.randomlyPerturb(-1*n, intersection.material.roughness));
+            refractedRay = refractedRay.bias(-1*n);
+            double energy = pow(t.dot(refractedRay.direction), intersection.material.shinyness);
+            refractedColour += rayTraceRecursive(refractedRay, depth) * energy;
+            totalEnergy += energy;
+        }
+        if (totalEnergy > 0) {
+            refractedColour = refractedColour * (1/totalEnergy);
+        }
+    }
+    else {
+        Ray3D refractedRay(intersection.point, t);
+        refractedRay = refractedRay.bias(-1*n);
+        refractedColour = rayTraceRecursive(refractedRay, depth);
+    }
+    
+    return  refractedColour * (1-intersection.material.opacity);
 }

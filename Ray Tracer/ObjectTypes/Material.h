@@ -19,6 +19,10 @@ public:
     Material(double ambient, double diffuse, double specular, double global,
              double opacity, double refractionIndex, double shinyness, double roughness);
     Material(){}
+    
+    static Material Glass();
+    static Material FrostedGlass();
+    static Material Chrome();
 };
 
 #endif

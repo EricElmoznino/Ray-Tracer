@@ -15,7 +15,7 @@
 
 using namespace std;
 
-// TODO: Depth of field, spotlight, blurred refraction, better scene
+// TODO: Depth of field, spotlight, combine reflection+refraction into 1 model with fresnel, better scene
 
 class RayTracer {
     
@@ -73,10 +73,12 @@ class RayTracer {
 public:
     bool antialiasingEnabled = false;
     bool glossyreflEnabled = false;
+    bool blurEnabled = false;
     bool refractionEnabled = false;
     int maxDepth = 3;
     int superSamplingResolution = 5;
     int glossyResolution = 8;
+    int blurResolution = 8;
     Skybox *skybox = NULL;
     
     void renderImage(View camera, list<Object3D*> objects, list<Light*> lights,
