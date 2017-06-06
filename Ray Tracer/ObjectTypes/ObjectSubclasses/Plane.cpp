@@ -2,7 +2,6 @@
 
 Plane::Plane(const Material &material, const ColourRGB &colour) :
 Object3D::Object3D(material, colour) {
-    Object3D::isLight = false;
 }
 
 ColourRGB Plane::colourAtLocalPoint(const Point3D &p) const {
@@ -47,7 +46,6 @@ Intersection Plane::intersect(const Ray3D &ray) {
 		Point3D hitNormalLocal = rayDirection.dot(normal) < 0 ? normal : -1*normal;
 
 		intersection.none = false;
-		intersection.isLight = Object3D::isLight;
 		intersection.insideObject = false;
 		intersection.lambda = t;
 		intersection.point = ray.rayPosition(t);

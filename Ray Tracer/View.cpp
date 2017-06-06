@@ -1,6 +1,6 @@
-#include "View.h"
+#include "Camera.h"
 
-View::View(const Point3D &e, const Point3D &g, const Point3D &up,
+Camera::Camera(const Point3D &e, const Point3D &g, const Point3D &up,
      double f, double wsize) {
     // Setup camera position and basis vectors
     this->e = e;

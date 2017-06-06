@@ -16,7 +16,6 @@ public:
     
     bool none;
     bool insideObject;
-    bool isLight;
     
     // Optimization if we know object can't reflect onto itself
     // at the specified intersection

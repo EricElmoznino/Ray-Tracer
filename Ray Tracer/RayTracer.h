@@ -10,7 +10,7 @@
 #include "ObjectTypes/Object3D.h"
 #include "ObjectTypes/Intersection.h"
 #include "ObjectTypes/Ray3D.h"
-#include "View.h"
+#include "Camera.h"
 #include "Skybox.h"
 
 using namespace std;
@@ -81,7 +81,7 @@ public:
     int blurResolution = 8;
     Skybox *skybox = NULL;
     
-    void renderImage(View camera, list<Object3D*> objects, list<Light*> lights,
+    void renderImage(Camera camera, list<Object3D*> objects, list<Light*> lights,
                      Image *output, char * name, vector<int> bounds);
 };
 

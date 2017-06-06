@@ -4,7 +4,7 @@
 #include "RayTracer.h"
 #include "Utilities/ProgressManager.h"
 
-void RayTracer::renderImage(View camera, list<Object3D*> objects, list<Light*> lights,
+void RayTracer::renderImage(Camera camera, list<Object3D*> objects, list<Light*> lights,
                             Image *output, char * name, vector<int> bounds) {
     // Store local copies of these that way we don't have to keep passing them around
     // between the functions that do the actual ray tracing work
@@ -92,9 +92,6 @@ ColourRGB RayTracer::rayTraceRecursive(const Ray3D &ray, int depth, Object3D *ex
             return skybox->colourInDirection(ray.direction);
         }
         return ColourRGB(0, 0, 0);
-    }
-    else if (firstHit.isLight) {    // Lights just emmit their colour
-        return firstHit.colour;
     }
     
     return shade(firstHit, ray, depth);
@@ -209,7 +206,7 @@ bool RayTracer::isInShadow(const Intersection &intersection, const Point3D &ligh
     for (auto it = objects.begin(); it != objects.end(); it++)
     {
         Object3D *object = *it;
-        if (!object->isLightSource() && object->doesIntersect(shadowRay))
+        if (object->doesIntersect(shadowRay))
             return true;
     }
     
@@ -228,7 +225,7 @@ ColourRGB RayTracer::reflection(const Intersection &intersection, const Ray3D &r
     // of the colour traced by these samples. The weighted average is due to the fact
     // that rays which deviated larger should have less contribution (similar to spectral in phong).
     // Weights are equal to deflected.dot(original))^shinyness.
-	if (glossyreflEnabled) {
+	if (glossyreflEnabled && intersection.material.roughness > 0.0) {
         double totalEnergy = 0;
         for (int i = 0; i < glossyResolution; i++) {
             Ray3D reflectionRay(intersection.point,
@@ -274,7 +271,7 @@ ColourRGB RayTracer::refraction(const Intersection &intersection, const Ray3D &r
     
     // Randomly perturb the ray in a number of samples and compute a weighted average
     // of the colour traced by these samples
-    if (blurEnabled && !intersection.insideObject) {
+    if (blurEnabled && intersection.material.roughness > 0.0 && !intersection.insideObject) {
         double totalEnergy = 0;
         for (int i = 0; i < blurResolution; i++) {
             Ray3D refractedRay(intersection.point,

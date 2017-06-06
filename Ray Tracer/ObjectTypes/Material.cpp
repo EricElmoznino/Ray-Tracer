@@ -13,13 +13,14 @@ Material::Material(double ambient, double diffuse, double specular, double globa
 }
 
 Material Material::Glass() {
-    return Material(0, 0, 0, 0.2, 0, 1.5, 6, 0);
+    return Material(0, 0, 0, 0.12, 0.0, 1.5, 6, 0);
 }
 
 Material Material::FrostedGlass() {
     Material glass = Material::Glass();
-    glass.roughness = 0.1;
-    glass.diffuse = 0.2;
+    glass.roughness = 0.04;
+    glass.diffuse = 0.8;
+    glass.opacity = 0.4;
     return glass;
 }
 

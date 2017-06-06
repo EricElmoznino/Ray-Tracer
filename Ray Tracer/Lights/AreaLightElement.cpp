@@ -1,5 +1,4 @@
 #include "AreaLightElement.h"
-#include "../ObjectTypes/ObjectSubclasses/PlaneLightSource.h"
 #include <stdlib.h>
 
 AreaLightElement::AreaLightElement(const ColourRGB &colour, const Point3D &location,
@@ -22,7 +21,7 @@ Point3D AreaLightElement::getLocation() {
 void AreaLightElement::addAreaLight(double width, double height, const Point3D &normal,
                                     const Point3D &xUnit, const Point3D &centre,
                                     int numHori, int numVert, const ColourRGB &colour,
-                                    list<Light*> &lights, list<Object3D*> *objects) {
+                                    list<Light*> &lights) {
     // Make sure the normal and xUnit are normalized (just in case)
     // and find the y basis vector
     Point3D zBasis = normal.normalized();
@@ -40,12 +39,5 @@ void AreaLightElement::addAreaLight(double width, double height, const Point3D &
                                                            xBasis, yBasis, deltaX, deltaY);
             lights.push_front(light);
         }
-    }
-    
-    // Optionally add the actual PlaneLightSource object so that we can see it in the scene,
-    // if the user specified a value for 'objects' (default is NULL)
-    if (objects != NULL) {
-        PlaneLightSource *lightPlane = new PlaneLightSource(colour, centre, xBasis, yBasis, zBasis, width, height);
-        objects->push_front(lightPlane);
     }
 }

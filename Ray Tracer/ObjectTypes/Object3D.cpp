@@ -1,16 +1,11 @@
 #include "Object3D.h"
 
-bool Object3D::isLightSource() {
-    return isLight;
-}
-
 Object3D::Object3D(const Material &material, const ColourRGB &colour) :
 material(material), colour(colour) {
     this->material = material;
     this->colour = colour;
     this->transform = Transform3D::identity();
     this->invTransform = Transform3D::identity();
-    this->isLight = false;              // default
 }
 
 Object3D::Object3D(const Object3D &obj) :
@@ -19,7 +14,6 @@ material(obj.material), colour(obj.colour) {
     colour = obj.colour;
     transform = obj.transform;
     invTransform = obj.invTransform;
-    isLight = obj.isLight;
     textureImage = obj.textureImage;
 }
 
@@ -28,7 +22,6 @@ Object3D& Object3D::operator=(const Object3D &obj) {
     colour = obj.colour;
     transform = obj.transform;
     invTransform = obj.invTransform;
-    isLight = obj.isLight;
     textureImage = textureImage;
     
     return (*this);

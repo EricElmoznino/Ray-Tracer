@@ -29,7 +29,7 @@ void buildStillLife(void)
     objects.push_front(obj);
     
     //Kinda Shiny King
-    vector<Material> kingMaterials(1, Material(0.0, 0.95, 0.5, 0.15, 1.0, 1.0, 32, 0.1));
+    vector<Material> kingMaterials(1, Material::FrostedGlass());
     vector<ColourRGB> kingColours(1, ColourRGB(1.0, 1.0, 1.0));
     TriangleMesh *king = new TriangleMesh("OBJ/high_res_king.obj", kingMaterials, kingColours);
     king->scale(1.05, 1.05, 1.05);
@@ -82,14 +82,14 @@ void buildStillLife(void)
     objects.push_front(top);
     
     // Insert a single point light source.
-//    PointLightSource *light = new PointLightSource(ColourRGB(0.95, 0.95, 0.95),       // original
-//                                                   Point3D(-12, 9, -16, false));
-//    lights.push_front(light);
-    Point3D lightPosition(-12, 9, -16, false);
-    Point3D lightDirection = (Point3D(0, -0.452, -1.25, false) - lightPosition).normalized();
-    AreaLightElement::addAreaLight(2.5, 2.5, lightDirection, Point3D(0, 0, 1, true).crossUnit(lightDirection),
-                                   lightPosition, 8, 8,
-                                   ColourRGB(0.8, 0.8, 0.8), lights);
+    PointLightSource *light = new PointLightSource(ColourRGB(0.8, 0.8, 0.8),       // original
+                                                   Point3D(-12, 9, -16, false));
+    lights.push_front(light);
+//    Point3D lightPosition(-12, 9, -16, false);
+//    Point3D lightDirection = (Point3D(0, -0.452, -1.25, false) - lightPosition).normalized();
+//    AreaLightElement::addAreaLight(2.5, 2.5, lightDirection, Point3D(0, 0, 1, true).crossUnit(lightDirection),
+//                                   lightPosition, 8, 8,
+//                                   ColourRGB(0.8, 0.8, 0.8), lights);
 }
 
 void buildBlurScene() {
@@ -208,8 +208,8 @@ int main(int argc, char *argv[])
     im = new Image(sx, sx);
     
 //    buildScene();       // Create a scene. This defines all the objects in the world of the raytracer
-//    buildStillLife();
-    buildBlurScene();
+    buildStillLife();
+//    buildBlurScene();
     
     // Camera center is at (0,0,-3)
     e = Point3D(0.0, 0.0, -3.0, false);
@@ -226,13 +226,13 @@ int main(int argc, char *argv[])
     // and a focal length of -1 (why? where is the image plane?)
     // Note that the top-left corner of the window is at (2, 2)
     // in camera coordinates.
-    View cam(e, g, up, -3, 4);
+    Camera cam(e, g, up, -3, 4);
     
     // Setup the skybox
     Skybox *skybox = NULL;
-    skybox = new Skybox("Skyboxes/lagoon_lf.ppm", "Skyboxes/lagoon_rt.ppm",
-                        "Skyboxes/lagoon_dn.ppm", "Skyboxes/lagoon_up.ppm",
-                        "Skyboxes/lagoon_bk.ppm", "Skyboxes/lagoon_ft.ppm");
+    skybox = new Skybox("Skyboxes/paint_lf.ppm", "Skyboxes/paint_rt.ppm",
+                        "Skyboxes/paint_dn.ppm", "Skyboxes/paint_up.ppm",
+                        "Skyboxes/paint_bk.ppm", "Skyboxes/paint_ft.ppm");
     
     fprintf(stderr,"View parameters:\n");
     fprintf(stderr,"Width=%f, f=%f\n", cam.wsize,cam.f);
@@ -247,7 +247,7 @@ int main(int argc, char *argv[])
     rayTracer.maxDepth = MAX_DEPTH;
     rayTracer.antialiasingEnabled = antialiasing;
     rayTracer.superSamplingResolution = 5;
-    rayTracer.glossyreflEnabled = false;
+    rayTracer.glossyreflEnabled = true;
     rayTracer.refractionEnabled = true;
     rayTracer.blurEnabled = true;
     rayTracer.renderImage(cam, objects, lights, im, output_name, bounds);

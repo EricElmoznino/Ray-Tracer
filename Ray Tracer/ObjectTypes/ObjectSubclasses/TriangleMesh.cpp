@@ -5,7 +5,6 @@
 
 TriangleMesh::TriangleMesh(const vector<Material> &materials, const vector<ColourRGB> &colours) :
 Object3D::Object3D(Material(), ColourRGB()){
-    Object3D::isLight = false;
     this->materials = materials;
     this->colours = colours;
     for (int i = 0; i < materials.size(); i++) {
@@ -15,7 +14,6 @@ Object3D::Object3D(Material(), ColourRGB()){
 
 TriangleMesh::TriangleMesh(const string filename, const vector<Material> &materials, const vector<ColourRGB> &colours) :
 Object3D::Object3D(Material(), ColourRGB()){
-    Object3D::isLight = false;
     this->materials = materials;
     this->colours = colours;
     for (int i = 0; i < materials.size(); i++) {
@@ -173,7 +171,6 @@ Intersection TriangleMesh::intersect(const Ray3D &ray) {
     }
     
     intersection.none = false;
-    intersection.isLight = Object3D::isLight;
     intersection.insideObject = insideObject;
     intersection.lambda = lambda;
     intersection.point = ray.rayPosition(lambda);

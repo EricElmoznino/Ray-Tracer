@@ -26,13 +26,11 @@ public:
      centered at (centre)
      consisting of (numHori X numVert) point light sources (uniformly sampled)
      and with (colour) - which also determines intensity
-     
-     Note that the light source is visible as a uniformly colored rectangle.
      */
     static void addAreaLight(double width, double height, const Point3D &normal,
                              const Point3D &xUnit, const Point3D &centre,
                              int numHori, int numVert, const ColourRGB &colour,
-                             list<Light*> &lights, list<Object3D*> *objects = NULL);
+                             list<Light*> &lights);
 };
 
 #endif /* AreaLightElement_h */

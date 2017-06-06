@@ -3,7 +3,6 @@
 
 Sphere::Sphere(const Material &material, const ColourRGB &colour) :
 Object3D::Object3D(material, colour) {
-    Object3D::isLight = false;
 }
 
 ColourRGB Sphere::colourAtLocalPoint(const Point3D &p) const {
@@ -72,7 +71,6 @@ Intersection Sphere::intersect(const Ray3D &ray) {
     }
     
     intersection.none = false;
-    intersection.isLight = Object3D::isLight;
     intersection.insideObject = insideObject;
     intersection.lambda = lambda;
     intersection.point = ray.rayPosition(lambda);   // lambda is the same for local and world

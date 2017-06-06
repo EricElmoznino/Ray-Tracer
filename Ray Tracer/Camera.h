@@ -1,10 +1,10 @@
-#ifndef View_h
-#define View_h
+#ifndef Camera_h
+#define Camera_h
 
 #include <stdio.h>
 #include "GeometricTypes/Transform3D.h"
 
-class View {
+class Camera {
 public:
     Point3D e;  // location of the camera center
     Point3D u;  // u vector
@@ -25,7 +25,7 @@ public:
      fov - Fild of view in degrees
      f - focal length
      */
-    View(const Point3D &e, const Point3D &g, const Point3D &up,
+    Camera(const Point3D &e, const Point3D &g, const Point3D &up,
          double f, double wsize);
 };
 
