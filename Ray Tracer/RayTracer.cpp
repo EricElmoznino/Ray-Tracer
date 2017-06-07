@@ -11,8 +11,15 @@ void RayTracer::renderImage(Camera camera, list<Object3D*> objects, list<Light*>
     this->objects = objects;
     this->lights = lights;
     
-    int rows = bounds[1] - bounds[0];
-    int cols = bounds[3] - bounds[2];
+    int rows, cols;
+    if (bounds.size() == 4) {
+        rows = bounds[1] - bounds[0];
+        cols = bounds[3] - bounds[2];
+    } else {
+        rows = output->sx;
+        cols = output->sy;
+    }
+    
     // Object to keep track of the progress and give us some feedback
     ProgressManager progressManager(rows * cols);
     progressManager.startTimer();
@@ -23,7 +30,8 @@ void RayTracer::renderImage(Camera camera, list<Object3D*> objects, list<Light*>
     {
         for (int j = 0; j < output->sy; j++)
         {
-            if (i < bounds[0] || i >= bounds[1] || j < bounds[2] || j >= bounds[3]) {
+            if (bounds.size() == 4 &&
+                (i < bounds[0] || i >= bounds[1] || j < bounds[2] || j >= bounds[3])) {
                 output->setColourAtPixel(i, j, ColourRGB(0, 0, 0));
                 continue;
             }
@@ -265,7 +273,7 @@ ColourRGB RayTracer::refraction(const Intersection &intersection, const Ray3D &r
     
     double inside = 1 - (n1/n2)*(n1/n2)*(1 - (d.dot(n))*(d.dot(n)));
     if (inside < 0) {   // total internal reflection
-        return reflection(intersection, ray, depth);
+        return reflection(intersection, ray, depth) * (1.0 / intersection.material.global);
     }
     Point3D t = n1/n2 * (d - n*(d.dot(n))) - n * sqrt(inside);
     

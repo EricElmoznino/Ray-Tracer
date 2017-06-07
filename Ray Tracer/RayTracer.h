@@ -82,7 +82,7 @@ public:
     Skybox *skybox = NULL;
     
     void renderImage(Camera camera, list<Object3D*> objects, list<Light*> lights,
-                     Image *output, char * name, vector<int> bounds);
+                     Image *output, char * name, vector<int> bounds = vector<int>());
 };
 
 #endif
