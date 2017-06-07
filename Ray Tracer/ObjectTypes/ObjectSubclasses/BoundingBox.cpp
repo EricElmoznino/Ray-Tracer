@@ -243,30 +243,33 @@ void BoundingBox::findBoundsForFaces(const vector<TriangleFace> containedFaces) 
 
 bool BoundingBox::doesIntersectBox(const Point3D &origin, const Point3D &direction) {
     double tmin = -DBL_MAX, tmax = DBL_MAX;
-    Point3D bmin(minX, minY, minZ, true);
-    Point3D bmax(maxX, maxY, maxZ, true);
     
     if (direction.x != 0) {
-        double tx1 = (bmin.x - origin.x) / direction.x;
-        double tx2 = (bmax.x - origin.x) / direction.x;
-        tmin = max(tmin, min(tx1, tx2));
-        tmax = min(tmax, max(tx1, tx2));
+        double tx1 = (minX - origin.x) / direction.x;
+        double tx2 = (maxX - origin.x) / direction.x;
+        if (tx1 > tx2) swap(tx1, tx2);
+        if (tmin < tx1) tmin = tx1;
+        if (tmax > tx2) tmax = tx2;
     }
     if (direction.y != 0) {
-        double ty1 = (bmin.y - origin.y) / direction.y;
-        double ty2 = (bmax.y - origin.y) / direction.y;
-        tmin = max(tmin, min(ty1, ty2));
-        tmax = min(tmax, max(ty1, ty2));
+        double ty1 = (minY - origin.y) / direction.y;
+        double ty2 = (maxY - origin.y) / direction.y;
+        if (ty1 > ty2) swap(ty1, ty2);
+        if ((tmin > ty2) || (tmax < ty1)) return false;
+        if (tmin < ty1) tmin = ty1;
+        if (tmax > ty2) tmax = ty2;
     }
     if (direction.z != 0) {
-        double tz1 = (bmin.z - origin.z) / direction.z;
-        double tz2 = (bmax.z - origin.z) / direction.z;
-        tmin = max(tmin, min(tz1, tz2));
-        tmax = min(tmax, max(tz1, tz2));
+        double tz1 = (minZ - origin.z) / direction.z;
+        double tz2 = (maxZ - origin.z) / direction.z;
+        if (tz1 > tz2) swap(tz1, tz2);
+        if ((tmin > tz2) || (tmax < tz1)) return false;
+        if (tmin < tz1) tmin = tz1;
+        if (tmax > tz2) tmax = tz2;
     }
     
-    // Check if box is behind
+    // Check if box behind us
     if (tmax < 0) return false;
     
-    return tmax >= tmin;
+    return true;
 }

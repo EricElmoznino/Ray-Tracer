@@ -16,6 +16,7 @@
 		075B4D5C1E881DD800FA30D3 /* Light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 075B4D5A1E881DD800FA30D3 /* Light.cpp */; };
 		075B4D5F1E8820D800FA30D3 /* AreaLightElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 075B4D5D1E8820D800FA30D3 /* AreaLightElement.cpp */; };
 		07C540001EE7487B00D972C9 /* Cylinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07C53FFE1EE7487B00D972C9 /* Cylinder.cpp */; };
+		07C540071EE838E400D972C9 /* Cube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07C540051EE838E400D972C9 /* Cube.cpp */; };
 		07DB7B4C1E78CD62004BED96 /* Intersection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07DB7B4A1E78CD62004BED96 /* Intersection.cpp */; };
 		07EA015F1E74B378000C4026 /* RayTracer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01591E74B378000C4026 /* RayTracer.cpp */; };
 		07EA018B1E75979F000C4026 /* Point3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01851E75979F000C4026 /* Point3D.cpp */; };
@@ -102,6 +103,8 @@
 		07C53FFE1EE7487B00D972C9 /* Cylinder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cylinder.cpp; sourceTree = "<group>"; };
 		07C53FFF1EE7487B00D972C9 /* Cylinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cylinder.h; sourceTree = "<group>"; };
 		07C540041EE7897B00D972C9 /* runMacML.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = runMacML.sh; sourceTree = "<group>"; };
+		07C540051EE838E400D972C9 /* Cube.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cube.cpp; sourceTree = "<group>"; };
+		07C540061EE838E400D972C9 /* Cube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cube.h; sourceTree = "<group>"; };
 		07DB7B4A1E78CD62004BED96 /* Intersection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Intersection.cpp; sourceTree = "<group>"; };
 		07DB7B4B1E78CD62004BED96 /* Intersection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Intersection.h; sourceTree = "<group>"; };
 		07EA014D1E74B282000C4026 /* Ray Tracer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Ray Tracer"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -325,6 +328,8 @@
 				07190D7C1E99586C0035743E /* BoundingBox.h */,
 				07C53FFE1EE7487B00D972C9 /* Cylinder.cpp */,
 				07C53FFF1EE7487B00D972C9 /* Cylinder.h */,
+				07C540051EE838E400D972C9 /* Cube.cpp */,
+				07C540061EE838E400D972C9 /* Cube.h */,
 			);
 			path = ObjectSubclasses;
 			sourceTree = "<group>";
@@ -396,6 +401,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07C540071EE838E400D972C9 /* Cube.cpp in Sources */,
 				07EA01CE1E75D7EE000C4026 /* View.cpp in Sources */,
 				07EA018D1E75979F000C4026 /* Transform3D.cpp in Sources */,
 				07EA015F1E74B378000C4026 /* RayTracer.cpp in Sources */,

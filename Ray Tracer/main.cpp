@@ -4,6 +4,7 @@
 #include "ObjectTypes/ObjectSubclasses/Plane.h"
 #include "ObjectTypes/ObjectSubclasses/Sphere.h"
 #include "ObjectTypes/ObjectSubclasses/Cylinder.h"
+#include "ObjectTypes/ObjectSubclasses/Cube.h"
 #include "ObjectTypes/ObjectSubclasses/TriangleMesh.h"
 #include "Lights/PointLightSource.h"
 #include "Lights/AreaLightElement.h"
@@ -30,11 +31,12 @@ void buildSceneML(void)
     obj->loadTexture("Textures/greyscale_natural_grunge2.ppm");
     objects.push_front(obj);
     
-    obj = new Cylinder(Material::Chrome(),
+    obj = new Cube(Material::Chrome(),
                        ColourRGB(1.0, 0.25, 0.25));
-    obj->scale(0.25, 0.25, 0.25);
-    obj->rotateX(PI/2.0);
-    obj->translate(0, -3, 5.5);
+    obj->scale(0.75, 1, 1.5);
+    obj->rotateX(PI/4.0);
+    obj->rotateY(PI/4.0);
+    obj->translate(0, 0, 5.5);
     objects.push_front(obj);
     
     PointLightSource *light = new PointLightSource(ColourRGB(0.95, 0.95, 0.95),
@@ -184,7 +186,7 @@ int main(int argc, char *argv[])
 //    tri->translate(0.5, 0.063, -1.63);
 //
 //    objects.push_front(tri);
-//    
+//
 //    //Table
 //    vector<Material> tableMaterials(1, Material(0.25, 1.0, 0.64, 0.5, 1, 1, 6, 0.1));
 //    vector<ColourRGB> tableColours(1, ColourRGB(1.0, 1.0, 1.0));

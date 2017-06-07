@@ -1,2 +1,2 @@
-Mesh 0: Rectangle031 STOL001
+Mesh 0: high_res_queen:queen_copy19
 

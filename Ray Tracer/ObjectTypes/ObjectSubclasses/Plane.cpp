@@ -10,8 +10,8 @@ ColourRGB Plane::colourAtLocalPoint(const Point3D &p) const {
         return colour;
     }
     
-    double a = (p.x - p3.x) / (p1.x - p3.x);
-    double b = (p.y - p3.y) / (p1.y - p3.y);
+    double a = p.x + 0.5;
+    double b = p.y + 0.5;
     return textureImage.textureMap(a, b);
 }
 
@@ -19,8 +19,8 @@ Intersection Plane::intersect(const Ray3D &ray) {
     Intersection intersection;
     
     // Acquire ray in local coordinates
-    Point3D rayOrigin = invTransform*ray.origin; //e
-    Point3D rayDirection = invTransform*ray.direction; //d
+    Point3D rayOrigin = invTransform*ray.origin;
+    Point3D rayDirection = invTransform*ray.direction;
     
     double denom = normal.dot(rayDirection);
     // Invalid intersection - plane is parallel to ray

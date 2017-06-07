@@ -6,10 +6,6 @@
 
 class Plane : public Object3D {
     //Point on plane defined CCQ
-    const Point3D p1 = Point3D(0.5, 0.5, 0, false);
-    const Point3D p2 = Point3D(-0.5, 0.5, 0, false);
-    const Point3D p3 = Point3D(-0.5, -0.5, 0, false);
-    const Point3D p4 = Point3D(0.5, -0.5, 0, false);
     const Point3D c = Point3D(0.0, 0.0, 0.0, false);
     const Point3D normal = Point3D(0, 0, 1, true);
     
