@@ -1,2 +1,0 @@
-Mesh 0: high_res_queen:queen_copy19
-
