@@ -1,7 +1,7 @@
 #ifndef BoundingBox_h
 #define BoundingBox_h
 
-#include "OBJ_Loader.h"
+#include "../../Utilities/OBJ_Loader.h"
 #include "../../GeometricTypes/Transform3D.h"
 #include <vector>
 

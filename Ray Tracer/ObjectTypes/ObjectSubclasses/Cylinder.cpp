@@ -7,6 +7,9 @@
 //
 
 #include "Cylinder.h"
+#include <algorithm>
+
+using namespace std;
 
 Cylinder::Cylinder(const Material &material, const ColourRGB &colour) :
 Object3D::Object3D(material, colour) {
@@ -42,21 +45,39 @@ Intersection Cylinder::intersect(const Ray3D &ray) {
         intersection.none = true;
         return intersection;
     }
-    double lambda1 = (-b + sqrt(det)) / (2 * a);
-    double lambda2 = (-b - sqrt(det)) / (2 * a);
-    if (lambda1 > lambda2) {
-        double temp = lambda1;
-        lambda1 = lambda2;
-        lambda2 = temp;
-    }
-    double z1 = rayOrigin.z + lambda1*rayDirection.z;
-    double z2 = rayOrigin.z + lambda2*rayDirection.z;
+    double tc1 = (-b + sqrt(det)) / (2 * a);
+    double tc2 = (-b - sqrt(det)) / (2 * a);
+    if (tc1 > tc2) swap(tc1, tc2);
     
-    // Compute the intersection with the 3D finite cylinder
+    // Check if above or below the cylinder
+    double z1 = rayOrigin.z + tc1*rayDirection.z;
+    double z2 = rayOrigin.z + tc2*rayDirection.z;
     double top = height/2.0, bot = -height/2.0;
     if ((z1 > top && z2 > top) || (z1 < bot && z2 < bot)) {
         intersection.none = true;
         return intersection;
+    }
+
+    // Compute intersections with cap planes
+    double tp1 = tc1 + (tc2 - tc1)*(top - z1)/(z2 - z1);
+    double tp2 = tc1 + (tc2 - tc1)*(bot - z1)/(z2 - z1);
+    Point3D np1 = Point3D(0, 0, 1, true);
+    Point3D np2 = Point3D(0, 0, -1, true);
+    if (tp1 > tp2) {swap(tp1, tp2); swap(np1, np2);}
+    
+    // Find the appropriate ranges
+    double t1 = tp1, t2 = tp2;
+    Point3D n1 = np1, n2 = np2;
+    Point3D h1, h2;
+    if (tc1 > tp1) {
+        t1 = tc1;
+        h1 = rayOrigin + t1*rayDirection;
+        n1 = Point3D(h1.x, h1.y, 0, false) - centre;
+    }
+    if (tc2 < tp2) {
+        t2 = tc2;
+        h2 = rayOrigin + t2*rayDirection;
+        n2 = Point3D(h2.x, h2.y, 0, false) - centre;
     }
     
     // Compute the intersection point and normal
@@ -64,154 +85,23 @@ Intersection Cylinder::intersect(const Ray3D &ray) {
     double lambda;
     Point3D hitPointLocal;
     Point3D hitNormalLocal;
-    if (z1 >= top && z2 <= bot) {
-        lambda1 = lambda1 + (lambda2 - lambda1) * (top - z1)/(z2 - z1);
-        lambda2 = lambda1 + (lambda2 - lambda1) * (bot - z1)/(z2 - z1);
-        if (lambda2 < 0) {   // cylinder behind us
-            intersection.none = true;
-            return intersection;
-        }
-        else if (lambda1 <= 0) {  // inside cylinder
-            lambda = lambda2;
-            hitPointLocal = rayOrigin + lambda*rayDirection;
-            hitNormalLocal = Point3D(0, 0, 1, true);
-            insideObject = true;
-            canSelfReflect = true;
-        }
-        else {                  // cylinder in front of us
-            lambda = lambda1;
-            hitPointLocal = rayOrigin + lambda*rayDirection;
-            hitNormalLocal = Point3D(0, 0, 1, true);
-            insideObject = false;
-            canSelfReflect = false;
-        }
+    if (t2 < 0) {           // cylinder behind us
+        intersection.none = true;
+        return intersection;
     }
-    else if (z1 <= bot && z2 >= top) {
-        lambda1 = lambda1 + (lambda2 - lambda1) * (bot - z1)/(z2 - z1);
-        lambda2 = lambda1 + (lambda2 - lambda1) * (top - z1)/(z2 - z1);
-        if (lambda2 < 0) {   // cylinder behind us
-            intersection.none = true;
-            return intersection;
-        }
-        else if (lambda1 <= 0) {  // inside cylinder
-            lambda = lambda2;
-            hitPointLocal = rayOrigin + lambda*rayDirection;
-            hitNormalLocal = Point3D(0, 0, -1, true);
-            insideObject = true;
-            canSelfReflect = true;
-        }
-        else {                  // cylinder in front of us
-            lambda = lambda1;
-            hitPointLocal = rayOrigin + lambda*rayDirection;
-            hitNormalLocal = Point3D(0, 0, -1, true);
-            insideObject = false;
-            canSelfReflect = false;
-        }
+    else if (t1 <= 0) {     // inside cylinder
+        lambda = t2;
+        hitPointLocal = h2;
+        hitNormalLocal = -1*n2;
+        insideObject = true;
+        canSelfReflect = true;
     }
-    else if (z1 >= top && z2 >= bot && z2 <= top) {
-        lambda1 = lambda1 + (lambda2 - lambda1) * (top - z1)/(z2 - z1);
-        if (lambda2 < 0) {   // cylinder behind us
-            intersection.none = true;
-            return intersection;
-        }
-        else if (lambda1 <= 0) {  // inside cylinder
-            lambda = lambda2;
-            hitPointLocal = rayOrigin + lambda*rayDirection;
-            hitNormalLocal = centre - Point3D(hitPointLocal.x, hitPointLocal.y, 0, false);
-            insideObject = true;
-            canSelfReflect = true;
-        }
-        else {                  // cylinder in front of us
-            lambda = lambda1;
-            hitPointLocal = rayOrigin + lambda*rayDirection;
-            hitNormalLocal = Point3D(0, 0, 1, true);
-            insideObject = false;
-            canSelfReflect = false;
-        }
-
-    }
-    else if (z1 >= bot && z1 <= top && z2 >= top) {
-        lambda2 = lambda1 + (lambda2 - lambda1) * (top - z1)/(z2 - z1);
-        if (lambda2 < 0) {   // cylinder behind us
-            intersection.none = true;
-            return intersection;
-        }
-        else if (lambda1 <= 0) {  // inside cylinder
-            lambda = lambda2;
-            hitPointLocal = rayOrigin + lambda*rayDirection;
-            hitNormalLocal = Point3D(0, 0, -1, true);
-            insideObject = true;
-            canSelfReflect = true;
-        }
-        else {                  // cylinder in front of us
-            lambda = lambda1;
-            hitPointLocal = rayOrigin + lambda*rayDirection;
-            hitNormalLocal = Point3D(hitPointLocal.x, hitPointLocal.y, 0, false) - centre;
-            insideObject = false;
-            canSelfReflect = false;
-        }
-    }
-    else if (z1 <= bot && z2 >= bot && z2 <= top) {
-        lambda1 = lambda1 + (lambda2 - lambda1) * (bot - z1)/(z2 - z1);
-        if (lambda2 < 0) {   // cylinder behind us
-            intersection.none = true;
-            return intersection;
-        }
-        else if (lambda1 <= 0) {  // inside cylinder
-            lambda = lambda2;
-            hitPointLocal = rayOrigin + lambda*rayDirection;
-            hitNormalLocal = centre - Point3D(hitPointLocal.x, hitPointLocal.y, 0, false);
-            insideObject = true;
-            canSelfReflect = true;
-        }
-        else {                  // cylinder in front of us
-            lambda = lambda1;
-            hitPointLocal = rayOrigin + lambda*rayDirection;
-            hitNormalLocal = Point3D(0, 0, -1, true);
-            insideObject = false;
-            canSelfReflect = false;
-        }
-    }
-    else if (z1 >= bot && z1 <= top && z2 <= bot) {
-        lambda2 = lambda1 + (lambda2 - lambda1) * (bot - z1)/(z2 - z1);
-        if (lambda2 < 0) {   // cylinder behind us
-            intersection.none = true;
-            return intersection;
-        }
-        else if (lambda1 <= 0) {  // inside cylinder
-            lambda = lambda2;
-            hitPointLocal = rayOrigin + lambda*rayDirection;
-            hitNormalLocal = Point3D(0, 0, 1, true);
-            insideObject = true;
-            canSelfReflect = true;
-        }
-        else {                  // cylinder in front of us
-            lambda = lambda1;
-            hitPointLocal = rayOrigin + lambda*rayDirection;
-            hitNormalLocal = Point3D(hitPointLocal.x, hitPointLocal.y, 0, false) - centre;
-            insideObject = false;
-            canSelfReflect = false;
-        }
-    }
-    else {  // z1 >= bot && z1 <= top && z2 >= bot && z2 <= top
-        if (lambda2 < 0) {  // cylinder behind us
-            intersection.none = true;
-            return intersection;
-        }
-        else if (lambda1 <= 0) {    // inside cylinder
-            lambda = lambda2;
-            hitPointLocal = rayOrigin + lambda*rayDirection;
-            hitNormalLocal = centre - Point3D(hitPointLocal.x, hitPointLocal.y, 0, false);
-            insideObject = true;
-            canSelfReflect = true;
-        }
-        else {                  // cylinder in front of us
-            lambda = lambda1;
-            hitPointLocal = rayOrigin + lambda*rayDirection;
-            hitNormalLocal = Point3D(hitPointLocal.x, hitPointLocal.y, 0, false) - centre;
-            insideObject = false;
-            canSelfReflect = false;
-        }
+    else {                  // outside cylinder
+        lambda = t1;
+        hitPointLocal = h1;
+        hitNormalLocal = n1;
+        insideObject = false;
+        canSelfReflect = false;
     }
     
     intersection.none = false;

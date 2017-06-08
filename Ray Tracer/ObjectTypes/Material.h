@@ -23,6 +23,7 @@ public:
     static Material Glass();
     static Material FrostedGlass();
     static Material Chrome();
+    static Material Mirror();
 };
 
 #endif

@@ -5,6 +5,8 @@
 #include "ObjectTypes/ObjectSubclasses/Sphere.h"
 #include "ObjectTypes/ObjectSubclasses/Cylinder.h"
 #include "ObjectTypes/ObjectSubclasses/Cube.h"
+#include "ObjectTypes/ObjectSubclasses/Cone.h"
+#include "ObjectTypes/ObjectSubclasses/Paraboloid.h"
 #include "ObjectTypes/ObjectSubclasses/TriangleMesh.h"
 #include "Lights/PointLightSource.h"
 #include "Lights/AreaLightElement.h"
@@ -31,12 +33,12 @@ void buildSceneML(void)
     obj->loadTexture("Textures/greyscale_natural_grunge2.ppm");
     objects.push_front(obj);
     
-    obj = new Cube(Material::Chrome(),
+    obj = new Paraboloid(Material::Chrome(),
                        ColourRGB(1.0, 0.25, 0.25));
-    obj->scale(0.75, 1, 1.5);
-    obj->rotateX(PI/4.0);
-    obj->rotateY(PI/4.0);
-    obj->translate(0, 0, 5.5);
+    obj->scale(1, 1, 1);
+    obj->rotateX(-0.5*PI/4);
+    obj->rotateY(4*PI/4);
+    obj->translate(0, -2, 5.5);
     objects.push_front(obj);
     
     PointLightSource *light = new PointLightSource(ColourRGB(0.95, 0.95, 0.95),
@@ -116,7 +118,7 @@ int main(int argc, char *argv[])
     rayTracer.antialiasingEnabled = antialiasing;
     rayTracer.superSamplingResolution = 5;
     rayTracer.glossyreflEnabled = false;
-    rayTracer.refractionEnabled = false;
+    rayTracer.refractionEnabled = true;
     rayTracer.blurEnabled = false;
     rayTracer.renderImage(cam, objects, lights, im, output_name);
     

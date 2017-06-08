@@ -1,7 +1,7 @@
 #ifndef Point3D_h
 #define Point3D_h
 
-#include "../ObjectTypes/ObjectSubclasses/OBJ_Loader.h"
+#include "../Utilities/OBJ_Loader.h"
 
 
 // forward declare the object type to avoid circular dependencies

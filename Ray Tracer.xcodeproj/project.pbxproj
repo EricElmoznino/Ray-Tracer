@@ -9,14 +9,16 @@
 /* Begin PBXBuildFile section */
 		0705CA4B1E8E22C70028B251 /* TriangleMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0705CA491E8E22C70028B251 /* TriangleMesh.cpp */; };
 		07190D7D1E99586C0035743E /* BoundingBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07190D7B1E99586C0035743E /* BoundingBox.cpp */; };
-		0721F5281E93418700B75C4E /* OBJ_Loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0721F5271E93418700B75C4E /* OBJ_Loader.cpp */; };
 		075B4D451E87156900FA30D3 /* Skybox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 075B4D431E87156900FA30D3 /* Skybox.cpp */; };
-		075B4D551E87894800FA30D3 /* ProgressManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 075B4D531E87894800FA30D3 /* ProgressManager.cpp */; };
 		075B4D591E881DB700FA30D3 /* PointLightSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 075B4D571E881DB700FA30D3 /* PointLightSource.cpp */; };
 		075B4D5C1E881DD800FA30D3 /* Light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 075B4D5A1E881DD800FA30D3 /* Light.cpp */; };
 		075B4D5F1E8820D800FA30D3 /* AreaLightElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 075B4D5D1E8820D800FA30D3 /* AreaLightElement.cpp */; };
 		07C540001EE7487B00D972C9 /* Cylinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07C53FFE1EE7487B00D972C9 /* Cylinder.cpp */; };
 		07C540071EE838E400D972C9 /* Cube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07C540051EE838E400D972C9 /* Cube.cpp */; };
+		07C5400A1EE85F6400D972C9 /* Cone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07C540081EE85F6400D972C9 /* Cone.cpp */; };
+		07C5400D1EE8B38E00D972C9 /* Paraboloid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07C5400B1EE8B38E00D972C9 /* Paraboloid.cpp */; };
+		07C540101EE9120600D972C9 /* ProgressManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07C5400E1EE9120600D972C9 /* ProgressManager.cpp */; };
+		07C540131EE912AF00D972C9 /* OBJ_Loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07C540111EE912AF00D972C9 /* OBJ_Loader.cpp */; };
 		07DB7B4C1E78CD62004BED96 /* Intersection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07DB7B4A1E78CD62004BED96 /* Intersection.cpp */; };
 		07EA015F1E74B378000C4026 /* RayTracer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01591E74B378000C4026 /* RayTracer.cpp */; };
 		07EA018B1E75979F000C4026 /* Point3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01851E75979F000C4026 /* Point3D.cpp */; };
@@ -60,7 +62,6 @@
 		07190D821E99CFA50035743E /* paint_rt.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = paint_rt.ppm; sourceTree = "<group>"; };
 		07190D831E99CFA50035743E /* paint_up.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = paint_up.ppm; sourceTree = "<group>"; };
 		07190D841E99D03F0035743E /* BACKGROUND_OIL.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = BACKGROUND_OIL.ppm; sourceTree = "<group>"; };
-		0721F5271E93418700B75C4E /* OBJ_Loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OBJ_Loader.cpp; sourceTree = "<group>"; };
 		075B4D391E86ED6E00FA30D3 /* compileMac.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = compileMac.sh; sourceTree = "<group>"; };
 		075B4D3A1E86ED6E00FA30D3 /* runMac.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = runMac.sh; sourceTree = "<group>"; };
 		075B4D3D1E8714DA00FA30D3 /* YellowCloud_bk.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = YellowCloud_bk.ppm; sourceTree = "<group>"; };
@@ -83,8 +84,6 @@
 		075B4D4F1E87681200FA30D3 /* darkskies_lf.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = darkskies_lf.ppm; sourceTree = "<group>"; };
 		075B4D501E87681200FA30D3 /* darkskies_rt.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = darkskies_rt.ppm; sourceTree = "<group>"; };
 		075B4D511E87681200FA30D3 /* darkskies_up.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = darkskies_up.ppm; sourceTree = "<group>"; };
-		075B4D531E87894800FA30D3 /* ProgressManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProgressManager.cpp; sourceTree = "<group>"; };
-		075B4D541E87894800FA30D3 /* ProgressManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressManager.h; sourceTree = "<group>"; };
 		075B4D571E881DB700FA30D3 /* PointLightSource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PointLightSource.cpp; sourceTree = "<group>"; };
 		075B4D581E881DB700FA30D3 /* PointLightSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointLightSource.h; sourceTree = "<group>"; };
 		075B4D5A1E881DD800FA30D3 /* Light.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Light.cpp; sourceTree = "<group>"; };
@@ -99,12 +98,19 @@
 		0762AE5F1E85EF9E00772C5D /* greyscale_natural_grunge6.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = greyscale_natural_grunge6.ppm; sourceTree = "<group>"; };
 		0762AE601E85EF9E00772C5D /* webtreats_stone_4.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = webtreats_stone_4.ppm; sourceTree = "<group>"; };
 		0762AE611E85EF9E00772C5D /* webtreats_stone_5.ppm */ = {isa = PBXFileReference; lastKnownFileType = text; path = webtreats_stone_5.ppm; sourceTree = "<group>"; };
-		077BA6AC1E90422400CAB279 /* OBJ_Loader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OBJ_Loader.h; sourceTree = "<group>"; };
 		07C53FFE1EE7487B00D972C9 /* Cylinder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cylinder.cpp; sourceTree = "<group>"; };
 		07C53FFF1EE7487B00D972C9 /* Cylinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cylinder.h; sourceTree = "<group>"; };
 		07C540041EE7897B00D972C9 /* runMacML.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = runMacML.sh; sourceTree = "<group>"; };
 		07C540051EE838E400D972C9 /* Cube.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cube.cpp; sourceTree = "<group>"; };
 		07C540061EE838E400D972C9 /* Cube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cube.h; sourceTree = "<group>"; };
+		07C540081EE85F6400D972C9 /* Cone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cone.cpp; sourceTree = "<group>"; };
+		07C540091EE85F6400D972C9 /* Cone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cone.h; sourceTree = "<group>"; };
+		07C5400B1EE8B38E00D972C9 /* Paraboloid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Paraboloid.cpp; sourceTree = "<group>"; };
+		07C5400C1EE8B38E00D972C9 /* Paraboloid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Paraboloid.h; sourceTree = "<group>"; };
+		07C5400E1EE9120600D972C9 /* ProgressManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProgressManager.cpp; sourceTree = "<group>"; };
+		07C5400F1EE9120600D972C9 /* ProgressManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressManager.h; sourceTree = "<group>"; };
+		07C540111EE912AF00D972C9 /* OBJ_Loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OBJ_Loader.cpp; sourceTree = "<group>"; };
+		07C540121EE912AF00D972C9 /* OBJ_Loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBJ_Loader.h; sourceTree = "<group>"; };
 		07DB7B4A1E78CD62004BED96 /* Intersection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Intersection.cpp; sourceTree = "<group>"; };
 		07DB7B4B1E78CD62004BED96 /* Intersection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Intersection.h; sourceTree = "<group>"; };
 		07EA014D1E74B282000C4026 /* Ray Tracer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Ray Tracer"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -204,8 +210,10 @@
 		075B4D521E87893400FA30D3 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				075B4D531E87894800FA30D3 /* ProgressManager.cpp */,
-				075B4D541E87894800FA30D3 /* ProgressManager.h */,
+				07C540111EE912AF00D972C9 /* OBJ_Loader.cpp */,
+				07C540121EE912AF00D972C9 /* OBJ_Loader.h */,
+				07C5400E1EE9120600D972C9 /* ProgressManager.cpp */,
+				07C5400F1EE9120600D972C9 /* ProgressManager.h */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -316,8 +324,6 @@
 		07EA01C21E759D2F000C4026 /* ObjectSubclasses */ = {
 			isa = PBXGroup;
 			children = (
-				0721F5271E93418700B75C4E /* OBJ_Loader.cpp */,
-				077BA6AC1E90422400CAB279 /* OBJ_Loader.h */,
 				0705CA491E8E22C70028B251 /* TriangleMesh.cpp */,
 				0705CA4A1E8E22C70028B251 /* TriangleMesh.h */,
 				07EA01C31E759D2F000C4026 /* Plane.cpp */,
@@ -330,6 +336,10 @@
 				07C53FFF1EE7487B00D972C9 /* Cylinder.h */,
 				07C540051EE838E400D972C9 /* Cube.cpp */,
 				07C540061EE838E400D972C9 /* Cube.h */,
+				07C540081EE85F6400D972C9 /* Cone.cpp */,
+				07C540091EE85F6400D972C9 /* Cone.h */,
+				07C5400B1EE8B38E00D972C9 /* Paraboloid.cpp */,
+				07C5400C1EE8B38E00D972C9 /* Paraboloid.h */,
 			);
 			path = ObjectSubclasses;
 			sourceTree = "<group>";
@@ -401,6 +411,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07C540131EE912AF00D972C9 /* OBJ_Loader.cpp in Sources */,
 				07C540071EE838E400D972C9 /* Cube.cpp in Sources */,
 				07EA01CE1E75D7EE000C4026 /* View.cpp in Sources */,
 				07EA018D1E75979F000C4026 /* Transform3D.cpp in Sources */,
@@ -409,21 +420,22 @@
 				07EA01C11E75983E000C4026 /* Ray3D.cpp in Sources */,
 				07EA018B1E75979F000C4026 /* Point3D.cpp in Sources */,
 				075B4D591E881DB700FA30D3 /* PointLightSource.cpp in Sources */,
+				07C540101EE9120600D972C9 /* ProgressManager.cpp in Sources */,
 				07EA01C71E759D2F000C4026 /* Plane.cpp in Sources */,
-				0721F5281E93418700B75C4E /* OBJ_Loader.cpp in Sources */,
 				075B4D451E87156900FA30D3 /* Skybox.cpp in Sources */,
 				07EA01D01E75F033000C4026 /* main.cpp in Sources */,
-				075B4D551E87894800FA30D3 /* ProgressManager.cpp in Sources */,
 				07C540001EE7487B00D972C9 /* Cylinder.cpp in Sources */,
 				0705CA4B1E8E22C70028B251 /* TriangleMesh.cpp in Sources */,
 				07EA018C1E75979F000C4026 /* svdDynamic.cpp in Sources */,
 				075B4D5C1E881DD800FA30D3 /* Light.cpp in Sources */,
 				07EA01BC1E75983E000C4026 /* Image.cpp in Sources */,
 				07190D7D1E99586C0035743E /* BoundingBox.cpp in Sources */,
+				07C5400A1EE85F6400D972C9 /* Cone.cpp in Sources */,
 				07EA01BA1E75983E000C4026 /* Material.cpp in Sources */,
 				07EA01C81E759D2F000C4026 /* Sphere.cpp in Sources */,
 				075B4D5F1E8820D800FA30D3 /* AreaLightElement.cpp in Sources */,
 				07EA01BB1E75983E000C4026 /* ColourRGB.cpp in Sources */,
+				07C5400D1EE8B38E00D972C9 /* Paraboloid.cpp in Sources */,
 				07EA01BF1E75983E000C4026 /* Object3D.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

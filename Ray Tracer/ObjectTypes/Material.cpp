@@ -27,3 +27,7 @@ Material Material::FrostedGlass() {
 Material Material::Chrome() {
     return Material(0.25, 0.1, 0.718, 0.8, 1.0, 1.0, 100.8, 0.02);
 }
+
+Material Material::Mirror() {
+    return Material(0, 0, 0, 1, 1, 1, 1000, 0);
+}
