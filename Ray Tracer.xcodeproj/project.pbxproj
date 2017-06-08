@@ -19,6 +19,10 @@
 		07C5400D1EE8B38E00D972C9 /* Paraboloid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07C5400B1EE8B38E00D972C9 /* Paraboloid.cpp */; };
 		07C540101EE9120600D972C9 /* ProgressManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07C5400E1EE9120600D972C9 /* ProgressManager.cpp */; };
 		07C540131EE912AF00D972C9 /* OBJ_Loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07C540111EE912AF00D972C9 /* OBJ_Loader.cpp */; };
+		07C540161EE9138900D972C9 /* Disk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07C540141EE9138900D972C9 /* Disk.cpp */; };
+		07C540191EE919AE00D972C9 /* poly34.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07C540171EE919AE00D972C9 /* poly34.cpp */; };
+		07C5401C1EE919E300D972C9 /* Torus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07C5401A1EE919E300D972C9 /* Torus.cpp */; };
+		07C540221EE928BF00D972C9 /* mainML.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07C540201EE9226400D972C9 /* mainML.cpp */; };
 		07DB7B4C1E78CD62004BED96 /* Intersection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07DB7B4A1E78CD62004BED96 /* Intersection.cpp */; };
 		07EA015F1E74B378000C4026 /* RayTracer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01591E74B378000C4026 /* RayTracer.cpp */; };
 		07EA018B1E75979F000C4026 /* Point3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01851E75979F000C4026 /* Point3D.cpp */; };
@@ -31,7 +35,7 @@
 		07EA01C11E75983E000C4026 /* Ray3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01B81E75983E000C4026 /* Ray3D.cpp */; };
 		07EA01C71E759D2F000C4026 /* Plane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01C31E759D2F000C4026 /* Plane.cpp */; };
 		07EA01C81E759D2F000C4026 /* Sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01C51E759D2F000C4026 /* Sphere.cpp */; };
-		07EA01CE1E75D7EE000C4026 /* View.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01CC1E75D7EE000C4026 /* View.cpp */; };
+		07EA01CE1E75D7EE000C4026 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01CC1E75D7EE000C4026 /* Camera.cpp */; };
 		07EA01D01E75F033000C4026 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07EA01CF1E75F033000C4026 /* main.cpp */; };
 		07EA01D51E760AEB000C4026 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 07EA01D41E760AEB000C4026 /* libstdc++.tbd */; };
 /* End PBXBuildFile section */
@@ -111,6 +115,14 @@
 		07C5400F1EE9120600D972C9 /* ProgressManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressManager.h; sourceTree = "<group>"; };
 		07C540111EE912AF00D972C9 /* OBJ_Loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OBJ_Loader.cpp; sourceTree = "<group>"; };
 		07C540121EE912AF00D972C9 /* OBJ_Loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBJ_Loader.h; sourceTree = "<group>"; };
+		07C540141EE9138900D972C9 /* Disk.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Disk.cpp; sourceTree = "<group>"; };
+		07C540151EE9138900D972C9 /* Disk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Disk.h; sourceTree = "<group>"; };
+		07C540171EE919AE00D972C9 /* poly34.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = poly34.cpp; sourceTree = "<group>"; };
+		07C540181EE919AE00D972C9 /* poly34.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = poly34.h; sourceTree = "<group>"; };
+		07C5401A1EE919E300D972C9 /* Torus.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Torus.cpp; sourceTree = "<group>"; };
+		07C5401B1EE919E300D972C9 /* Torus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Torus.h; sourceTree = "<group>"; };
+		07C540201EE9226400D972C9 /* mainML.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = mainML.cpp; sourceTree = "<group>"; };
+		07C540211EE922F800D972C9 /* ML.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ML.h; sourceTree = "<group>"; };
 		07DB7B4A1E78CD62004BED96 /* Intersection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Intersection.cpp; sourceTree = "<group>"; };
 		07DB7B4B1E78CD62004BED96 /* Intersection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Intersection.h; sourceTree = "<group>"; };
 		07EA014D1E74B282000C4026 /* Ray Tracer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Ray Tracer"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -138,7 +150,7 @@
 		07EA01C41E759D2F000C4026 /* Plane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Plane.h; sourceTree = "<group>"; };
 		07EA01C51E759D2F000C4026 /* Sphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sphere.cpp; sourceTree = "<group>"; };
 		07EA01C61E759D2F000C4026 /* Sphere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sphere.h; sourceTree = "<group>"; };
-		07EA01CC1E75D7EE000C4026 /* View.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = View.cpp; sourceTree = "<group>"; };
+		07EA01CC1E75D7EE000C4026 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
 		07EA01CD1E75D7EE000C4026 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 		07EA01CF1E75F033000C4026 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		07EA01D21E7608EE000C4026 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
@@ -210,6 +222,8 @@
 		075B4D521E87893400FA30D3 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				07C540171EE919AE00D972C9 /* poly34.cpp */,
+				07C540181EE919AE00D972C9 /* poly34.h */,
 				07C540111EE912AF00D972C9 /* OBJ_Loader.cpp */,
 				07C540121EE912AF00D972C9 /* OBJ_Loader.h */,
 				07C5400E1EE9120600D972C9 /* ProgressManager.cpp */,
@@ -249,6 +263,15 @@
 			path = Textures;
 			sourceTree = "<group>";
 		};
+		07C5401F1EE9226400D972C9 /* ML */ = {
+			isa = PBXGroup;
+			children = (
+				07C540201EE9226400D972C9 /* mainML.cpp */,
+				07C540211EE922F800D972C9 /* ML.h */,
+			);
+			path = ML;
+			sourceTree = "<group>";
+		};
 		07EA01441E74B282000C4026 = {
 			isa = PBXGroup;
 			children = (
@@ -269,6 +292,7 @@
 		07EA014F1E74B282000C4026 /* Ray Tracer */ = {
 			isa = PBXGroup;
 			children = (
+				07C5401F1EE9226400D972C9 /* ML */,
 				075B4D561E881D4900FA30D3 /* Lights */,
 				075B4D521E87893400FA30D3 /* Utilities */,
 				075B4D3C1E8714CC00FA30D3 /* Skyboxes */,
@@ -279,7 +303,7 @@
 				07EA01841E75979F000C4026 /* GeometricTypes */,
 				07EA01591E74B378000C4026 /* RayTracer.cpp */,
 				07EA015A1E74B378000C4026 /* RayTracer.h */,
-				07EA01CC1E75D7EE000C4026 /* View.cpp */,
+				07EA01CC1E75D7EE000C4026 /* Camera.cpp */,
 				07EA01CD1E75D7EE000C4026 /* Camera.h */,
 				07EA01CF1E75F033000C4026 /* main.cpp */,
 				075B4D431E87156900FA30D3 /* Skybox.cpp */,
@@ -340,6 +364,10 @@
 				07C540091EE85F6400D972C9 /* Cone.h */,
 				07C5400B1EE8B38E00D972C9 /* Paraboloid.cpp */,
 				07C5400C1EE8B38E00D972C9 /* Paraboloid.h */,
+				07C540141EE9138900D972C9 /* Disk.cpp */,
+				07C540151EE9138900D972C9 /* Disk.h */,
+				07C5401A1EE919E300D972C9 /* Torus.cpp */,
+				07C5401B1EE919E300D972C9 /* Torus.h */,
 			);
 			path = ObjectSubclasses;
 			sourceTree = "<group>";
@@ -411,15 +439,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07C540221EE928BF00D972C9 /* mainML.cpp in Sources */,
+				07C540161EE9138900D972C9 /* Disk.cpp in Sources */,
 				07C540131EE912AF00D972C9 /* OBJ_Loader.cpp in Sources */,
 				07C540071EE838E400D972C9 /* Cube.cpp in Sources */,
-				07EA01CE1E75D7EE000C4026 /* View.cpp in Sources */,
+				07EA01CE1E75D7EE000C4026 /* Camera.cpp in Sources */,
+				07C5401C1EE919E300D972C9 /* Torus.cpp in Sources */,
 				07EA018D1E75979F000C4026 /* Transform3D.cpp in Sources */,
 				07EA015F1E74B378000C4026 /* RayTracer.cpp in Sources */,
 				07DB7B4C1E78CD62004BED96 /* Intersection.cpp in Sources */,
 				07EA01C11E75983E000C4026 /* Ray3D.cpp in Sources */,
 				07EA018B1E75979F000C4026 /* Point3D.cpp in Sources */,
 				075B4D591E881DB700FA30D3 /* PointLightSource.cpp in Sources */,
+				07C540191EE919AE00D972C9 /* poly34.cpp in Sources */,
 				07C540101EE9120600D972C9 /* ProgressManager.cpp in Sources */,
 				07EA01C71E759D2F000C4026 /* Plane.cpp in Sources */,
 				075B4D451E87156900FA30D3 /* Skybox.cpp in Sources */,

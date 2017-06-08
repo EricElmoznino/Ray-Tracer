@@ -250,7 +250,7 @@ ColourRGB RayTracer::reflection(const Intersection &intersection, const Ray3D &r
     else {
         Ray3D reflectionRay(intersection.point, r);
         reflectionRay = reflectionRay.bias(intersection.normal);
-        reflectedColour = rayTraceRecursive(reflectionRay, depth);
+        reflectedColour = rayTraceRecursive(reflectionRay, depth, excludedSource);
     }
     
     return reflectedColour * intersection.material.global;
