@@ -26,6 +26,8 @@ public:
     double dot(const Point3D &other) const;
     Point3D crossUnit(const Point3D &other) const;    // normalized cross product
     
+    Point3D shift(const Point3D &delta) const;
+    
     Point3D operator+(const Point3D &other) const;
     Point3D operator-(const Point3D &other) const;
     Point3D operator*(double scale) const;          // vec * scalar

@@ -13,11 +13,25 @@
 #include "Camera.h"
 
 class StereoCamera {
+    Point3D pos;
+    Point3D axis;
+    Point3D up;
+    
+    double sep;
+    double conv;
+    double f;
+    double wsize;
+    
+public:
     Camera left;
     Camera right;
     
-public:
-    StereoCamera(const Point3D &pos, const Point3D &coa, const Point3D &axis, double f, double wsize);
+    StereoCamera(const Point3D &pos, const Point3D &axis, const Point3D &up, double sep, double conv, double f, double wsize);
+    
+    StereoCamera translate(double x, double y, double z);
+    StereoCamera rotateX(double theta);
+    StereoCamera rotateY(double theta);
+    StereoCamera rotateZ(double theta);
 };
 
 #endif /* StereoCamera_h */

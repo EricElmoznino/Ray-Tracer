@@ -130,24 +130,20 @@ bool Image::readPPMimage(const char *filename, Image *im) {
             fclose(f);
             return false;
         }
-        fprintf(stderr,"%s\n",line);
         // Skip over comments
         if (fgets(&line[0],511,f))
             ;
         while (line[0]=='#')
         {
-            fprintf(stderr,"%s",line);
             if (fgets(&line[0],511,f))
                 ;
         }
         sscanf(&line[0],"%d %d\n",&sizx,&sizy);           // Read file size
-        fprintf(stderr,"nx=%d, ny=%d\n\n",sizx,sizy);
         im->sx=sizx;
         im->sy=sizy;
         
         if (fgets(&line[0],9,f))    // Read the remaining header line
             ;
-        fprintf(stderr,"%s\n",line);
         rgb=(unsigned char *)calloc(sizx*sizy*3,sizeof(unsigned char));
         if (rgb==NULL)
         {

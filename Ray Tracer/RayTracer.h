@@ -71,6 +71,7 @@ class RayTracer {
     ColourRGB refraction(const Intersection &intersection, const Ray3D &ray, int depth);
     
 public:
+    bool trackProgress = true;
     bool antialiasingEnabled = false;
     bool glossyreflEnabled = false;
     bool blurEnabled = false;
@@ -82,7 +83,7 @@ public:
     Skybox *skybox = NULL;
     
     void renderImage(Camera camera, list<Object3D*> objects, list<Light*> lights,
-                     Image *output, char * name, vector<int> bounds = vector<int>());
+                     Image *output, const char * name, vector<int> bounds = vector<int>());
 };
 
 #endif

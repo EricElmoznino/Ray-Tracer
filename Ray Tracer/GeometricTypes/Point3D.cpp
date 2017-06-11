@@ -60,6 +60,11 @@ Point3D Point3D::crossUnit(const Point3D &other) const {
     .normalized();
 }
 
+// 'this' should be a point and delta should be a vector
+Point3D Point3D::shift(const Point3D &delta) const {
+    return Point3D(x+delta.x, y+delta.y, z+delta.z, false);
+}
+
 Point3D Point3D::operator+(const Point3D &other) const {
     return Point3D(this->x + other.x, this->y + other.y, this->z + other.z, this->w + other.w); // only really makes sense for vectors (w=0)
 }

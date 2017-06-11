@@ -5,7 +5,7 @@
 #include "Utilities/ProgressManager.h"
 
 void RayTracer::renderImage(Camera camera, list<Object3D*> objects, list<Light*> lights,
-                            Image *output, char * name, vector<int> bounds) {
+                            Image *output, const char * name, vector<int> bounds) {
     // Store local copies of these that way we don't have to keep passing them around
     // between the functions that do the actual ray tracing work
     this->objects = objects;
@@ -22,7 +22,8 @@ void RayTracer::renderImage(Camera camera, list<Object3D*> objects, list<Light*>
     
     // Object to keep track of the progress and give us some feedback
     ProgressManager progressManager(rows * cols);
-    progressManager.startTimer();
+    if (trackProgress)
+        progressManager.startTimer();
     
     // Itterate through all the pixels and do the ray tracing
 #pragma omp parallel for schedule(dynamic)   // Multithread rendering
@@ -54,7 +55,8 @@ void RayTracer::renderImage(Camera camera, list<Object3D*> objects, list<Light*>
             }
             output->setColourAtPixel(i, j, pixelColour);
             
-            progressManager.advance();
+            if (trackProgress)
+                progressManager.advance();
         }
     }
     
