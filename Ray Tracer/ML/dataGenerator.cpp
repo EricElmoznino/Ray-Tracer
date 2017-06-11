@@ -8,6 +8,14 @@
 
 #include "ML.h"
 
+template <typename T>
+void clearList(list<T*> &l) {
+    while (!l.empty()) {
+        delete l.front();
+        l.pop_front();
+    }
+}
+
 void testScene(list<Object3D*> &objects, list<Light*> &lights) {
     Object3D *obj = new Plane(Material(0.05, 0.65, 0.05, 0.5, 1, 1, 2, 0.3),  // original
                               ColourRGB(0.55, 0.8, 0.75));
@@ -32,6 +40,9 @@ void testScene(list<Object3D*> &objects, list<Light*> &lights) {
 }
 
 void randomScene(list<Object3D*> &objects, list<Light*> &lights, Point3D dir, double maxFOV) {
+    clearList(objects);
+    clearList(lights);
+    
     return testScene(objects, lights);
 }
 

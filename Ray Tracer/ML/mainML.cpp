@@ -32,9 +32,6 @@ int mainML()
     Image *im = new Image(size, size);
     RayTracer rayTracer;
     rayTracer.trackProgress = false;
-    rayTracer.skybox = new Skybox("Skyboxes/lagoon_lf.ppm", "Skyboxes/lagoon_rt.ppm",
-                                  "Skyboxes/lagoon_dn.ppm", "Skyboxes/lagoon_up.ppm",
-                                  "Skyboxes/lagoon_bk.ppm", "Skyboxes/lagoon_ft.ppm");
     rayTracer.maxDepth = maxDepth;
     
     for (int i = 0; i < samples; i++) {
