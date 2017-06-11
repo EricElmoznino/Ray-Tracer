@@ -90,6 +90,10 @@ Point3D Point3D::linearInterpolate(const Point3D &end, double progress) const {
     return (*this) + difference*progress;
 }
 
+Point3D Point3D::randomNormal() {
+    return Point3D(drand48(), drand48(), drand48(), true).normalized();
+}
+
 Point3D Point3D::randomlyPerturb(const Point3D &normal, double degree) const {
     // Create orthonormal basis at intersection point
     Point3D u, v;

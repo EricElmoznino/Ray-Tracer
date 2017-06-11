@@ -38,6 +38,7 @@
 		077B60151EEDE6D80022ABDF /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 079849981EE9EE40001E2495 /* Camera.cpp */; };
 		077B60161EEDE6D80022ABDF /* Skybox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 079849F31EE9EE41001E2495 /* Skybox.cpp */; };
 		077B60171EEDE6D80022ABDF /* StereoCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 077B5FF61EEDDFFD0022ABDF /* StereoCamera.cpp */; };
+		077B601C1EEE03C80022ABDF /* dataGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 077B601B1EEE03C80022ABDF /* dataGenerator.cpp */; };
 		07EA01D51E760AEB000C4026 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 07EA01D41E760AEB000C4026 /* libstdc++.tbd */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +57,7 @@
 /* Begin PBXFileReference section */
 		077B5FF61EEDDFFD0022ABDF /* StereoCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StereoCamera.cpp; sourceTree = "<group>"; };
 		077B5FF71EEDDFFD0022ABDF /* StereoCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StereoCamera.h; sourceTree = "<group>"; };
+		077B601B1EEE03C80022ABDF /* dataGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dataGenerator.cpp; sourceTree = "<group>"; };
 		079849981EE9EE40001E2495 /* Camera.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
 		079849991EE9EE40001E2495 /* Camera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 		0798499A1EE9EE40001E2495 /* compile.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = compile.sh; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 			children = (
 				079849B61EE9EE41001E2495 /* mainML.cpp */,
 				079849B71EE9EE41001E2495 /* ML.h */,
+				077B601B1EEE03C80022ABDF /* dataGenerator.cpp */,
 			);
 			path = ML;
 			sourceTree = "<group>";
@@ -501,6 +504,7 @@
 				077B5FFC1EEDE6D80022ABDF /* Point3D.cpp in Sources */,
 				077B5FFD1EEDE6D80022ABDF /* svdDynamic.cpp in Sources */,
 				077B5FFE1EEDE6D80022ABDF /* Transform3D.cpp in Sources */,
+				077B601C1EEE03C80022ABDF /* dataGenerator.cpp in Sources */,
 				077B5FFF1EEDE6D80022ABDF /* AreaLightElement.cpp in Sources */,
 				077B60001EEDE6D80022ABDF /* Light.cpp in Sources */,
 				077B60011EEDE6D80022ABDF /* PointLightSource.cpp in Sources */,
