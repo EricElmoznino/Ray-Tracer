@@ -19,5 +19,7 @@ file(GLOB SOURCES
         Ray\ Tracer/Lights/*.cpp
         Ray\ Tracer/Utilities/*.h
         Ray\ Tracer/Utilities/*.cpp
+        Ray\ Tracer/ML/*.h
+        Ray\ Tracer/ML/*.cpp
     )
 add_executable(Ray_Tracer ${SOURCE_FILES} ${SOURCES})

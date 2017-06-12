@@ -48,8 +48,8 @@ void randomScene(list<Object3D*> &objects, list<Light*> &lights, Point3D dir, do
 
 tuple<StereoCamera, Point3D> perturbCamOrientation(StereoCamera cam, double maxTheta) {
     Point3D perturbation = drand48()*maxTheta*Point3D::randomNormal();
-    cam = cam.rotateX(perturbation.x);
-    cam = cam.rotateY(perturbation.y);
-    cam = cam.rotateZ(perturbation.z);
+    cam = cam.rotateX((rand()%2 ? 1 : -1)*perturbation.x);
+    cam = cam.rotateY((rand()%2 ? 1 : -1)*perturbation.y);
+    cam = cam.rotateZ((rand()%2 ? 1 : -1)*perturbation.z);
     return make_tuple(cam, perturbation);
 }

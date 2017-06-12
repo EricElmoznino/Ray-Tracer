@@ -13,9 +13,9 @@ using namespace std;
 
 int mainML()
 {
-    int samples = 2;
-    int size = 1024;
-    int maxDepth = 3;
+    int samples = 6000;
+    int size = 100;
+    int maxDepth = 1;
     
     list<Object3D*> objs;
     list<Light*> lis;
@@ -30,13 +30,18 @@ int mainML()
     StereoCamera camRef(pos, axis, up, sep, conv, f, wsize);
     
     Image *im = new Image(size, size);
+    Skybox *skybox = NULL;
+    skybox = new Skybox("Skyboxes/lagoon_lf.ppm", "Skyboxes/lagoon_rt.ppm",
+                        "Skyboxes/lagoon_dn.ppm", "Skyboxes/lagoon_up.ppm",
+                        "Skyboxes/lagoon_bk.ppm", "Skyboxes/lagoon_ft.ppm");
     RayTracer rayTracer;
+    rayTracer.skybox = skybox;
     rayTracer.trackProgress = false;
     rayTracer.maxDepth = maxDepth;
     
     for (int i = 0; i < samples; i++) {
-        string s = "GeneratedData/" + to_string(i) + "_";
-        randomScene(objs, lis, Point3D(0, 0, 1, true), PI);
+        string s = "/home/eric/Desktop/GeneratedData/" + to_string(i) + "_";
+        //randomScene(objs, lis, Point3D(0, 0, 1, true), PI/4);
         
         string s_ref = s + "ref_";
         rayTracer.renderImage(camRef.left, objs, lis, im, (s_ref+"l.ppm").c_str());
@@ -46,9 +51,11 @@ int mainML()
         tuple<StereoCamera, Point3D> perturb = perturbCamOrientation(camRef, PI);
         StereoCamera camNew = get<0>(perturb);
         Point3D orientation = get<1>(perturb);
-        s_new += to_string(orientation.x) + "-" + to_string(orientation.y) + "-" + to_string(orientation.z) + "_";
+        s_new += to_string(orientation.x) + "x" + to_string(orientation.y) + "x" + to_string(orientation.z) + "_";
         rayTracer.renderImage(camNew.left, objs, lis, im, (s_new+"l.ppm").c_str());
         rayTracer.renderImage(camNew.right, objs, lis, im, (s_new+"r.ppm").c_str());
+
+        printf("%d / %d\n", i+1, samples);
     }
     
     // Exit section. Clean up and return.
