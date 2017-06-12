@@ -12,6 +12,7 @@
 
 #include <stdio.h>
 #include <list>
+#include <tuple>
 
 #include "../StereoCamera.h"
 #include "../ObjectTypes/ObjectSubclasses/Plane.h"
@@ -33,6 +34,6 @@ int mainML();
 void testScene(list<Object3D*> &objects, list<Light*> &lights);
 void randomScene(list<Object3D*> &objects, list<Light*> &lights, Point3D dir, double maxFOV);
 
-StereoCamera perturbCamOrientation(StereoCamera cam, double maxTheta);
+tuple<StereoCamera, Point3D> perturbCamOrientation(StereoCamera cam, double maxTheta);
 
 #endif /* ML_h */

@@ -43,7 +43,10 @@ int mainML()
         rayTracer.renderImage(camRef.right, objs, lis, im, (s_ref+"r.ppm").c_str());
         
         string s_new = s + "new_";
-        StereoCamera camNew = perturbCamOrientation(camRef, PI);
+        tuple<StereoCamera, Point3D> perturb = perturbCamOrientation(camRef, PI);
+        StereoCamera camNew = get<0>(perturb);
+        Point3D orientation = get<1>(perturb);
+        s_new += to_string(orientation.x) + "-" + to_string(orientation.y) + "-" + to_string(orientation.z) + "_";
         rayTracer.renderImage(camNew.left, objs, lis, im, (s_new+"l.ppm").c_str());
         rayTracer.renderImage(camNew.right, objs, lis, im, (s_new+"r.ppm").c_str());
     }
