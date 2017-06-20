@@ -91,7 +91,7 @@ Point3D Point3D::linearInterpolate(const Point3D &end, double progress) const {
 }
 
 Point3D Point3D::randomNormal() {
-    return Point3D(drand48(), drand48(), drand48(), true).normalized();
+    return Point3D(drand48()-0.5, drand48()-0.5, drand48()-0.5, true).normalized();
 }
 
 Point3D Point3D::randomlyPerturb(const Point3D &normal, double degree) const {

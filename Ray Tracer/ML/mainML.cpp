@@ -13,9 +13,11 @@ using namespace std;
 
 int mainML()
 {
-    int samples = 6000;
+    int samples = 10;
     int size = 100;
     int maxDepth = 1;
+
+    srand48(time(0));
     
     list<Object3D*> objs;
     list<Light*> lis;
@@ -40,7 +42,7 @@ int mainML()
     rayTracer.maxDepth = maxDepth;
     
     for (int i = 0; i < samples; i++) {
-        string s = "/home/eric/Desktop/GeneratedData/" + to_string(i) + "_";
+        string s = "/home/eric/Desktop/prediction_data/" + to_string(i) + "_";
         //randomScene(objs, lis, Point3D(0, 0, 1, true), PI/4);
         
         string s_ref = s + "ref_";
@@ -48,7 +50,7 @@ int mainML()
         rayTracer.renderImage(camRef.right, objs, lis, im, (s_ref+"r.ppm").c_str());
         
         string s_new = s + "new_";
-        tuple<StereoCamera, Point3D> perturb = perturbCamOrientation(camRef, PI);
+        tuple<StereoCamera, Point3D> perturb = perturbCamOrientation(camRef, PI/4);
         StereoCamera camNew = get<0>(perturb);
         Point3D orientation = get<1>(perturb);
         s_new += to_string(orientation.x) + "x" + to_string(orientation.y) + "x" + to_string(orientation.z) + "_";
