@@ -13,7 +13,7 @@ using namespace std;
 
 int mainML()
 {
-    int samples = 10;
+    int samples = 1000;
     int size = 100;
     int maxDepth = 1;
 
@@ -42,7 +42,7 @@ int mainML()
     rayTracer.maxDepth = maxDepth;
     
     for (int i = 0; i < samples; i++) {
-        string s = "/home/eric/Desktop/prediction_data/" + to_string(i) + "_";
+        string s = "/home/eric/Desktop/test_data/" + to_string(i) + "_";
         //randomScene(objs, lis, Point3D(0, 0, 1, true), PI/4);
         
         string s_ref = s + "ref_";
