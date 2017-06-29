@@ -36,17 +36,8 @@ StereoCamera StereoCamera::translate(double x, double y, double z) {
     return StereoCamera(pos.shift(Point3D(x, y, z, true)), axis, up, sep, conv, f, wsize);
 }
 
-StereoCamera StereoCamera::rotateX(double theta) {
-    Transform3D t = Transform3D::rotatedX(theta);
-    return StereoCamera(pos, t*axis, t*up, sep, conv, f, wsize);
-}
-
-StereoCamera StereoCamera::rotateY(double theta) {
-    Transform3D t = Transform3D::rotatedY(theta);
-    return StereoCamera(pos, t*axis, t*up, sep, conv, f, wsize);
-}
-
-StereoCamera StereoCamera::rotateZ(double theta) {
-    Transform3D t = Transform3D::rotatedZ(theta);
-    return StereoCamera(pos, t*axis, t*up, sep, conv, f, wsize);
+StereoCamera StereoCamera::orient(double yaw, double pitch, double roll) {
+    Transform3D curCamToWorld = Transform3D(-1*axis.normalized(), up.normalized(), up.crossUnit(axis), pos);
+    Transform3D newCamToWorld = Transform3D::rotatedZ(roll)*Transform3D::rotatedX(pitch)*Transform3D::rotatedY(yaw)*curCamToWorld;
+    return StereoCamera(pos, newCamToWorld*Point3D(-1, 0, 0, true), newCamToWorld*Point3D(0, 1, 0, true), sep, conv, f, wsize);
 }

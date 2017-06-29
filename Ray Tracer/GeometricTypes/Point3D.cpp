@@ -90,8 +90,13 @@ Point3D Point3D::linearInterpolate(const Point3D &end, double progress) const {
     return (*this) + difference*progress;
 }
 
-Point3D Point3D::randomNormal() {
-    return Point3D(drand48()-0.5, drand48()-0.5, drand48()-0.5, true).normalized();
+Point3D Point3D::randomNormal(double maxPhi) {
+    double theta = drand48() * 2 * PI;
+    double phi = acos(drand48() * (cos(maxPhi) - 1) + 1);
+    return Point3D(sin(phi)*cos(theta),
+                   sin(phi)*sin(theta),
+                   cos(phi),
+                   true);
 }
 
 Point3D Point3D::randomlyPerturb(const Point3D &normal, double degree) const {

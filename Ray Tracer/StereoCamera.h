@@ -29,9 +29,7 @@ public:
     StereoCamera(const Point3D &pos, const Point3D &axis, const Point3D &up, double sep, double conv, double f, double wsize);
     
     StereoCamera translate(double x, double y, double z);
-    StereoCamera rotateX(double theta);
-    StereoCamera rotateY(double theta);
-    StereoCamera rotateZ(double theta);
+    StereoCamera orient(double yaw, double pitch, double roll);
 };
 
 #endif /* StereoCamera_h */

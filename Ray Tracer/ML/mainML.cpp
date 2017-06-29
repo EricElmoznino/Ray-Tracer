@@ -13,8 +13,8 @@ using namespace std;
 
 int mainML()
 {
-    int samples = 200;
-    int size = 100;
+    int samples = 3;
+    int size = 1000;
     int maxDepth = 1;
 
     srand48(time(0));
@@ -50,7 +50,7 @@ int mainML()
         rayTracer.renderImage(camRef.right, objs, lis, im, (s_ref+"r.ppm").c_str());
         
         string s_new = s + "new_";
-        tuple<StereoCamera, Point3D> perturb = perturbCamOrientation(camRef, PI/4);
+        tuple<StereoCamera, Point3D> perturb = perturbCamOrientation(camRef, PI/4, PI/4);
         StereoCamera camNew = get<0>(perturb);
         Point3D orientation = get<1>(perturb);
         orientation = (180.0/PI)*orientation;

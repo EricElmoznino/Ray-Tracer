@@ -3,6 +3,7 @@
 
 #include "../Utilities/OBJ_Loader.h"
 
+#define PI 3.14159265354
 
 // forward declare the object type to avoid circular dependencies
 class Object3D;
@@ -37,7 +38,7 @@ public:
     
     Point3D linearInterpolate(const Point3D &end, double progress) const; // progress: [0,1]
     
-    static Point3D randomNormal();
+    static Point3D randomNormal(double maxPhi = PI);
     
     // Randomly perturb the direction of a vector within the bouds of 'degree' degrees on a cone.
     // 'normal' is used to make a basis with the current vector

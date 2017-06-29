@@ -27,13 +27,11 @@
 #include "../Lights/PointLightSource.h"
 #include "../Lights/AreaLightElement.h"
 
-#define PI 3.14159265354
-
 int mainML();
 
 void testScene(list<Object3D*> &objects, list<Light*> &lights);
 void randomScene(list<Object3D*> &objects, list<Light*> &lights, Point3D dir, double maxFOV);
 
-tuple<StereoCamera, Point3D> perturbCamOrientation(StereoCamera cam, double maxTheta);
+tuple<StereoCamera, Point3D> perturbCamOrientation(StereoCamera cam, double maxDeviation, double maxRotation);
 
 #endif /* ML_h */
