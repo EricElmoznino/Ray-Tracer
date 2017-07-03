@@ -6,11 +6,6 @@
 
 class Camera {
 public:
-    Point3D e;  // location of the camera center
-    Point3D u;  // u vector
-    Point3D v;  // v vector
-    Point3D w;  // w vector
-    
     double f;   // focal length
     double wsize;   // window size in distance units (not pixels!)
     
@@ -27,6 +22,9 @@ public:
      */
     Camera(const Point3D &e, const Point3D &g, const Point3D &up,
          double f, double wsize);
+    
+    Camera translate(double x, double y, double z);
+    Camera orient(double yaw, double pitch, double roll);
 };
 
 #endif

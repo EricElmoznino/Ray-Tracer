@@ -46,7 +46,7 @@ void randomScene(list<Object3D*> &objects, list<Light*> &lights, Point3D dir, do
     return testScene(objects, lights);
 }
 
-tuple<StereoCamera, Point3D> perturbCamOrientation(StereoCamera cam, double maxDeviation, double maxRotation) {
+tuple<Camera, Point3D> perturbCamOrientation(Camera cam, double maxDeviation, double maxRotation) {
     Point3D sample = Point3D::randomNormal(maxDeviation);
     double yaw = atan(sample.x/sample.z);
     double pitch = atan(sample.y/sample.z);
@@ -55,3 +55,26 @@ tuple<StereoCamera, Point3D> perturbCamOrientation(StereoCamera cam, double maxD
     Point3D perturbation(yaw, pitch, roll, true);
     return make_tuple(cam, perturbation);
 }
+
+tuple<Camera, Point3D> perturbCameraRoll(Camera cam, double maxRotation) {
+    return perturbCamOrientation(cam, 0, maxRotation);
+}
+
+tuple<Camera, Point3D> perturbCameraPitch(Camera cam, double maxDeviation) {
+    double pitch = (2*drand48() - 1) * maxDeviation;
+    cam.orient(0, pitch, 0);
+    Point3D perturbation(0, pitch, 0, true);
+    return make_tuple(cam, perturbation);
+}
+
+tuple<Camera, Point3D> perturbCameraYaw(Camera cam, double maxDeviation) {
+    double yaw = (2*drand48() - 1) * maxDeviation;
+    cam.orient(yaw, 0, 0);
+    Point3D perturbation(yaw, 0, 0, true);
+    return make_tuple(cam, perturbation);
+}
+
+tuple<Camera, Point3D> perturbCameraYawPitch(Camera cam, double maxDeviation) {
+    return perturbCamOrientation(cam, maxDeviation, 0);
+}
+

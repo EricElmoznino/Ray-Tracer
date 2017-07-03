@@ -14,7 +14,7 @@
 #include <list>
 #include <tuple>
 
-#include "../StereoCamera.h"
+#include "../Camera.h"
 #include "../ObjectTypes/ObjectSubclasses/Plane.h"
 #include "../ObjectTypes/ObjectSubclasses/Disk.h"
 #include "../ObjectTypes/ObjectSubclasses/Sphere.h"
@@ -32,6 +32,11 @@ int mainML();
 void testScene(list<Object3D*> &objects, list<Light*> &lights);
 void randomScene(list<Object3D*> &objects, list<Light*> &lights, Point3D dir, double maxFOV);
 
-tuple<StereoCamera, Point3D> perturbCamOrientation(StereoCamera cam, double maxDeviation, double maxRotation);
+tuple<Camera, Point3D> perturbCamOrientation(Camera cam, double maxDeviation, double maxRotation);
+tuple<Camera, Point3D> perturbCameraRoll(Camera cam, double maxRotation);
+tuple<Camera, Point3D> perturbCameraPitch(Camera cam, double maxDeviation);
+tuple<Camera, Point3D> perturbCameraYaw(Camera cam, double maxDeviation);
+tuple<Camera, Point3D> perturbCameraYawPitch(Camera cam, double maxDeviation);
+
 
 #endif /* ML_h */

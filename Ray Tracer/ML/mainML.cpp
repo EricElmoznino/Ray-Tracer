@@ -13,8 +13,8 @@ using namespace std;
 
 int mainML()
 {
-    int samples = 3;
-    int size = 1000;
+    int samples = 50;
+    int size = 100;
     int maxDepth = 1;
 
     srand48(time(0));
@@ -24,12 +24,10 @@ int mainML()
     
     double f = -3;
     double wsize = 4;
-    double sep = 1;
-    double conv = 1000;
     Point3D pos(0, 0, 0, false);
-    Point3D axis(-1, 0, 0, true);
+    Point3D gaze(0, 0, 1, true);
     Point3D up(0, 1, 0, true);
-    StereoCamera camRef(pos, axis, up, sep, conv, f, wsize);
+    Camera camRef(pos, gaze, up, f, wsize);
     
     Image *im = new Image(size, size);
     Skybox *skybox = NULL;
@@ -42,21 +40,19 @@ int mainML()
     rayTracer.maxDepth = maxDepth;
     
     for (int i = 0; i < samples; i++) {
-        string s = "/Users/Eric/Desktop/validation_data/" + to_string(i) + "_";
+        string s = "/Users/Eric/ML_data/Attitude_1/data_yawpitch/prediction_data/" + to_string(i) + "_";
         //randomScene(objs, lis, Point3D(0, 0, 1, true), PI/4);
         
         string s_ref = s + "ref_";
-        rayTracer.renderImage(camRef.left, objs, lis, im, (s_ref+"l.ppm").c_str());
-        rayTracer.renderImage(camRef.right, objs, lis, im, (s_ref+"r.ppm").c_str());
+        rayTracer.renderImage(camRef, objs, lis, im, (s_ref+".ppm").c_str());
         
         string s_new = s + "new_";
-        tuple<StereoCamera, Point3D> perturb = perturbCamOrientation(camRef, PI/4, PI/4);
-        StereoCamera camNew = get<0>(perturb);
+        tuple<Camera, Point3D> perturb = perturbCamOrientation(camRef, PI/4, PI/4);
+        Camera camNew = get<0>(perturb);
         Point3D orientation = get<1>(perturb);
         orientation = (180.0/PI)*orientation;
         s_new += to_string(orientation.x) + "x" + to_string(orientation.y) + "x" + to_string(orientation.z) + "_";
-        rayTracer.renderImage(camNew.left, objs, lis, im, (s_new+"l.ppm").c_str());
-        rayTracer.renderImage(camNew.right, objs, lis, im, (s_new+"r.ppm").c_str());
+        rayTracer.renderImage(camNew, objs, lis, im, (s_new+".ppm").c_str());
 
         printf("%d / %d\n", i+1, samples);
     }
