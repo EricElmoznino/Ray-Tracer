@@ -30,7 +30,8 @@
 int mainML();
 
 void testScene(list<Object3D*> &objects, list<Light*> &lights);
-void randomScene(list<Object3D*> &objects, list<Light*> &lights, Point3D dir, double maxFOV);
+void randomScene(list<Object3D*> &objects, list<Light*> &lights, Camera cam,
+                 double maxFOV, double minDist, double range, int numObjects);
 
 tuple<Camera, Point3D> perturbCamOrientation(Camera cam, double maxDeviation, double maxRotation);
 tuple<Camera, Point3D> perturbCameraRoll(Camera cam, double maxRotation);

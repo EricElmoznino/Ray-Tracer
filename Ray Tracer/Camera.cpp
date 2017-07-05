@@ -22,6 +22,10 @@ Camera::Camera(const Point3D &e, const Point3D &g, const Point3D &up,
                                 0.0, 0.0, 0.0, 1.0);
 }
 
+Transform3D Camera::getTransform() {
+    return cameraToWorld;
+}
+
 Camera Camera::translate(double x, double y, double z) {
     cameraToWorld = Transform3D::translated(x, y, z) * cameraToWorld;
     worldToCamera = cameraToWorld.inverse();

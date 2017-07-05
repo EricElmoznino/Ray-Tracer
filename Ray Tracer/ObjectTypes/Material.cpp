@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "Material.h"
 
 Material::Material(double ambient, double diffuse, double specular, double global,
@@ -30,4 +31,11 @@ Material Material::Chrome() {
 
 Material Material::Mirror() {
     return Material(0, 0, 0, 1, 1, 1, 1000, 0);
+}
+
+Material Material::randomMaterial() {
+    // TODO: Add true random materials, probably by
+    // adding more constant materials (e.g. chrome)
+    // and randomly picking between some.
+    return Material::Chrome();
 }

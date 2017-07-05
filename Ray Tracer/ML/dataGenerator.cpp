@@ -39,11 +39,58 @@ void testScene(list<Object3D*> &objects, list<Light*> &lights) {
     lights.push_front(light);
 }
 
-void randomScene(list<Object3D*> &objects, list<Light*> &lights, Point3D dir, double maxFOV) {
+Object3D *randomObject() {
+    switch ((int)(drand48()*6 + 1)) {
+        case 1:
+            return new Cone(Material::randomMaterial(), ColourRGB::randomColour());
+            break;
+        case 2:
+            return new Cube(Material::randomMaterial(), ColourRGB::randomColour());
+            break;
+        case 3:
+            return new Cylinder(Material::randomMaterial(), ColourRGB::randomColour());
+            break;
+        case 4:
+            return new Paraboloid(Material::randomMaterial(), ColourRGB::randomColour());
+            break;
+        case 5:
+            return new Sphere(Material::randomMaterial(), ColourRGB::randomColour());
+            break;
+        case 6:
+            return new Torus(Material::randomMaterial(), ColourRGB::randomColour());
+            break;
+        default:
+            return new Torus(Material::randomMaterial(), ColourRGB::randomColour());
+    }
+}
+
+void randomScene(list<Object3D*> &objects, list<Light*> &lights, Camera cam,
+                 double maxFOV, double minDist, double range, int numObjects) {
     clearList(objects);
     clearList(lights);
     
-    return testScene(objects, lights);
+    for (int i = 0; i < numObjects; i++) {
+        Object3D *obj = randomObject();
+        
+        Point3D scale = Point3D(drand48()+0.2, drand48()+0.2, drand48()+0.2, true).normalized();
+        obj->scale(scale.x, scale.y, scale.z);
+        
+        Point3D rotation = 2*PI * Point3D(drand48(), drand48(), drand48(), true);
+        obj->rotateX(rotation.x);
+        obj->rotateY(rotation.y);
+        obj->rotateZ(rotation.z);
+        
+        Point3D direction = -1*Point3D::randomNormal(maxFOV/2); // camera faces in negative z
+        double distance = drand48()*range + minDist;
+        Point3D position = distance * (cam.getTransform() * direction);
+        obj->translate(position.x, position.y, position.z);
+        
+        objects.push_front(obj);
+    }
+    
+    PointLightSource *light = new PointLightSource(ColourRGB(0.95, 0.95, 0.95),
+                                                   Point3D(0.0, 15.5, -5.5, false));
+    lights.push_front(light);
 }
 
 tuple<Camera, Point3D> perturbCamOrientation(Camera cam, double maxDeviation, double maxRotation) {

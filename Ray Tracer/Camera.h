@@ -23,6 +23,8 @@ public:
     Camera(const Point3D &e, const Point3D &g, const Point3D &up,
          double f, double wsize);
     
+    Transform3D getTransform();
+    
     Camera translate(double x, double y, double z);
     Camera orient(double yaw, double pitch, double roll);
 };

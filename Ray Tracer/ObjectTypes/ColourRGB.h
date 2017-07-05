@@ -22,6 +22,8 @@ public:
     
     bool outOfBounds();
     void normalize();
+    
+    static ColourRGB randomColour();
 };
 
 #endif

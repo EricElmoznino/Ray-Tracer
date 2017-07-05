@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "ColourRGB.h"
 
 ColourRGB::ColourRGB(double red, double green, double blue) {
@@ -50,4 +51,11 @@ void ColourRGB::normalize() {
     if (red > 1.0) red = 1.0;
     if (green > 1.0) green = 1.0;
     if (blue > 1.0) blue = 1.0;
+}
+
+ColourRGB ColourRGB::randomColour() {
+    double min = 0.6;
+    return ColourRGB(drand48()*(1.0-min) + min,
+                     drand48()*(1.0-min) + min,
+                     drand48()*(1.0-min) + min);
 }

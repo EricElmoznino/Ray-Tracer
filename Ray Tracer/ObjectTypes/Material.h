@@ -24,6 +24,8 @@ public:
     static Material FrostedGlass();
     static Material Chrome();
     static Material Mirror();
+    
+    static Material randomMaterial();
 };
 
 #endif
