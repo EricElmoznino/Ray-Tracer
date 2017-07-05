@@ -11,7 +11,7 @@
 
 using namespace std;
 
-void phase1(int samples, int size, int maxDepth) {
+void phase1(int samples, int size, int maxDepth, string path) {
     list<Object3D*> objs;
     list<Light*> lis;
     
@@ -34,7 +34,7 @@ void phase1(int samples, int size, int maxDepth) {
 
     
     for (int i = 0; i < samples; i++) {
-        string s = "/Users/Eric/ML_data/Attitude_1/data_yawpitch/prediction_data/" + to_string(i) + "_";
+        string s = path + to_string(i) + "_";
         
         string s_ref = s + "ref_";
         rayTracer.renderImage(camRef, objs, lis, im, (s_ref+".ppm").c_str());
@@ -62,7 +62,7 @@ void phase1(int samples, int size, int maxDepth) {
     }
 }
 
-void phase2(int samples, int size, int maxDepth) {
+void phase2(int samples, int size, int maxDepth, string path) {
     list<Object3D*> objs;
     list<Light*> lis;
     
@@ -82,7 +82,7 @@ void phase2(int samples, int size, int maxDepth) {
     rayTracer.maxDepth = maxDepth;
 
     for (int i = 0; i < samples; i++) {
-        string s = "/Users/Eric/ML_data/Attitude_2/train_data/" + to_string(i) + "_";
+        string s = path + to_string(i) + "_";
         randomScene(objs, lis, camRef, PI/2, 2, 3, 6);
         
         string s_ref = s + "ref_";
@@ -113,15 +113,15 @@ void phase2(int samples, int size, int maxDepth) {
 
 int mainML()
 {
-    int samples = 10000;
+    string path = "/Users/Eric/ML_data/Attitude_2/prediction_data/";
+    int samples = 10;
     int size = 80;
+    
     int maxDepth = 0;
 
     srand48(time(0));
     
-    
-//    phase1(samples, size, maxDepth);
-    phase2(samples, size, maxDepth);
+    phase2(samples, size, maxDepth, path);
     
     
     return 0;
