@@ -113,8 +113,8 @@ void phase2(int samples, int size, int maxDepth, string path) {
 
 int mainML()
 {
-    string path = "/Users/Eric/ML_data/Attitude_2/prediction_data/";
-    int samples = 10;
+    string path = "/Users/Eric/ML_data/Attitude_2/extra_train/";
+    int samples = 25000;
     int size = 80;
     
     int maxDepth = 0;
