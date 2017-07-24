@@ -111,17 +111,68 @@ void phase2(int samples, int size, int maxDepth, string path) {
     }
 }
 
+void phase4(int samples, int size, int maxDepth, string path) {
+    list<Object3D*> objs;
+    list<Light*> lis;
+    
+    double f = -3;
+    double wsize = 4;
+    Point3D pos(0, 0, 0, false);
+    Point3D gaze(0, 0, 1, true);
+    Point3D up(0, 1, 0, true);
+    Camera camRef(pos, gaze, up, f, wsize);
+    
+    Image *im = new Image(size, size);
+    Skybox *skybox = NULL;
+    RayTracer rayTracer;
+    rayTracer.antialiasingEnabled = true;
+    rayTracer.skybox = skybox;
+    rayTracer.trackProgress = false;
+    rayTracer.maxDepth = maxDepth;
+    
+    for (int i = 0; i < samples; i++) {
+        string s = path + to_string(i) + "_";
+        randomScene(objs, lis, camRef, PI/2, 2, 5, 10);
+        
+        string s_ref = s + "ref_";
+        rayTracer.renderImage(camRef, objs, lis, im, (s_ref+".ppm").c_str());
+        
+        string s_new = s + "new_";
+        tuple<Camera, Point3D, Point3D> perturb = perturbCamAttitude(camRef, PI/14, PI/14, 0.5);
+        Camera camNew = get<0>(perturb);
+        Point3D orientation = get<1>(perturb);
+        Point3D position = get<2>(perturb);
+        orientation = (180.0/PI)*orientation;
+        s_new += to_string(orientation.x) + "x" + to_string(orientation.y) + "x" + to_string(orientation.z) + "_";
+        s_new += to_string(position.x) + "y" + to_string(position.y) + "y" + to_string(position.z) + "_";
+        rayTracer.renderImage(camNew, objs, lis, im, (s_new+".ppm").c_str());
+        
+        printf("%d / %d\n", i+1, samples);
+    }
+    
+    // Exit section. Clean up and return.
+    delete im;
+    while (!objs.empty()) {
+        delete objs.front();
+        objs.pop_front();
+    }
+    while (!lis.empty()) {
+        delete lis.front();
+        lis.pop_front();
+    }
+}
+
 int mainML()
 {
-    string path = "/Users/Eric/ML_data/Attitude_2/extra_train/";
-    int samples = 25000;
+    string path = "/Users/Eric/ML_data/Attitude_4/prediction_data/";
+    int samples = 10;
     int size = 80;
     
     int maxDepth = 0;
 
     srand48(time(0));
     
-    phase2(samples, size, maxDepth, path);
+    phase4(samples, size, maxDepth, path);
     
     
     return 0;

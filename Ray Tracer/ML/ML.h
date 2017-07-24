@@ -33,11 +33,12 @@ void testScene(list<Object3D*> &objects, list<Light*> &lights);
 void randomScene(list<Object3D*> &objects, list<Light*> &lights, Camera cam,
                  double maxFOV, double minDist, double range, int numObjects);
 
+tuple<Camera, Point3D, Point3D> perturbCamAttitude(Camera cam, double maxDeviation, double maxRotation, double maxMovement);
 tuple<Camera, Point3D> perturbCamOrientation(Camera cam, double maxDeviation, double maxRotation);
-tuple<Camera, Point3D> perturbCameraRoll(Camera cam, double maxRotation);
-tuple<Camera, Point3D> perturbCameraPitch(Camera cam, double maxDeviation);
-tuple<Camera, Point3D> perturbCameraYaw(Camera cam, double maxDeviation);
-tuple<Camera, Point3D> perturbCameraYawPitch(Camera cam, double maxDeviation);
+tuple<Camera, Point3D> perturbCamRoll(Camera cam, double maxRotation);
+tuple<Camera, Point3D> perturbCamPitch(Camera cam, double maxDeviation);
+tuple<Camera, Point3D> perturbCamYaw(Camera cam, double maxDeviation);
+tuple<Camera, Point3D> perturbCamYawPitch(Camera cam, double maxDeviation);
 
 
 #endif /* ML_h */

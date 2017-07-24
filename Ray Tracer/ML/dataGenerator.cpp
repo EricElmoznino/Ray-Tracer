@@ -93,35 +93,45 @@ void randomScene(list<Object3D*> &objects, list<Light*> &lights, Camera cam,
     lights.push_front(light);
 }
 
+tuple<Camera, Point3D, Point3D> perturbCamAttitude(Camera cam, double maxDeviation, double maxRotation, double maxMovement) {
+    tuple<Camera, Point3D> orient = perturbCamOrientation(cam, maxDeviation, maxRotation);
+    cam = get<0>(orient);
+    Point3D orientation = get<1>(orient);
+    Point3D sample = Point3D::randomNormal(PI);
+    Point3D position = maxMovement*drand48()*sample;
+    cam = cam.translate(position.x, position.y, position.z);
+    return make_tuple(cam, orientation, position);
+}
+
 tuple<Camera, Point3D> perturbCamOrientation(Camera cam, double maxDeviation, double maxRotation) {
     Point3D sample = Point3D::randomNormal(maxDeviation);
     double yaw = atan(sample.x/sample.z);
     double pitch = atan(sample.y/sample.z);
     double roll = (2*drand48() - 1) * maxRotation;
     cam = cam.orient(yaw, pitch, roll);
-    Point3D perturbation(yaw, pitch, roll, true);
-    return make_tuple(cam, perturbation);
+    Point3D orientation(yaw, pitch, roll, true);
+    return make_tuple(cam, orientation);
 }
 
-tuple<Camera, Point3D> perturbCameraRoll(Camera cam, double maxRotation) {
+tuple<Camera, Point3D> perturbCamRoll(Camera cam, double maxRotation) {
     return perturbCamOrientation(cam, 0, maxRotation);
 }
 
-tuple<Camera, Point3D> perturbCameraPitch(Camera cam, double maxDeviation) {
+tuple<Camera, Point3D> perturbCamPitch(Camera cam, double maxDeviation) {
     double pitch = (2*drand48() - 1) * maxDeviation;
     cam.orient(0, pitch, 0);
     Point3D perturbation(0, pitch, 0, true);
     return make_tuple(cam, perturbation);
 }
 
-tuple<Camera, Point3D> perturbCameraYaw(Camera cam, double maxDeviation) {
+tuple<Camera, Point3D> perturbCamYaw(Camera cam, double maxDeviation) {
     double yaw = (2*drand48() - 1) * maxDeviation;
     cam.orient(yaw, 0, 0);
     Point3D perturbation(yaw, 0, 0, true);
     return make_tuple(cam, perturbation);
 }
 
-tuple<Camera, Point3D> perturbCameraYawPitch(Camera cam, double maxDeviation) {
+tuple<Camera, Point3D> perturbCamYawPitch(Camera cam, double maxDeviation) {
     return perturbCamOrientation(cam, maxDeviation, 0);
 }
 
